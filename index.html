@@ -6,1436 +6,1068 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0a0908">
-<title>咒术人生 · 完全形态</title>
+<title>咒术人生</title>
 <style>
-:root{
-  --bg:#0a0908;--paper:#12100d;--panel:#16140f;
-  --ink:#d4cdbd;--ink2:#8a8275;--ink3:#4e4a42;
-  --line:#1f1c17;--line2:#2c2720;
-  --gold:#a08a56;--blood:#8a3a2e;--jade:#5a6a4a;--ice:#5a7a8a;--violet:#6a5a7a;
-  --serif:'Songti SC','Noto Serif JP','Source Han Serif SC',Georgia,serif;
-  --mono:ui-monospace,'SF Mono',Menlo,monospace;
-}
+:root{--bg:#0a0908;--paper:#12100d;--panel:#16140f;--ink:#d4cdbd;--ink2:#8a8275;--ink3:#4e4a42;--line:#1f1c17;--line2:#2c2720;--gold:#a08a56;--blood:#8a3a2e;--jade:#5a6a4a;--ice:#5a7a8a;--violet:#6a5a7a;--ember:#a05838;--serif:'Songti SC','Noto Serif JP','Source Han Serif SC',Georgia,serif;--mono:ui-monospace,'SF Mono',Menlo,monospace}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--serif);
-  overflow:hidden;-webkit-font-smoothing:antialiased;font-size:16px;letter-spacing:.02em}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.22;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E")}
-#app{position:relative;z-index:5;height:100%;max-width:760px;margin:0 auto;display:flex;flex-direction:column}
-
-/* 顶栏 */
-#bar{padding:calc(10px + env(safe-area-inset-top)) 18px 7px;border-bottom:1px solid var(--line);flex-shrink:0}
-.bar1{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;gap:10px}
-#bname{font-size:14.5px;letter-spacing:.2em;color:var(--ink);flex-shrink:0}
-#btime{font-size:10.5px;color:var(--ink3);font-family:var(--mono);letter-spacing:.15em;text-align:right}
-.bar2{display:flex;gap:10px;font-size:9.5px;color:var(--ink3);font-family:var(--mono);flex-wrap:wrap}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--serif);overflow:hidden;-webkit-font-smoothing:antialiased;font-size:16px;letter-spacing:.02em}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E")}
+#app{position:relative;z-index:5;height:100%;max-width:800px;margin:0 auto;display:flex;flex-direction:column}
+#bar{padding:calc(9px + env(safe-area-inset-top)) 16px 6px;border-bottom:1px solid var(--line);flex-shrink:0}
+.bar1{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;gap:10px}
+#bname{font-size:14px;letter-spacing:.2em;color:var(--ink)}
+#btime{font-size:10px;color:var(--ink3);font-family:var(--mono);letter-spacing:.15em}
+.bar2{display:flex;gap:9px;font-size:9px;color:var(--ink3);font-family:var(--mono);flex-wrap:wrap}
 .bar2 b{color:var(--ink2);font-weight:400;margin-left:2px}
-.bar2 .warn b{color:var(--blood)}
-.bar2 .ok b{color:var(--jade)}
-.bar2 .gold b{color:var(--gold)}
-
-/* 标签 */
-#tabs{display:flex;border-bottom:1px solid var(--line);flex-shrink:0;padding:0 10px;overflow-x:auto;scrollbar-width:none}
+.bar2 .warn b{color:var(--blood)}.bar2 .ok b{color:var(--jade)}.bar2 .gold b{color:var(--gold)}.bar2 .ice b{color:var(--ice)}.bar2 .em b{color:var(--ember)}
+#tabs{display:flex;border-bottom:1px solid var(--line);flex-shrink:0;padding:0 6px;overflow-x:auto;scrollbar-width:none}
 #tabs::-webkit-scrollbar{display:none}
-.tab{background:none;border:none;color:var(--ink3);padding:9px 11px;font-size:10px;
-  font-family:var(--mono);letter-spacing:.2em;cursor:pointer;white-space:nowrap;
-  border-bottom:2px solid transparent;transition:all .2s}
+.tab{background:none;border:none;color:var(--ink3);padding:8px 9px;font-size:9px;font-family:var(--mono);letter-spacing:.15em;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;flex-shrink:0}
 .tab.on{color:var(--ink);border-bottom-color:var(--gold)}
-
-/* 主区 */
-#main{flex:1;overflow-y:auto;padding:20px 18px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#main{flex:1;overflow-y:auto;padding:18px 16px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 #main::-webkit-scrollbar{display:none}
-
-/* 叙事 */
-.msg{margin-bottom:28px;animation:in .5s ease}
+.msg{margin-bottom:24px;animation:in .5s ease}
 @keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-.msg .who{font-size:9px;color:var(--ink3);font-family:var(--mono);
-  letter-spacing:.3em;margin-bottom:8px;text-transform:uppercase}
+.msg .who{font-size:8.5px;color:var(--ink3);font-family:var(--mono);letter-spacing:.3em;margin-bottom:7px}
 .msg .body{font-size:15.5px;line-height:2.05;white-space:pre-wrap;color:var(--ink);letter-spacing:.03em}
 .msg.p .who{color:var(--gold)}
-.msg.p .body{color:var(--ink2);font-style:italic;padding-left:14px;border-left:1px solid var(--line2);font-size:14.5px}
+.msg.p .body{color:var(--ink2);font-style:italic;padding-left:12px;border-left:1px solid var(--line2);font-size:14.5px}
 .msg.err .body{color:var(--blood)}
-.msg.sys .who{color:var(--jade)}
-.msg.sys .body{color:var(--ink2);font-size:13.5px}
+.msg.sys .who{color:var(--jade)}.msg.sys .body{color:var(--ink2);font-size:13px}
+.msg.ev .who{color:var(--violet)}.msg.ev .body{border-left:2px solid var(--violet);padding-left:12px;font-style:italic}
 .cur::after{content:'▌';color:var(--gold);animation:bk 1.1s steps(1) infinite;font-size:.85em;margin-left:1px}
 @keyframes bk{50%{opacity:0}}
-
-/* 面板 */
-.sec{font-size:10.5px;letter-spacing:.3em;color:var(--ink3);font-family:var(--mono);
-  margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.sec{font-size:10px;letter-spacing:.3em;color:var(--ink3);font-family:var(--mono);margin:18px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--line)}
 .sec:first-child{margin-top:0}
-.line{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1a1713;font-size:13.5px;gap:10px}
-.line .l{color:var(--ink3);font-family:var(--mono);font-size:11px;flex-shrink:0}
+.line{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #1a1713;font-size:13px;gap:8px}
+.line .l{color:var(--ink3);font-family:var(--mono);font-size:10.5px;flex-shrink:0}
 .line .v{color:var(--ink);text-align:right;max-width:65%}
-.line .v.gold{color:var(--gold)}
-.line .v.b{color:var(--blood)}
-.line .v.g{color:var(--jade)}
-.line .v.i{color:var(--ice)}
-.card{background:var(--paper);border-left:2px solid var(--line2);padding:10px 12px;margin-bottom:7px;font-size:13px;line-height:1.7}
-.card .t{color:var(--ink);font-size:13.5px;margin-bottom:3px}
-.card .s{color:var(--ink3);font-size:10.5px;font-family:var(--mono);margin-bottom:5px;letter-spacing:.08em}
-.card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
-.tg{display:inline-block;background:#1a1713;border:1px solid var(--line2);
-  color:var(--ink2);border-radius:10px;padding:1px 7px;font-size:9.5px;font-family:var(--mono)}
-.tg.gold{color:var(--gold);border-color:#3a3020}
-.tg.b{color:var(--blood);border-color:#3a2020}
-.tg.g{color:var(--jade);border-color:#203020}
-.tg.i{color:var(--ice);border-color:#203040}
-.tg.v{color:var(--violet);border-color:#30203a}
-.pb{height:2px;background:#1a1713;margin:4px 0 10px;overflow:hidden}
+.line .v.gold{color:var(--gold)}.line .v.b{color:var(--blood)}.line .v.g{color:var(--jade)}.line .v.i{color:var(--ice)}.line .v.em{color:var(--ember)}
+.card{background:var(--paper);border-left:2px solid var(--line2);padding:9px 11px;margin-bottom:6px;font-size:12.5px;line-height:1.7}
+.card .t{color:var(--ink);font-size:13px;margin-bottom:3px}
+.card .s{color:var(--ink3);font-size:10px;font-family:var(--mono);margin-bottom:4px}
+.card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.tg{display:inline-block;background:#1a1713;border:1px solid var(--line2);color:var(--ink2);border-radius:9px;padding:1px 6px;font-size:9px;font-family:var(--mono)}
+.tg.gold{color:var(--gold);border-color:#3a3020}.tg.b{color:var(--blood);border-color:#3a2020}.tg.g{color:var(--jade);border-color:#203020}.tg.i{color:var(--ice);border-color:#203040}.tg.v{color:var(--violet);border-color:#30203a}
+.pb{height:2px;background:#1a1713;margin:3px 0 9px;overflow:hidden}
 .pb .f{height:100%;transition:width .4s}
 .pb .f.hp{background:linear-gradient(90deg,#5a3a2a,#a08a6a)}
 .pb .f.ce{background:linear-gradient(90deg,#2a4a5a,#6a8aa0)}
 .pb .f.exp{background:linear-gradient(90deg,#6a5a2a,#a09050)}
-
-.opts{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.opt{background:var(--paper);border:1px solid var(--line2);color:var(--ink);
-  padding:10px 14px;text-align:left;font-family:var(--serif);font-size:13.5px;
-  cursor:pointer;transition:all .2s;border-radius:0;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.opt{background:var(--paper);border:1px solid var(--line2);color:var(--ink);padding:9px 12px;text-align:left;font-family:var(--serif);font-size:13px;cursor:pointer;transition:all .2s;border-radius:0;line-height:1.5;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .opt:active{border-color:var(--gold);background:var(--panel)}
-
-/* 底部 */
-#foot{padding:10px 16px calc(14px + env(safe-area-inset-bottom));
-  border-top:1px solid var(--line);flex-shrink:0;background:var(--bg);
-  max-height:62vh;overflow-y:auto;scrollbar-width:none}
+.opt:disabled{opacity:.4}
+.opt .txt{flex:1}
+#foot{padding:9px 14px calc(13px + env(safe-area-inset-bottom));border-top:1px solid var(--line);flex-shrink:0;background:var(--bg);max-height:65vh;overflow-y:auto;scrollbar-width:none}
 #foot::-webkit-scrollbar{display:none}
-#options{display:none;flex-direction:column;gap:6px;margin-bottom:10px}
+#options{display:none;flex-direction:column;gap:5px;margin-bottom:9px}
 #options.show{display:flex}
-#options .lbl{font-size:9.5px;color:var(--ink3);font-family:var(--mono);
-  letter-spacing:.3em;margin-bottom:2px;padding-left:2px}
-.optbtn{background:var(--panel);border:1px solid var(--line2);color:var(--ink);
-  padding:10px 13px;text-align:left;font-family:var(--serif);font-size:13.5px;
-  cursor:pointer;transition:all .18s;border-radius:0;line-height:1.5}
+#options .lbl{font-size:9px;color:var(--ink3);font-family:var(--mono);letter-spacing:.3em;margin-bottom:2px;padding-left:2px;display:flex;justify-content:space-between}
+#options .lbl .hint{color:var(--gold);font-size:8.5px;letter-spacing:.15em}
+.optbtn{background:var(--panel);border:1px solid var(--line2);color:var(--ink);padding:9px 12px;text-align:left;font-family:var(--serif);font-size:13px;cursor:pointer;transition:all .18s;border-radius:0;line-height:1.5;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .optbtn:active{border-color:var(--gold);background:#1a1713}
-#row{display:flex;gap:10px;align-items:flex-end}
-#inp{flex:1;background:none;border:none;border-bottom:1px solid var(--line2);
-  color:var(--ink);font-family:var(--serif);font-size:15.5px;line-height:1.65;
-  padding:9px 0;resize:none;outline:none;max-height:120px;letter-spacing:.03em;transition:border-color .3s}
+.optbtn .txt{flex:1}
+.optbtn .pen{font-size:10px;color:var(--ink3);flex-shrink:0;padding:2px 6px}
+#row{display:flex;gap:8px;align-items:flex-end}
+#inp{flex:1;background:none;border:none;border-bottom:1px solid var(--line2);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.65;padding:8px 0;resize:none;outline:none;max-height:110px;transition:border-color .3s}
 #inp:focus{border-bottom-color:var(--gold)}
 #inp::placeholder{color:var(--ink3);font-style:italic}
-#send{width:40px;height:40px;border-radius:50%;background:none;border:1px solid var(--line2);
-  color:var(--ink2);font-size:15px;cursor:pointer;flex-shrink:0;transition:all .2s;font-family:var(--mono)}
+#send{width:38px;height:38px;border-radius:50%;background:none;border:1px solid var(--line2);color:var(--ink2);font-size:14px;cursor:pointer;flex-shrink:0;font-family:var(--mono)}
 #send:active{border-color:var(--gold);color:var(--gold)}
 #send:disabled{opacity:.25}
-
-/* 设置 */
-#setup{position:fixed;inset:0;background:var(--bg);z-index:400;display:flex;
-  flex-direction:column;overflow-y:auto;
-  padding:calc(36px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));
-  scrollbar-width:none}
+#setup{position:fixed;inset:0;background:var(--bg);z-index:400;display:flex;flex-direction:column;overflow-y:auto;padding:calc(30px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));scrollbar-width:none}
 #setup::-webkit-scrollbar{display:none}
-.logo{text-align:center;margin-bottom:32px}
-.logo h1{font-size:25px;letter-spacing:.6em;font-weight:400;color:var(--ink);
-  margin-bottom:6px;padding-left:.6em}
-.logo .sub{font-size:9.5px;color:var(--ink3);letter-spacing:.5em;
-  font-family:var(--mono);padding-left:.5em}
-.logo .ln{width:36px;height:1px;background:var(--gold);margin:18px auto 0;opacity:.55}
-.sec-t{font-size:10px;letter-spacing:.35em;color:var(--ink3);font-family:var(--mono);
-  margin:20px 0 11px;padding-bottom:7px;border-bottom:1px solid var(--line)}
-.fld{margin-bottom:11px}
-.fld label{display:block;font-size:10px;color:var(--ink3);letter-spacing:.2em;
-  margin-bottom:6px;font-family:var(--mono)}
-.fld input,.fld select,.fld textarea{width:100%;background:none;border:none;
-  border-bottom:1px solid var(--line2);color:var(--ink);padding:7px 0;
-  font-family:var(--serif);font-size:14.5px;outline:none;border-radius:0;letter-spacing:.02em;transition:border-color .3s}
+.logo{text-align:center;margin-bottom:26px}
+.logo h1{font-size:24px;letter-spacing:.6em;font-weight:400;color:var(--ink);margin-bottom:5px;padding-left:.6em}
+.logo .sub{font-size:9px;color:var(--ink3);letter-spacing:.5em;font-family:var(--mono);padding-left:.5em}
+.logo .ln{width:36px;height:1px;background:var(--gold);margin:16px auto 0;opacity:.55}
+.sec-t{font-size:9.5px;letter-spacing:.35em;color:var(--ink3);font-family:var(--mono);margin:17px 0 9px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.fld{margin-bottom:9px}
+.fld label{display:block;font-size:9.5px;color:var(--ink3);letter-spacing:.2em;margin-bottom:5px;font-family:var(--mono)}
+.fld input,.fld select,.fld textarea{width:100%;background:none;border:none;border-bottom:1px solid var(--line2);color:var(--ink);padding:6px 0;font-family:var(--serif);font-size:14px;outline:none;border-radius:0;transition:border-color .3s}
 .fld input:focus,.fld select:focus,.fld textarea:focus{border-bottom-color:var(--gold)}
-.fld textarea{resize:vertical;min-height:46px;line-height:1.7;font-size:13.5px}
-.fld select{-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);background-position:calc(100% - 9px) 16px,calc(100% - 4px) 16px;background-size:5px 5px;background-repeat:no-repeat}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.hint{font-size:10px;color:var(--ink3);font-family:var(--mono);line-height:1.7;margin-top:7px;letter-spacing:.03em}
+.fld textarea{resize:vertical;min-height:40px;line-height:1.7;font-size:13px}
+.fld select{-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);background-position:calc(100% - 9px) 15px,calc(100% - 4px) 15px;background-size:5px 5px;background-repeat:no-repeat}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hint{font-size:9.5px;color:var(--ink3);font-family:var(--mono);line-height:1.65;margin-top:6px}
 .hint a{color:var(--gold);text-decoration:none;border-bottom:1px dotted var(--gold)}
-.go{width:100%;background:none;border:1px solid var(--gold);color:var(--gold);
-  padding:16px;font-size:12.5px;letter-spacing:.6em;font-family:var(--serif);
-  margin-top:28px;cursor:pointer;transition:all .3s;padding-left:.6em}
+.go{width:100%;background:none;border:1px solid var(--gold);color:var(--gold);padding:14px;font-size:12px;letter-spacing:.6em;font-family:var(--serif);margin-top:22px;cursor:pointer;padding-left:.6em}
 .go:active{background:var(--gold);color:var(--bg)}
-.bar3{display:flex;gap:20px;margin-top:18px;justify-content:center;flex-wrap:wrap}
-.bar3 button{background:none;border:none;color:var(--ink3);padding:7px 0;
-  font-size:10px;font-family:var(--mono);letter-spacing:.3em;cursor:pointer;
-  border-bottom:1px solid transparent;transition:all .2s}
-
-/* 死亡 */
-#death{position:fixed;inset:0;background:#050505;z-index:500;display:none;
-  flex-direction:column;align-items:center;justify-content:center;
-  padding:50px 30px;text-align:center;animation:in 1.2s}
+.bar3{display:flex;gap:18px;margin-top:14px;justify-content:center;flex-wrap:wrap}
+.bar3 button{background:none;border:none;color:var(--ink3);padding:6px 0;font-size:9.5px;font-family:var(--mono);letter-spacing:.3em;cursor:pointer}
+#death{position:fixed;inset:0;background:#050505;z-index:500;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 26px;text-align:center;animation:in 1.2s}
 #death.on{display:flex}
-#death .m{font-size:11px;color:var(--gold);letter-spacing:.7em;font-family:var(--mono);
-  margin-bottom:30px;padding-left:.7em}
-#death .g{font-size:80px;color:var(--blood);letter-spacing:.4em;margin-bottom:36px;
-  font-weight:300;padding-left:.4em}
-#death .e{font-size:13px;color:var(--ink2);line-height:2.3;max-width:440px;
-  margin-bottom:44px;white-space:pre-wrap;letter-spacing:.06em}
-#death .btn{background:none;border:1px solid var(--line2);color:var(--ink2);
-  padding:13px 30px;font-size:11px;letter-spacing:.5em;font-family:var(--serif);
-  cursor:pointer;padding-left:.5em;transition:all .3s;border-radius:0}
-#death .btn.primary{border-color:var(--gold);color:var(--gold)}
-
-/* 弹窗 */
-#modal{position:fixed;inset:0;background:rgba(5,5,5,.95);z-index:600;display:none;
-  align-items:center;justify-content:center;padding:20px}
-#modal.on{display:flex}
-#modal .inner{background:var(--paper);border:1px solid var(--line2);max-width:560px;
-  width:100%;padding:22px;max-height:85vh;overflow-y:auto;scrollbar-width:none}
-#modal .inner::-webkit-scrollbar{display:none}
-#modal h3{font-size:13px;letter-spacing:.25em;margin-bottom:14px;color:var(--ink);font-weight:400}
-#modal textarea{width:100%;background:var(--bg);border:1px solid var(--line2);
-  color:var(--ink);font-family:var(--mono);font-size:11px;line-height:1.6;padding:10px;
-  min-height:220px;resize:vertical;outline:none}
-#modal .btns{display:flex;gap:10px;margin-top:14px}
-#modal .btns button{flex:1;background:none;border:1px solid var(--line2);color:var(--ink2);
-  padding:10px;font-size:11px;font-family:var(--mono);letter-spacing:.2em;cursor:pointer;border-radius:0}
-#modal .btns button.primary{border-color:var(--gold);color:var(--gold)}
+#death .m{font-size:10.5px;color:var(--gold);letter-spacing:.7em;font-family:var(--mono);margin-bottom:26px;padding-left:.7em}
+#death .g{font-size:72px;color:var(--blood);letter-spacing:.4em;margin-bottom:30px;font-weight:300;padding-left:.4em}
+#death .e{font-size:12.5px;color:var(--ink2);line-height:2.2;max-width:440px;margin-bottom:38px;white-space:pre-wrap}
+#death .btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:12px 28px;font-size:10.5px;letter-spacing:.5em;font-family:var(--serif);cursor:pointer;padding-left:.5em}
+#modal,#pm{position:fixed;inset:0;background:rgba(5,5,5,.95);z-index:600;display:none;align-items:center;justify-content:center;padding:18px}
+#modal.on,#pm.on{display:flex}
+#modal .inner,#pm .inner{background:var(--paper);border:1px solid var(--line2);max-width:540px;width:100%;padding:20px;max-height:85vh;overflow-y:auto}
+#modal h3,#pm h3{font-size:12.5px;letter-spacing:.25em;margin-bottom:12px;color:var(--ink);font-weight:400}
+#modal textarea{width:100%;background:var(--bg);border:1px solid var(--line2);color:var(--ink);font-family:var(--mono);font-size:10.5px;line-height:1.6;padding:9px;min-height:200px;outline:none}
+#pm input,#pm textarea{width:100%;background:var(--bg);border:1px solid var(--line2);color:var(--ink);font-family:var(--serif);font-size:14px;padding:9px;outline:none;line-height:1.6}
+#pm textarea{min-height:100px;resize:vertical}
+#modal .btns,#pm .btns{display:flex;gap:9px;margin-top:12px}
+#modal .btns button,#pm .btns button{flex:1;background:none;border:1px solid var(--line2);color:var(--ink2);padding:9px;font-size:10.5px;font-family:var(--mono);letter-spacing:.2em;cursor:pointer}
+#modal .btns button.primary,#pm .btns button.primary{border-color:var(--gold);color:var(--gold)}
 </style>
 </head>
 <body>
 
-<!-- ============ 设置 ============ -->
 <div id="setup">
-  <div class="logo">
-    <h1>咒术人生</h1>
-    <div class="sub">JUJUTSU KAISEN</div>
-    <div class="ln"></div>
-  </div>
-
-  <div class="sec-t">◈ 接 入 A I</div>
-  <div class="fld">
-    <label>服务商</label>
-    <select id="pProv">
-      <option value="deepseek">DeepSeek（推荐）</option>
-      <option value="openai">OpenAI</option>
-      <option value="custom">自定义（OpenAI 兼容）</option>
-    </select>
-  </div>
-  <div class="fld">
-    <label>API Key</label>
-    <input type="password" id="pKey" placeholder="sk-..." autocomplete="off" autocapitalize="off" autocorrect="off">
-    <div class="hint" id="pHint">去 <a href="https://platform.deepseek.com" target="_blank">platform.deepseek.com</a> 拿 key。10 元能玩很久。</div>
-  </div>
-  <div class="fld" id="urlF" style="display:none">
-    <label>接口地址</label>
-    <input type="text" id="pUrl" placeholder="https://.../v1/chat/completions" autocapitalize="off" autocorrect="off">
-  </div>
-  <div class="fld" id="modF" style="display:none">
-    <label>模型名</label>
-    <input type="text" id="pModel" placeholder="qwen-plus" autocapitalize="off" autocorrect="off">
-  </div>
-
-  <div class="sec-t">◈ 创 建 角 色</div>
-  <div class="two">
-    <div class="fld"><label>姓名</label><input type="text" id="pName" value="虎杖悠仁" maxlength="10"></div>
-    <div class="fld"><label>年龄</label><input type="number" id="pAge" value="15" min="6" max="60"></div>
-  </div>
-  <div class="fld"><label>性别</label>
-    <select id="pGender"><option>男</option><option>女</option><option>其他</option></select>
-  </div>
-  <div class="fld"><label>时代</label>
-    <select id="pEra">
-      <option value="2018">2018 · 涩谷事变前后（虎杖入学）</option>
-      <option value="2017">2017 · 百鬼夜行前后（乙骨入学）</option>
-      <option value="2006">2006 · 怀玉·玉折（五条·夏油高专时代）</option>
-      <option value="1980">1980 · 战后咒术界</option>
-      <option value="1900">1900 · 明治·加茂宪伦事件</option>
-      <option value="1600">1600 · 战国～江户</option>
-      <option value="900">900 · 平安（宿傩活跃期）</option>
-    </select>
-  </div>
-  <div class="fld"><label>出身</label>
-    <select id="pOrigin">
-      <option>普通人觉醒</option>
-      <option>咒术师家庭</option>
-      <option>御三家旁支</option>
-      <option>天与咒缚</option>
-      <option>受肉体 / 容器</option>
-      <option>咒骸 / 人造生命</option>
-      <option>诅咒师家庭</option>
-      <option>非术师（能看见）</option>
-      <option>星浆体</option>
-    </select>
-  </div>
-  <div class="fld"><label>术式资质</label>
-    <select id="pTech">
-      <option>随机</option>
-      <option>无术式</option>
-      <option>普通生得术式</option>
-      <option>良好生得术式</option>
-      <option>优秀生得术式</option>
-      <option>特殊 · 六眼/反转/领域天赋</option>
-    </select>
-  </div>
-  <div class="fld"><label>居住地</label>
-    <select id="pLoc">
-      <option>东京</option><option>京都</option><option>仙台</option>
-      <option>大阪</option><option>北海道</option><option>国外</option>
-    </select>
-  </div>
-  <div class="fld"><label>性格关键词（逗号分隔，可选）</label>
-    <input type="text" id="pTrait" placeholder="例：坚韧,好奇,重情" maxlength="30">
-  </div>
-  <div class="fld">
-    <label>一句话介绍自己（可选）</label>
-    <textarea id="pBio" placeholder="例：我从小能看见别人看不见的东西。母亲说我疯了。"></textarea>
-  </div>
-
-  <button class="go" id="startBtn">开 始 人 生</button>
-  <div class="bar3">
-    <button id="loadBtn">读 取 存 档</button>
-    <button id="helpBtn">说 明</button>
-    <button id="clearBtn">删 除 存 档</button>
-  </div>
+<div class="logo"><h1>咒术人生</h1><div class="sub">JUJUTSU KAISEN</div><div class="ln"></div></div>
+<div class="sec-t">◈ 接 入 A I</div>
+<div class="fld"><label>服务商</label><select id="pProv"><option value="deepseek">DeepSeek（推荐）</option><option value="openai">OpenAI</option><option value="custom">自定义</option></select></div>
+<div class="fld"><label>API Key</label><input type="password" id="pKey" placeholder="sk-..." autocomplete="off" autocapitalize="off"><div class="hint" id="pHint">去 <a href="https://platform.deepseek.com" target="_blank">platform.deepseek.com</a> 拿 key。</div></div>
+<div class="fld" id="urlF" style="display:none"><label>接口地址</label><input type="text" id="pUrl" placeholder="https://.../v1/chat/completions" autocapitalize="off"></div>
+<div class="fld" id="modF" style="display:none"><label>模型名</label><input type="text" id="pModel" placeholder="qwen-plus" autocapitalize="off"></div>
+<div class="sec-t">◈ 时 代</div>
+<div class="fld"><select id="pEra">
+<option value="2018">2018 · 涩谷事变前后</option><option value="2017">2017 · 百鬼夜行前后</option><option value="2006">2006 · 怀玉·玉折</option><option value="1980">1980 · 战后咒术界</option><option value="1900">1900 · 明治</option><option value="1600">1600 · 战国～江户</option><option value="900">900 · 平安</option>
+</select></div>
+<div class="sec-t">◈ 出 身</div>
+<div class="fld"><select id="pOrigin">
+<option>普通人觉醒</option><option>咒术师家庭</option><option>御三家旁支</option><option>天与咒缚</option><option>受肉体 / 容器</option><option>咒骸 / 人造生命</option><option>诅咒师家庭</option><option>非术师（能看见）</option><option>星浆体</option>
+</select></div>
+<div class="sec-t">◈ 你 是 谁</div>
+<div class="two"><div class="fld"><label>姓名</label><input type="text" id="pName" value="虎杖悠仁" maxlength="10"></div><div class="fld"><label>年龄</label><input type="number" id="pAge" value="15" min="6" max="60"></div></div>
+<div class="fld"><label>性别</label><select id="pGender"><option>男</option><option>女</option><option>其他</option></select></div>
+<div class="fld"><label>术式资质</label><select id="pTech">
+<option>随机</option><option>无术式</option><option>普通生得术式</option><option>良好生得术式</option><option>优秀生得术式</option><option>特殊 · 六眼/反转/领域天赋</option>
+</select></div>
+<div class="fld"><label>居住地</label><select id="pLoc"><option>东京</option><option>京都</option><option>仙台</option><option>大阪</option><option>北海道</option><option>国外</option></select></div>
+<div class="fld"><label>性格关键词（逗号分隔）</label><input type="text" id="pTrait" placeholder="例：坚韧,好奇,重情" maxlength="40"></div>
+<div class="fld"><label>一句话介绍自己（可选）</label><textarea id="pBio" placeholder="例：我从小能看见别人看不见的东西。"></textarea></div>
+<button class="go" id="startBtn">开 始 人 生</button>
+<div class="bar3"><button id="loadBtn">读 取 存 档</button><button id="helpBtn">说 明</button><button id="clearBtn">删 除 存 档</button></div>
 </div>
 
-<!-- ============ 游戏 ============ -->
 <div id="app" style="display:none">
-  <div id="bar">
-    <div class="bar1">
-      <div id="bname" class="dim">—</div>
-      <div id="btime">—</div>
-    </div>
-    <div class="bar2" id="bstat"></div>
-  </div>
-  <div id="tabs">
-    <button class="tab on" data-tab="story">叙 事</button>
-    <button class="tab" data-tab="char">状 态</button>
-    <button class="tab" data-tab="skill">术 式</button>
-    <button class="tab" data-tab="npc">关 系</button>
-    <button class="tab" data-tab="world">世 界</button>
-    <button class="tab" data-tab="codex">图 鉴</button>
-    <button class="tab" data-tab="sys">系 统</button>
-  </div>
-  <div id="main"></div>
-  <div id="foot">
-    <div id="options"></div>
-    <div id="row">
-      <textarea id="inp" rows="1" placeholder="你要做什么……（也可以自己输入）"></textarea>
-      <button id="send">→</button>
-    </div>
-  </div>
+<div id="bar"><div class="bar1"><div id="bname" class="dim">—</div><div id="btime">—</div></div><div class="bar2" id="bstat"></div></div>
+<div id="tabs">
+<button class="tab on" data-tab="story">叙 事</button>
+<button class="tab" data-tab="char">人 物</button>
+<button class="tab" data-tab="skill">术 式</button>
+<button class="tab" data-tab="npc">关 系</button>
+<button class="tab" data-tab="quest">任 务</button>
+<button class="tab" data-tab="shop">商 店</button>
+<button class="tab" data-tab="world">世 界</button>
+<button class="tab" data-tab="codex">图 鉴</button>
+<button class="tab" data-tab="sys">系 统</button>
+</div>
+<div id="main"></div>
+<div id="foot">
+<div id="options"></div>
+<div id="row"><textarea id="inp" rows="1" placeholder="你要做什么……（也可以自己输入）"></textarea><button id="send">→</button></div>
+</div>
 </div>
 
-<!-- ============ 死亡 ============ -->
-<div id="death">
-  <div class="m">终</div>
-  <div class="g">死</div>
-  <div class="e" id="epi"></div>
-  <button class="btn primary" id="restart">重 新 开 始</button>
-</div>
-
-<!-- ============ 弹窗 ============ -->
-<div id="modal">
-  <div class="inner">
-    <h3 id="modalTitle">存档</h3>
-    <textarea id="modalText"></textarea>
-    <div class="btns">
-      <button id="modalClose">关闭</button>
-      <button id="modalAction" class="primary">确定</button>
-    </div>
-  </div>
-</div>
+<div id="death"><div class="m">终</div><div class="g">死</div><div class="e" id="epi"></div><button class="btn primary" id="restart">重 新 开 始</button></div>
+<div id="modal"><div class="inner"><h3 id="modalTitle">存档</h3><textarea id="modalText"></textarea><div class="btns"><button id="modalClose">关闭</button><button id="modalAction" class="primary">确定</button></div></div></div>
+<div id="pm"><div class="inner"><h3 id="pmTitle">输入</h3><input id="pmInput" type="text"><div class="btns"><button id="pmCancel">取消</button><button id="pmOk" class="primary">确定</button></div></div></div>
 
 <script>
 "use strict";
 
-/* =====================================================================
-   咒术人生 · 完全形态
-   所有角色 · 所有术式 · 所有时间 · 整个咒术回战
-   ===================================================================== */
-
-/* =====================================================================
-   一、全角色数据库
-   ===================================================================== */
+/* ==================== 数据：全角色库 ==================== */
 var CAST = {
-  /* ─── 东京高专 · 教师与职员 ─── */
-  '五条悟':{j:'特级咒术师 / 高专教师',aff:'东京高专 / 五条家',tech:'无下限咒术 · 六眼 · 领域「无量空处」',gr:'特级',era:[1980,2006,2017,2018],note:'轻浮，话多，但眼神极冷。最强，也最孤独。'},
-  '夜蛾正道':{j:'高专校长 / 咒骸使',aff:'东京高专',tech:'咒骸操术',gr:'一级',era:[1980,2006,2017,2018],note:'严肃，关心学生。会做咒骸玩偶。'},
-  '家入硝子':{j:'高专校医 / 反转术式使',aff:'东京高专',tech:'反转术式（治疗）',gr:'无评级',era:[1980,2006,2017,2018],note:'冷静、毒舌、抽烟。看惯死亡。'},
-  '七海建人':{j:'一级咒术师',aff:'东京高专',tech:'十划咒法 · 黑闪',gr:'一级',era:[1980,2006,2017,2018],note:'疲惫的社畜语气。"咒术师是狗屎。"'},
-  '伊地知洁高':{j:'辅助监督',aff:'东京高专',tech:'无',gr:'非术师',era:[2006,2017,2018],note:'胆小但尽责。'},
-  '灰原雄':{j:'已故术师',aff:'东京高专',tech:'未知',gr:'三级',era:[1980,2006],note:'开朗热心。死于任务。',dead:true},
-
-  /* ─── 东京高专 · 学生 ─── */
-  '虎杖悠仁':{j:'一级 / 宿傩容器',aff:'东京高专',tech:'迳庭拳 · 赤血操术 · 黑闪',gr:'一级',era:[2017,2018],note:'善良坚韧。体格怪物。会为死人崩溃。'},
-  '伏黑惠':{j:'一级 / 高专学生',aff:'东京高专 / 禅院家',tech:'十种影法术 · 领域「嵌合暗翳庭」',gr:'一级',era:[2017,2018],note:'沉默，话少，但重情。行动派。'},
-  '钉崎野蔷薇':{j:'三级 / 高专学生',aff:'东京高专',tech:'刍灵咒法 · 共鸣',gr:'三级',era:[2017,2018],note:'直率强悍。乡下来的，但不怯。'},
-  '禅院真希':{j:'四级 / 高专学生',aff:'东京高专 / 禅院家',tech:'天与咒缚（弱）· 咒具使',gr:'四级',era:[2017,2018],note:'刚烈不屈。对禅院家极度反感。'},
-  '狗卷棘':{j:'二级 / 高专学生',aff:'东京高专',tech:'咒言',gr:'二级',era:[2017,2018],note:'温柔寡言。说话只用饭团配料词。'},
-  '熊猫':{j:'二级 / 高专学生',aff:'东京高专',tech:'咒骸 · 三种形态',gr:'二级',era:[2017,2018],note:'开朗可靠。其实是夜蛾的咒骸。'},
-  '乙骨忧太':{j:'特级 / 高专学生',aff:'东京高专',tech:'术式模仿 · 里香',gr:'特级',era:[2017,2018],note:'温柔内向，但决绝。'},
-  '秤金次':{j:'一级 / 高专学生',aff:'东京高专',tech:'领域「坐杀博徒」',gr:'一级',era:[2018],note:'赌徒气质。'},
-  '高羽史彦':{j:'一级 / 原搞笑艺人',aff:'东京高专',tech:'术式「滑稽」',gr:'一级',era:[2018],note:'天然呆。'},
-  '日车宽见':{j:'一级 / 原律师',aff:'东京高专',tech:'领域「诛伏赐死」',gr:'一级',era:[2018],note:'正义感强。'},
-  '来栖华':{j:'一级 / 天使宿主',aff:'东京高专',tech:'术式消除',gr:'一级',era:[2018],note:'温柔。体内寄宿天使。'},
-
-  /* ─── 京都高专 ─── */
-  '东堂葵':{j:'一级 / 京都学生',aff:'京都高专',tech:'不义游戏',gr:'一级',era:[2017,2018],note:'热血奇怪。会问你"喜欢什么类型的女人"。'},
-  '加茂宪纪':{j:'一级 / 京都学生',aff:'京都高专 / 加茂家',tech:'赤血操术',gr:'一级',era:[2017,2018],note:'冷静保守。御三家嫡系。'},
-  '西宫桃':{j:'三级 / 京都学生',aff:'京都高专',tech:'扫帚飞行',gr:'三级',era:[2017,2018],note:'毒舌。'},
-  '三轮霞':{j:'三级 / 京都学生',aff:'京都高专',tech:'简易领域 · 刀术',gr:'三级',era:[2017,2018],note:'认真。'},
-  '机械丸（与幸吉）':{j:'二级 / 京都学生',aff:'京都高专',tech:'咒骸操术 · 天与咒缚',gr:'二级',era:[2017,2018],note:'内向但坚强。身体被天与咒缚削弱。'},
-  '庵歌姬':{j:'京都高专教师',aff:'京都高专',tech:'未知',gr:'一级',era:[2006,2017,2018],note:'温和但严厉。'},
-
-  /* ─── 御三家 ─── */
-  '禅院直毘人':{j:'禅院家当主',aff:'禅院家',tech:'投影咒法',gr:'一级',era:[1980,2006,2017,2018],note:'老练保守。'},
-  '禅院扇':{j:'禅院家嫡系',aff:'禅院家',tech:'无',gr:'—',era:[2006,2017,2018],note:'傲慢。'},
-  '禅院甚一':{j:'禅院家嫡系',aff:'禅院家',tech:'无',gr:'—',era:[2006,2017,2018],note:'残暴。'},
-  '伏黑甚尔':{j:'术师杀手 / 天与咒缚',aff:'—',tech:'天与咒缚（完全）',gr:'无评级',era:[1980,2006],note:'自嘲而强大。零咒力换来怪物肉体。',dead:true},
-
-  /* ─── 特级 / 诅咒师 ─── */
-  '宿傩':{j:'诅咒之王 / 四臂两面鬼神',aff:'—',tech:'斩击 · 火焰 · 领域「伏魔御厨子」',gr:'特级',era:[900,1600,1900,1980,2006,2017,2018],note:'纯粹的恶与自爱。只为自己的乐趣行动。'},
-  '夏油杰':{j:'诅咒师 / 特级',aff:'盘星教',tech:'咒灵操术 · 极之番「漩涡」',gr:'特级',era:[1980,2006,2017],note:'优雅，有教养，疯狂。叫人类"猴子"。'},
-  '羂索':{j:'千年诅咒师 / 夺舍者',aff:'—',tech:'术式操控 · 夺舍',gr:'特级',era:[900,1600,1900,1980,2006,2017,2018],note:'疯狂科学家。千年的野心。'},
-  '九十九由基':{j:'特级咒术师',aff:'独立',tech:'星之怒',gr:'特级',era:[1980,2006,2017,2018],note:'自由散漫。想消除咒力本身。'},
-  '里梅':{j:'宿傩的部下',aff:'宿傩',tech:'冰之咒术',gr:'一级',era:[900,1600,2017,2018],note:'忠诚冷酷。'},
-  '万':{j:'古代术师（受肉体）',aff:'—',tech:'构筑术式',gr:'特级',era:[2018],note:'执着于爱。'},
-  '石流龙':{j:'古代术师（受肉体）',aff:'—',tech:'咒力炮',gr:'一级',era:[2018],note:'豪爽。'},
-  '乌亨子':{j:'古代术师（受肉体）',aff:'—',tech:'天空术式',gr:'一级',era:[2018],note:'沉默。'},
-  '鹿紫云一':{j:'一级 / 受肉体',aff:'—',tech:'雷属性咒力',gr:'一级',era:[2018],note:'战斗狂。'},
-  '米格尔':{j:'外国咒术师',aff:'独立',tech:'黑绳',gr:'一级',era:[2017,2018],note:'直率。'},
-  '拉鲁':{j:'盘星教成员',aff:'盘星教',tech:'未知',gr:'一级',era:[2017,2018],note:'忠诚。'},
-  '孔时雨':{j:'情报贩子 / 中介',aff:'黑市',tech:'无',gr:'非术师',era:[2006,2017,2018],note:'唯利是图。'},
-  '冥冥':{j:'一级咒术师',aff:'独立',tech:'黑鸟操术',gr:'一级',era:[1980,2006,2017,2018],note:'贪财精明。'},
-  '忧忧':{j:'冥冥的弟弟',aff:'独立',tech:'未知',gr:'二级',era:[2017,2018],note:'依赖姐姐。'},
-
-  /* ─── 天元与古代 ─── */
-  '天元':{j:'不死者 / 结界核心',aff:'薨星宫',tech:'不死 · 结界',gr:'特级',era:[900,1600,1900,1980,2006,2017,2018],note:'超然物外。'},
-  '加茂宪伦':{j:'加茂家罪人',aff:'加茂家',tech:'赤血操术 · 人体实验',gr:'特级',era:[1900],note:'疯狂而优雅。咒胎九相图创造者。',dead:true},
-
-  /* ─── 咒灵 ─── */
-  '漏瑚':{j:'特级咒灵',aff:'—',tech:'火焰 · 领域「盖棺铁围山」',gr:'特级',era:[2017,2018],note:'暴躁但忠诚。',curse:true},
-  '花御':{j:'特级咒灵',aff:'—',tech:'植物操纵',gr:'特级',era:[2017,2018],note:'温和但敌对人类。',curse:true},
-  '真人':{j:'特级咒灵',aff:'—',tech:'无为转变 · 领域「自闭圆顿裹」',gr:'特级',era:[2017,2018],note:'纯粹的好奇与恶意。',curse:true},
-  '胀相':{j:'特级 / 咒胎九相图',aff:'—',tech:'赤血操术 · 毒血',gr:'特级',era:[2017,2018],note:'执着于弟弟。',curse:true},
-  '坏相':{j:'咒胎九相图',aff:'—',tech:'腐蚀之血',gr:'特级',era:[2017,2018],note:'扭曲的母爱。',curse:true},
-  '血涂':{j:'咒胎九相图',aff:'—',tech:'血液操控',gr:'二级',era:[2017,2018],note:'单纯。',curse:true},
-  '陀艮':{j:'特级咒灵',aff:'—',tech:'水域 · 领域「荡蕴平线」',gr:'特级',era:[2018],note:'沉默的怪鱼。',curse:true},
-
-  /* ─── 其他 ─── */
-  '天内理子':{j:'星浆体',aff:'—',tech:'无',gr:'—',era:[2006],note:'活泼坚强。',dead:true},
-  '黑井美里':{j:'天内理子的侍女',aff:'—',tech:'未知',gr:'—',era:[2006],note:'忠诚。'},
-  '伏黑津美纪':{j:'普通人 / 受肉体',aff:'—',tech:'无',gr:'—',era:[2017,2018],note:'温柔坚强。'},
-  '吉野顺平':{j:'已故术师',aff:'—',tech:'水母式神',gr:'三级',era:[2017,2018],note:'内向善良。',dead:true},
-  '吉野凪':{j:'普通人',aff:'—',tech:'无',gr:'—',era:[2017,2018],note:'弱的开朗。'}
+'五条悟':{j:'特级/高专教师',aff:'东京高专/五条家',t:'无下限·六眼·无量空处',gr:'特级',era:'1980,2006,2017,2018',n:'轻浮但眼神冷，最强也最孤独'},
+'夜蛾正道':{j:'高专校长',aff:'东京高专',t:'咒骸操术',gr:'一级',era:'1980,2006,2017,2018',n:'严肃，关心学生'},
+'家入硝子':{j:'高专校医',aff:'东京高专',t:'反转术式',gr:'无评级',era:'1980,2006,2017,2018',n:'冷静毒舌，抽烟'},
+'七海建人':{j:'一级咒术师',aff:'东京高专',t:'十划咒法·黑闪',gr:'一级',era:'1980,2006,2017,2018',n:'疲惫社畜。"咒术师是狗屎。"'},
+'伊地知洁高':{j:'辅助监督',aff:'东京高专',t:'无',gr:'非术师',era:'2006,2017,2018',n:'胆小但尽责'},
+'灰原雄':{j:'已故术师',aff:'东京高专',t:'未知',gr:'三级',era:'1980,2006',n:'开朗热心',dead:1},
+'虎杖悠仁':{j:'一级/宿傩容器',aff:'东京高专',t:'迳庭拳·赤血操术·黑闪',gr:'一级',era:'2017,2018',n:'善良坚韧，会为死人崩溃'},
+'伏黑惠':{j:'一级/高专学生',aff:'东京高专/禅院家',t:'十种影法术·嵌合暗翳庭',gr:'一级',era:'2017,2018',n:'沉默，话少，重情'},
+'钉崎野蔷薇':{j:'三级/高专学生',aff:'东京高专',t:'刍灵咒法·共鸣',gr:'三级',era:'2017,2018',n:'直率强悍'},
+'禅院真希':{j:'四级/高专学生',aff:'东京高专/禅院家',t:'天与咒缚（弱）',gr:'四级',era:'2017,2018',n:'刚烈不屈'},
+'狗卷棘':{j:'二级/高专学生',aff:'东京高专',t:'咒言',gr:'二级',era:'2017,2018',n:'温柔寡言，说话用饭团配料词'},
+'熊猫':{j:'二级/高专学生',aff:'东京高专',t:'咒骸·三种形态',gr:'二级',era:'2017,2018',n:'开朗可靠'},
+'乙骨忧太':{j:'特级/高专学生',aff:'东京高专',t:'术式模仿·里香',gr:'特级',era:'2017,2018',n:'温柔内向，决绝'},
+'秤金次':{j:'一级/高专学生',aff:'东京高专',t:'坐杀博徒',gr:'一级',era:'2018',n:'赌徒气质'},
+'高羽史彦':{j:'一级/原搞笑艺人',aff:'东京高专',t:'滑稽',gr:'一级',era:'2018',n:'天然呆'},
+'日车宽见':{j:'一级/原律师',aff:'东京高专',t:'诛伏赐死',gr:'一级',era:'2018',n:'正义感强'},
+'来栖华':{j:'一级/天使宿主',aff:'东京高专',t:'术式消除',gr:'一级',era:'2018',n:'温柔，体内寄宿天使'},
+'东堂葵':{j:'一级/京都学生',aff:'京都高专',t:'不义游戏',gr:'一级',era:'2017,2018',n:'热血奇怪，问你喜欢什么类型的女人'},
+'加茂宪纪':{j:'一级/京都学生',aff:'京都高专/加茂家',t:'赤血操术',gr:'一级',era:'2017,2018',n:'冷静保守'},
+'西宫桃':{j:'三级/京都学生',aff:'京都高专',t:'扫帚飞行',gr:'三级',era:'2017,2018',n:'毒舌'},
+'三轮霞':{j:'三级/京都学生',aff:'京都高专',t:'简易领域·刀术',gr:'三级',era:'2017,2018',n:'认真'},
+'机械丸（与幸吉）':{j:'二级/京都学生',aff:'京都高专',t:'咒骸操术·天与咒缚',gr:'二级',era:'2017,2018',n:'内向但坚强'},
+'禅院真依':{j:'三级/京都学生',aff:'京都高专/禅院家',t:'构筑术式',gr:'三级',era:'2017,2018',n:'真希的双胞胎妹妹'},
+'庵歌姬':{j:'京都高专教师',aff:'京都高专',t:'未知',gr:'一级',era:'2006,2017,2018',n:'温和但严厉'},
+'禅院直毘人':{j:'禅院家当主',aff:'禅院家',t:'投影咒法',gr:'一级',era:'1980,2006,2017,2018',n:'老练保守'},
+'禅院扇':{j:'禅院家嫡系',aff:'禅院家',t:'无',gr:'—',era:'2006,2017,2018',n:'傲慢'},
+'禅院甚一':{j:'禅院家嫡系',aff:'禅院家',t:'无',gr:'—',era:'2006,2017,2018',n:'残暴'},
+'伏黑甚尔':{j:'术师杀手',aff:'—',t:'天与咒缚（完全）',gr:'无评级',era:'1980,2006',n:'自嘲而强大，零咒力换怪物肉体',dead:1},
+'宿傩':{j:'诅咒之王',aff:'—',t:'斩击·火焰·伏魔御厨子',gr:'特级',era:'900,1600,1900,1980,2006,2017,2018',n:'纯粹的恶与自爱'},
+'夏油杰':{j:'诅咒师/特级',aff:'盘星教',t:'咒灵操术·漩涡',gr:'特级',era:'1980,2006,2017',n:'优雅有教养，叫人类"猴子"'},
+'羂索':{j:'千年诅咒师',aff:'—',t:'术式操控·夺舍',gr:'特级',era:'900,1600,1900,1980,2006,2017,2018',n:'疯狂科学家，千年野心'},
+'九十九由基':{j:'特级咒术师',aff:'独立',t:'星之怒',gr:'特级',era:'1980,2006,2017,2018',n:'自由散漫，想消除咒力本身'},
+'里梅':{j:'宿傩的部下',aff:'宿傩',t:'冰之咒术',gr:'一级',era:'900,1600,2017,2018',n:'忠诚冷酷'},
+'万':{j:'古代术师（受肉体）',aff:'—',t:'构筑术式',gr:'特级',era:'2018',n:'执着于爱'},
+'石流龙':{j:'古代术师（受肉体）',aff:'—',t:'咒力炮',gr:'一级',era:'2018',n:'豪爽'},
+'乌亨子':{j:'古代术师（受肉体）',aff:'—',t:'天空术式',gr:'一级',era:'2018',n:'沉默'},
+'鹿紫云一':{j:'一级/受肉体',aff:'—',t:'雷属性咒力',gr:'一级',era:'2018',n:'战斗狂'},
+'米格尔':{j:'外国咒术师',aff:'独立',t:'黑绳',gr:'一级',era:'2017,2018',n:'直率'},
+'拉鲁':{j:'盘星教成员',aff:'盘星教',t:'未知',gr:'一级',era:'2017,2018',n:'忠诚'},
+'孔时雨':{j:'情报贩子/中介',aff:'黑市',t:'无',gr:'非术师',era:'2006,2017,2018',n:'唯利是图'},
+'冥冥':{j:'一级咒术师',aff:'独立',t:'黑鸟操术',gr:'一级',era:'1980,2006,2017,2018',n:'贪财精明'},
+'忧忧':{j:'冥冥的弟弟',aff:'独立',t:'未知',gr:'二级',era:'2017,2018',n:'依赖姐姐'},
+'天元':{j:'不死者/结界核心',aff:'薨星宫',t:'不死·结界',gr:'特级',era:'900,1600,1900,1980,2006,2017,2018',n:'超然物外'},
+'加茂宪伦':{j:'加茂家罪人',aff:'加茂家',t:'赤血操术·人体实验',gr:'特级',era:'1900',n:'疯狂而优雅，咒胎九相图创造者',dead:1},
+'漏瑚':{j:'特级咒灵',aff:'—',t:'火焰·盖棺铁围山',gr:'特级',era:'2017,2018',n:'暴躁但忠诚',curse:1},
+'花御':{j:'特级咒灵',aff:'—',t:'植物操纵·朵颐光海',gr:'特级',era:'2017,2018',n:'温和但敌对人类',curse:1},
+'真人':{j:'特级咒灵',aff:'—',t:'无为转变·自闭圆顿裹',gr:'特级',era:'2017,2018',n:'纯粹的好奇与恶意',curse:1},
+'胀相':{j:'特级/咒胎九相图',aff:'—',t:'赤血操术·毒血',gr:'特级',era:'2017,2018',n:'执着于弟弟',curse:1},
+'坏相':{j:'咒胎九相图',aff:'—',t:'腐蚀之血',gr:'特级',era:'2017,2018',n:'扭曲的母爱',curse:1},
+'血涂':{j:'咒胎九相图',aff:'—',t:'血液操控',gr:'二级',era:'2017,2018',n:'单纯',curse:1},
+'陀艮':{j:'特级咒灵',aff:'—',t:'水域·荡蕴平线',gr:'特级',era:'2018',n:'沉默的怪鱼',curse:1},
+'里香':{j:'特级咒灵（祈本里香）',aff:'乙骨忧太',t:'无条件的爱',gr:'特级',era:'2017,2018',n:'乙骨的青梅竹马',curse:1},
+'天内理子':{j:'星浆体',aff:'—',t:'无',gr:'—',era:'2006',n:'活泼坚强',dead:1},
+'黑井美里':{j:'天内理子的侍女',aff:'—',t:'未知',gr:'—',era:'2006',n:'忠诚'},
+'伏黑津美纪':{j:'普通人/受肉体',aff:'—',t:'无',gr:'—',era:'2017,2018',n:'温柔坚强'},
+'吉野顺平':{j:'已故术师',aff:'—',t:'水母式神',gr:'三级',era:'2017,2018',n:'内向善良',dead:1},
+'吉野凪':{j:'普通人',aff:'—',t:'无',gr:'—',era:'2017,2018',n:'开朗'},
+'新田明':{j:'辅助监督',aff:'东京高专',t:'无',gr:'非术师',era:'2017,2018',n:'伊地知的后辈'},
+'新田新':{j:'辅助监督',aff:'东京高专',t:'无',gr:'非术师',era:'2017,2018',n:'新田明的弟弟'}
 };
 
-/* =远程====================================================================
-   二、全术式库
-术   ===================================================================== */
+/* ==================== 数据：术式/领域/咒灵/咒具/地点 ==================== */
 var TECH_LIB = {
-  '无':['式咒力操作（基础）','咒力','强化','咒力遮蔽'],
-  '普通':咒['简单的强化术式','感知型术式','微力拳','刃击术式'],
-  '良好':['十划咒法','刍灵咒法','赤血操术（稀薄）','黑鸟操术（简化）','投影咒法','构筑术式（简化）'],
-  '优秀':['十种影法术','咒言','不义游戏','构筑术式','投射咒法','天空术式'],
-  '特殊':['无下限（未觉醒）','六眼（未觉醒）','反转术式天赋','领域天赋','星之怒（未觉醒）','术式模仿（未觉醒）']
+'无':['咒力操作（基础）','咒力强化','咒力遮蔽'],
+'普通':['简单的强化术式','感知型术式','微弱的远程术式','咒力拳','刃击术式','风刃术式'],
+'良好':['十划咒法','刍灵咒法','赤血操术（稀薄）','黑鸟操术（简化）','投影咒法','构筑术式（简化）','扫帚飞行'],
+'优秀':['十种影法术','咒言','不义游戏','构筑术式','投射咒法','天空术式','模仿术式（劣化）'],
+'特殊':['无下限（未觉醒）','六眼（未觉醒）','反转术式天赋','领域天赋','星之怒（未觉醒）','术式模仿（未觉醒）','无为转变（禁忌）']
 };
-
-/* =====================================================================
-   三、全领域库
-   ===================================================================== */
-var DOMAINS = {
-  '五条悟':'无量空处','宿傩':'伏魔御厨子','伏黑惠':'嵌合暗翳庭',
-  '日车宽见':'诛伏赐死','秤金次':'坐杀博徒','漏瑚':'盖棺铁围山',
-  '真人':'自闭圆顿裹','陀艮':'荡蕴平线','胀相':'赤血操术·极之番「穿血」'
-};
-
-/* =====================================================================
-   四、全咒灵库
-   ===================================================================== */
+var DOMAINS = {'五条悟':'无量空处','宿傩':'伏魔御厨子','伏黑惠':'嵌合暗翳庭','日车宽见':'诛伏赐死','秤金次':'坐杀博徒','漏瑚':'盖棺铁围山','真人':'自闭圆顿裹','陀艮':'荡蕴平线','花御':'朵颐光海'};
 var CURSE_LIB = [
-  {n:'四级·蝇头',g:4,hp:18,atk:5,xp:8},
-  {n:'四级·座敷童子',g:4,hp:28,atk:7,xp:10},
-  {n:'三级·裂口女',g:3,hp:50,atk:13,xp:22},
-  {n:'三级·人面犬',g:3,hp:60,atk:15,xp:26},
-  {n:'三级·花子小姐',g:3,hp:55,atk:14,xp:24},
-  {n:'二级·隧道鬼',g:2,hp:100,atk:24,xp:55},
-  {n:'二级·八握剑异戒神将',g:2,hp:120,atk:28,xp:65},
-  {n:'一级·枯木咒灵',g:1,hp:200,atk:42,xp:140},
-  {n:'一级·花御的残秽',g:1,hp:230,atk:48,xp:160},
-  {n:'特级·漏瑚的业火',g:0,hp:380,atk:75,xp:380},
-  {n:'特级·真人的无为转变',g:0,hp:420,atk:82,xp:420}
+{n:'四级·蝇头',g:4,hp:18,atk:5,xp:8},{n:'四级·座敷童子',g:4,hp:28,atk:7,xp:10},
+{n:'四级·无脸男',g:4,hp:22,atk:6,xp:9},{n:'三级·裂口女',g:3,hp:50,atk:13,xp:22},
+{n:'三级·人面犬',g:3,hp:60,atk:15,xp:26},{n:'三级·花子小姐',g:3,hp:55,atk:14,xp:24},
+{n:'三级·幽灵电车',g:3,hp:65,atk:16,xp:28},{n:'二级·隧道鬼',g:2,hp:100,atk:24,xp:55},
+{n:'二级·八握剑异戒神将',g:2,hp:120,atk:28,xp:65},{n:'二级·学校怪谈',g:2,hp:110,atk:26,xp:60},
+{n:'一级·枯木咒灵',g:1,hp:200,atk:42,xp:140},{n:'一级·花御的残秽',g:1,hp:230,atk:48,xp:160},
+{n:'一级·病院恶魔',g:1,hp:215,atk:45,xp:150},{n:'特级·漏瑚的业火',g:0,hp:380,atk:75,xp:380},
+{n:'特级·真人的无为转变',g:0,hp:420,atk:82,xp:420},{n:'特级·花御的森罗',g:0,hp:400,atk:78,xp:400},
+{n:'特级·陀艮的深渊',g:0,hp:450,atk:85,xp:450}
+];
+var RELICS = {'特级咒物':['宿傩手指','狱门疆','天逆鉾','咒胎九相图','五条家折扇'],'特级咒具':['游云','释魂刀','黑绳','万里之锁'],'名刀级':['数珠丸','童子切','三日月宗近','大包平','骚速剑'],'良品':['咒具·三节棍','咒具·短刀','护符·辟邪','简易领域符','镇痛符'],'消耗品':['绷带','止血药','止痛剂','营养剂','咒力回复药','手电筒']};
+var PLACES = {'东京':['涩谷站地下','新宿歌舞伎町','东京高专','荒川废弃医院','池袋西口','高尾山','多摩川河滩','上野公园','丰洲市场','秋叶原','浅草寺','东京塔'],'京都':['京都高专','伏见稻荷','岚山竹林','先斗町','京都站地下','鸭川河滩','金阁寺','祇园'],'仙台':['仙台站前','青叶城迹','荒滨','一番町','仙台高专旧址','松岛'],'大阪':['道顿堀','新世界','天王寺','梅田地下','大阪城公园'],'北海道':['札幌雪原','函馆仓库街','知床','大通公园','小樽运河'],'国外':['香港九龙','首尔江南','纽约地下','马尼拉旧城','台北西门町']};
+
+/* ==================== 数据：势力/技能/任务/装备/称号 ==================== */
+var FACTIONS = {'东京高专':{start:10,d:'培养实战术师'},'京都高专':{start:0,d:'姐妹校'},'咒术总监部':{start:0,d:'官僚机构'},'御三家':{start:0,d:'五条/禅院/加茂'},'盘星教':{start:-20,d:'夏油杰的宗教组织'},'黑市':{start:0,d:'地下中介'}};
+var SKILL_TREE = {
+'咒力操作':[{id:'ce1',n:'咒力强化',c:1,d:'战斗+2'},{id:'ce2',n:'咒力遮蔽',c:1,d:'隐匿+2'},{id:'ce3',n:'咒力探测',c:2,d:'感知+3'},{id:'ce4',n:'简易领域',c:3,d:'防御+4'},{id:'ce5',n:'咒力爆发',c:4,d:'战斗+8'}],
+'体术':[{id:'bt1',n:'基础格斗',c:1,d:'战斗+3'},{id:'bt2',n:'武器精通',c:2,d:'武器加成+50%'},{id:'bt3',n:'受身',c:2,d:'体力上限+10'},{id:'bt4',n:'身法',c:3,d:'闪避提升'},{id:'bt5',n:'铁块',c:4,d:'体力上限+20'}],
+'术式开发':[{id:'ts1',n:'术式熟练',c:2,d:'控制+5'},{id:'ts2',n:'术式延伸',c:3,d:'术式威力提升'},{id:'ts3',n:'术式反转',c:5,d:'附加反转效果'},{id:'ts4',n:'领域雏形',c:8,d:'领域展开概率提升'}],
+'反转术式':[{id:'rv1',n:'反转基础',c:4,d:'解锁反转术式'},{id:'rv2',n:'治愈精通',c:5,d:'治疗量翻倍'},{id:'rv3',n:'反转输出',c:6,d:'对咒灵致命'}]
+};
+var QUEST_LIB = [
+{id:'q1',n:'废弃医院祓除',g:'三级',r:8000,rep:2,exp:15,time:'3天',risk:.15,d:'东京西部废弃医院出现三级咒灵'},
+{id:'q2',n:'学校结界维护',g:'四级',r:3000,rep:1,exp:5,time:'1天',risk:.05,d:'某高中结界出现裂缝'},
+{id:'q3',n:'咒物回收',g:'二级',r:30000,rep:5,exp:40,time:'5天',risk:.3,d:'回收黑市的二级咒物'},
+{id:'q4',n:'特级咒灵调查',g:'一级',r:80000,rep:10,exp:80,time:'3天',risk:.4,d:'调查涩谷地下异常咒力，不要交战'},
+{id:'q5',n:'宿傩手指搜寻',g:'特级',r:500000,rep:30,exp:200,time:'14天',risk:.7,d:'追踪一根宿傩手指'},
+{id:'q6',n:'姐妹校交流会护卫',g:'三级',r:5000,rep:3,exp:10,time:'3天',risk:.1,d:'为交流会提供警戒'},
+{id:'q7',n:'盘星教据点侦察',g:'二级',r:40000,rep:8,exp:50,time:'7天',risk:.35,d:'侦察盘星教地下据点'},
+{id:'q8',n:'民间除灵',g:'四级',r:2000,rep:1,exp:3,time:'1天',risk:.08,d:'帮普通家庭处理低阶咒灵'}
+];
+var EQUIPMENT = {
+weapon:[{id:'wn',n:'（徒手）',atk:0,p:0},{id:'ww',n:'木刀',atk:2,p:1000},{id:'wk',n:'普通短刀',atk:4,p:8000},{id:'w3',n:'咒具·三节棍',atk:8,p:25000,c:1},{id:'wk2',n:'咒具·短刀',atk:10,p:40000,c:1},{id:'wka',n:'名刀·数珠丸',atk:18,p:200000,c:1},{id:'wy',n:'游云',atk:35,p:0,c:1,leg:1},{id:'ws',n:'释魂刀',atk:30,p:0,c:1,leg:1}],
+armor:[{id:'an',n:'（无）',def:0,p:0},{id:'au',n:'高专制服',def:3,p:5000},{id:'ac',n:'锁子甲',def:6,p:30000},{id:'acu',n:'咒装·护心',def:10,p:80000,c:1},{id:'as',n:'特制护符',def:15,p:150000,c:1}],
+accessory:[{id:'an2',n:'（无）',hp:0,ce:0,p:0},{id:'ar',n:'咒力戒指',hp:0,ce:20,p:20000},{id:'am',n:'护身符',hp:10,ce:0,p:15000},{id:'ane',n:'咒力项链',hp:15,ce:30,p:60000,c:1},{id:'ae',n:'六眼仿品',hp:0,ce:80,ctrl:5,p:300000,c:1}]
+};
+var TITLES = [
+{id:'t1',n:'新晋术师',cond:function(s){return s.grade!=='未评级'}},
+{id:'t2',n:'高专学生',cond:function(s){return s.identity.indexOf('学生')>=0}},
+{id:'t3',n:'生还者',cond:function(s){return s.completedQuests.length>=3}},
+{id:'t4',n:'黑闪使',cond:function(s){return s.blackflash>=1}},
+{id:'t5',n:'反转术士',cond:function(s){return s.reverse!=='无'}},
+{id:'t6',n:'领域者',cond:function(s){return s.domain==='已掌握'}},
+{id:'t7',n:'手指搜寻者',cond:function(s){return s.sukunaFingers.length>=1}},
+{id:'t8',n:'深渊探寻者',cond:function(s){return s.sukunaFingers.length>=5}},
+{id:'t9',n:'富豪',cond:function(s){return s.money>=1000000}},
+{id:'t10',n:'传说',cond:function(s){return s.reputation>=100}}
+];
+var TIMELINE = [
+{y:2018,m:5,t:'虎杖悠仁吞下宿傩手指，入学高专',k:'a1'},
+{y:2018,m:6,t:'姐妹校交流会',k:'a2'},
+{y:2018,m:10,t:'涩谷事变，五条悟被狱门疆封印',k:'a3',major:1},
+{y:2018,m:12,t:'死灭洄游发动',k:'a4',major:1},
+{y:2017,m:12,t:'百鬼夜行，夏油杰死',k:'a5',major:1},
+{y:2006,m:8,t:'怀玉·玉折，天内理子死',k:'a6',major:1},
+{y:2007,m:9,t:'夏油杰叛逃',k:'a7',major:1}
 ];
 
-/* =====================================================================
-   五、全咒具/咒物库
-   ===================================================================== */
-var RELICS = {
-  '特级咒物':['宿傩手指','狱门疆','天逆鉾','咒胎九相图','折扇（五条家）'],
-  '特级咒具':['游云','释魂刀','黑绳','万里之锁','三节棍「游云」仿品'],
-  '名刀级':['数珠丸','童子切','三日月宗近','大包平'],
-  '良品':['咒具·三节棍','咒具·短刀','护符·辟邪','咒力回复药','简易领域符']
-};
+/* ==================== 全局 ==================== */
+var CFG=null,HIST=[],S=null,BUSY=false,TAB='story';
+var $=function(id){return document.getElementById(id)};
 
-/* =====================================================================
-   六、地点库
-   ===================================================================== */
-var PLACES = {
-  '东京':['涩谷站地下','新宿歌舞伎町','东京高专','荒川废弃医院','池袋西口','高尾山','多摩川河滩','上野公园','丰洲市场','秋叶原'],
-  '京都':['京都高专','伏见稻荷','岚山竹林','先斗町','京都站地下','鸭川河滩','金阁寺','祇园'],
-  '仙台':['仙台站前','青叶城迹','荒滨','一番町','仙台高专旧址'],
-  '大阪':['道顿堀','新世界','天王寺','梅田地下','大阪城公园'],
-  '北海道':['札幌雪原','函馆仓库街','知床','大通公园'],
-  '国外':['香港九龙','首尔江南','纽约地下','马尼拉旧城','台北西门町']
-};
-
-/* =====================================================================
-   七、全局状态
-   ===================================================================== */
-var CFG = null;
-var HIST = [];
-var S = null;
-var BUSY = false;
-var TAB = 'story';
-
-var $ = function(id){ return document.getElementById(id); };
-
-/* =====================================================================
-   八、System Prompt
-   ===================================================================== */
+/* ==================== System Prompt ==================== */
+function castList(){
+  var s='';
+  for(var k in CAST){
+    var c=CAST[k];
+    s+='- '+k+'（'+c.j+'｜'+c.aff+'｜'+c.t+'｜'+c.gr+'）：'+c.n+(c.dead?'（已故）':'')+(c.curse?'（咒灵）':'')+'\n';
+  }
+  return s;
+}
+function techList(){
+  var s='';
+  for(var tier in TECH_LIB) s+=tier+'：'+TECH_LIB[tier].join('、')+'\n';
+  return s;
+}
+function domainList(){
+  var s='';
+  for(var k in DOMAINS) s+='- '+k+'：'+DOMAINS[k]+'\n';
+  return s;
+}
+function curseList(){
+  return CURSE_LIB.map(function(c){return c.n+'（等级'+c.g+'）'}).join('、');
+}
+function relicList(){
+  var s='';
+  for(var k in RELICS) s+=k+'：'+RELICS[k].join('、')+'\n';
+  return s;
+}
+function placeList(){
+  var s='';
+  for(var k in PLACES) s+=k+'：'+PLACES[k].join('、')+'\n';
+  return s;
+}
 function stateToText(){
-  if(!S) return '';
-  var lines = [];
-  lines.push('姓名：' + S.name + '｜性别：' + S.gender + '｜年龄：' + S.age + '岁');
-  lines.push('出身：' + S.origin + '｜身份：' + S.identity);
-  lines.push('所在地：' + S.location + '｜时间：' + S.time.label);
-  lines.push('体力 ' + S.hp + '/' + S.hpMax + '｜咒力 ' + S.ce + '/' + S.ceMax);
-  lines.push('战斗 ' + S.atk + '｜控制 ' + S.ctrl + '｜声望 ' + S.reputation + '｜资产 ¥' + S.money);
-  lines.push('生得术式：' + (S.innate || '无'));
-  lines.push('掌握：' + (S.technique || '无'));
-  lines.push('领域：' + (S.domain || '未觉醒') + '｜反转术式：' + (S.reverse || '无') + '｜黑闪：' + (S.blackflash || 0) + '次');
-  if(S.vows && S.vows.length) lines.push('束缚：' + S.vows.join('、'));
-  lines.push('持有物：' + (S.inventory.length ? S.inventory.join('、') : '无'));
-  if(S.flags.length) lines.push('标记：' + S.flags.join('、'));
+  if(!S)return'';
+  var l=[];
+  l.push('姓名：'+S.name+'｜性别：'+S.gender+'｜年龄：'+S.age+'岁');
+  l.push('出身：'+S.origin+'｜身份：'+S.identity+'｜等级：'+S.grade);
+  l.push('所在地：'+S.location+'｜时间：'+S.time.label);
+  var eq=getEq();
+  l.push('体力 '+S.hp+'/'+(S.hpMax+eq.hp)+'｜咒力 '+S.ce+'/'+(S.ceMax+eq.ce));
+  l.push('战斗 '+S.atk+'+'+eq.atk+'='+(S.atk+eq.atk)+'｜控制 '+(S.ctrl+eq.ctrl));
+  l.push('金钱 ¥'+S.money+'｜声望 '+S.reputation+'｜经验 '+S.exp+'/'+S.expMax+'｜技能点 '+S.sp);
+  l.push('生得术式：'+(S.innate||'无')+'｜掌握：'+(S.technique||'无'));
+  l.push('领域：'+S.domain+'｜反转：'+S.reverse+'｜黑闪：'+S.blackflash+'次');
+  if(S.vows.length)l.push('束缚：'+S.vows.join('、'));
+  l.push('持有物：'+(S.inventory.length?S.inventory.join('、'):'无'));
+  var fac=[];
+  for(var f in S.factions){if(S.factions[f]!==0)fac.push(f+(S.factions[f]>0?'+':'')+S.factions[f]);}
+  if(fac.length)l.push('势力好感：'+fac.join('，'));
+  if(S.quests.length)l.push('进行中任务：'+S.quests.map(function(q){return q.n}).join('、'));
+  if(S.titles.length)l.push('称号：'+S.titles.join('、'));
+  if(S.sukunaFingers.length)l.push('已收集宿傩手指：'+S.sukunaFingers.length+'/20（编号'+S.sukunaFingers.join(',')+'）');
+  if(S.flags.length)l.push('标记：'+S.flags.join('、'));
   if(Object.keys(S.npcNotes).length){
-    lines.push('对以下人物的了解：');
-    for(var k in S.npcNotes) lines.push('  · ' + k + '：' + S.npcNotes[k]);
+    l.push('对人物的了解：');
+    for(var k in S.npcNotes)l.push('  ·'+k+'：'+S.npcNotes[k]);
   }
   if(S.worldEvents.length){
-    lines.push('世界近况：');
-    S.worldEvents.slice(-6).forEach(function(w){ lines.push('  · ' + w); });
+    l.push('世界近况：');
+    S.worldEvents.slice(-8).forEach(function(w){l.push('  ·'+w)});
   }
-  return lines.join('\n');
+  return l.join('\n');
 }
-
 function buildSystem(){
   return [
-'你是《咒术回战》世界的模拟引擎。你不是小说作者，你是世界本身。',
+'你是《咒术回战》世界模拟引擎。你不是小说作者，你是世界本身。',
 '',
 '# 铁则',
 '- 玩家做任何事，你推演真实后果。不偏袒，不鸡汤，不剧透。',
-'- 世界不围绕玩家旋转。原著事件照常发生，无论玩家是否在场。',
+'- 世界不围绕玩家旋转。原著事件照常发生。',
 '- 玩家可能一无所获，可能受伤，可能死。死了就是死了，不复活。',
-'- 玩家一个行动如果没有触发任何事，就让它平淡过去。不是每回合都有剧情。',
-'- 不要问玩家问题。不要写"你可以选择……"。不要写小标题。',
+'- 不要问玩家问题。不要写"你可以选择"。不要写小标题。',
 '- 原著人物严格不 OOC。',
 '',
-'# 原著人物性格铁律',
-'- 五条悟：轻浮，话多，但眼神极冷。会在你面前开玩笑，也会毫不犹豫判定你该死。最强，也最孤独。',
-'- 七海建人：疲惫的社畜语气。"咒术师是狗屎。"从不逃避。对后辈克制地关心。',
-'- 宿傩：纯粹的恶与自爱。只为自己的乐趣行动。不在乎人类。',
-'- 夏油杰：优雅，有教养，疯狂。温和的语气说出最极端的话。"猴子"是蔑称。',
-'- 伏黑惠：沉默，话少，重情。行动派。',
-'- 钉崎野蔷薇：直率、强悍、不掩饰。乡下来的但不怯。',
-'- 虎杖悠仁：善良、坚韧、体格怪物。会为死人崩溃。',
-'- 家入硝子：冷静、毒舌、抽烟。看惯死亡。',
-'- 夜蛾正道：严肃、关心学生。会做咒骸玩偶。',
-'- 乙骨忧太：温柔、内向，决绝。里香在时异常强大。',
-'- 东堂葵：热血、奇怪。问你喜欢什么类型的女人。',
-'- 禅院真希：刚烈、不屈。对禅院家极度反感。',
-'- 狗卷棘：温柔寡言。说话用饭团配料词（"明太子""鲑鱼"）。',
-'- 熊猫：开朗可靠。其实是夜蛾的咒骸。',
-'- 秤金次：赌徒气质。',
-'- 高羽史彦：天然呆。',
-'- 日车宽见：正义感强。原律师。',
-'- 来栖华：温柔。体内寄宿天使。',
-'- 加茂宪纪：冷静保守。御三家嫡系。',
-'- 冥冥：贪财精明。',
-'- 孔时雨：唯利是图。情报贩子。',
-'- 九十九由基：自由散漫。想消除咒力本身。',
-'- 羂索：疯狂科学家。千年的野心。',
+'# 全角色（'+Object.keys(CAST).length+'位）',
+castList(),
+'# 术式库',
+techList(),
+'# 领域库',
+domainList(),
+'# 咒灵库',
+curseList(),
 '',
-'# 世界观（原著正典）',
-'咒力来自人类负面情绪。术师操控自身咒力，普通人泄漏形成咒灵。',
-'生得术式与生俱来，无法后天移植。',
-'领域展开：术式的顶点，用咒力构建生得领域并施加必中效果。',
-'反转术式：咒力乘以咒力产生的正能量。可治愈他人（极稀有），也可对咒灵致命。',
-'黑闪：空间歪曲时的打击，集中力极致的天启。命中时咒力输出会"理解"彼此。',
-'束缚：自我设限换取强度，或与他人立约。违背的代价是毁灭性的。',
-'天与咒缚：先天束缚，不可解除。可以无咒力换肉体（伏黑甚尔），或以肉体换咒力（与幸吉）。',
-'',
-'# 势力',
-'- 东京都立咒术高等专门学校 · 京都府立咒术高等专门学校',
-'- 咒术总监部（最高管理机构，保守官僚，把术师当消耗品）',
-'- 御三家：五条家（无下限）· 禅院家（十种影法术）· 加茂家（赤血操术）',
-'- 天元（不死者，结界核心）· 薨星宫',
-'- 盘星教（原宗教组织，夏油杰接管）· 诅咒师 · 黑市',
-'',
-'# 特级咒物',
-'宿傩手指（20根）· 狱门疆（封印一切）· 天逆鉾（解除术式）· 游云 · 释魂刀 · 折扇（五条家）',
-'',
-'# 时间锚定（严格遵守）',
-'- 平安时代（约900年）：两面宿傩活跃，斩击与火焰，被古代术师击败，二十根手指散落',
-'- 战国至江户：咒术与妖怪的战斗',
-'- 明治（1900年）：加茂宪伦进行禁忌实验，诞下咒胎九相图',
-'- 2006年8月：怀玉·玉折，五条悟与夏油杰执行星浆体护送任务，天内理子死',
-'- 2007年9月：夏油杰叛逃，屠杀村庄',
-'- 2017年12月：百鬼夜行，乙骨忧太重创夏油杰，五条悟亲手了结',
-'- 2018年5月：虎杖悠仁吞下宿傩手指，入学高专',
+'# 咒具/咒物',
+relicList(),
+'# 地点',
+placeList(),
+'# 时间锚定',
+'- 900年：宿傩活跃，被古代术师击败，二十根手指散落',
+'- 1900年：加茂宪伦禁忌实验，诞下咒胎九相图',
+'- 2006年8月：怀玉·玉折，天内理子死',
+'- 2007年9月：夏油杰叛逃',
+'- 2017年12月：百鬼夜行，夏油杰死',
+'- 2018年5月：虎杖吞宿傩手指，入学高专',
 '- 2018年6月：姐妹校交流会',
 '- 2018年10月31日：涩谷事变，五条悟被狱门疆封印',
 '- 2018年12月：死灭洄游发动',
-'到达这些节点时，无论玩家在做什么，事件都要发生。事件影响世界，但不一定直接影响玩家。',
+'到达这些节点时事件必发生。',
 '',
-'# 时间推进',
-'- 玩家输入某个行动，隐含一段时间流逝。',
-'- 如果玩家说"我训练一个月"，就真的推进一个月。',
-'- 玩家没明确推进时，慢速推进（几天到一两周）。',
+'# 世界观',
+'咒力来自人类负面情绪。生得术式与生俱来。领域展开施加必中效果。反转术式=咒力×咒力。黑闪=空间歪曲打击。束缚=自我设限换强度。天与咒缚不可解除。',
+'势力：东京高专｜京都高专｜咒术总监部｜御三家｜盘星教｜黑市',
+'特级咒物：宿傩手指(20根)｜狱门疆｜天逆鉾｜游云｜释魂刀',
 '',
-'# 输出格式（严格遵守）',
-'第一行：时间戳 [YYYY年MM月某日] 或 [YYYY年MM月]。',
-'然后叙事正文。200-400字。第二人称"你"。',
-'冷、准、克制。像漫画旁白。具体细节胜过形容词。',
-'不写"你感到恐惧"，写"你的手在抖，握不住刀"。',
+'# 人物性格铁律',
+'- 五条悟：轻浮话多，眼神极冷。最强最孤独。',
+'- 七海建人：疲惫社畜语气。"咒术师是狗屎。"',
+'- 宿傩：纯粹的恶与自爱。',
+'- 夏油杰：优雅疯狂。叫人类"猴子"。',
+'- 伏黑惠：沉默寡言重情。',
+'- 钉崎野蔷薇：直率强悍。',
+'- 虎杖悠仁：善良坚韧，会为死人崩溃。',
+'- 家入硝子：冷静毒舌抽烟。',
+'- 夜蛾正道：严肃关心学生。',
+'- 乙骨忧太：温柔内向决绝。',
+'- 东堂葵：热血奇怪。',
+'- 禅院真希：刚烈不屈。',
+'- 狗卷棘：说话用饭团配料词。',
+'- 熊猫：开朗可靠。',
+'- 羂索：疯狂科学家。',
+'- 九十九由基：自由散漫。',
 '',
-'叙事之后，如果有明显可做的事，另起一行输出 3-4 个建议行动：',
+'# 输出格式（严格）',
+'第一行：时间戳 [YYYY年MM月某日]。',
+'然后叙事正文 200-400字，第二人称"你"。冷、准、克制。',
+'',
+'叙事之后，若场景有可做的建议，另起一行：',
 '<选项>',
 '- 我去看看谁在叫我',
 '- 我继续练拳',
 '- 我回宿舍休息',
 '</选项>',
-'选项用第一人称"我"，每个不超过20字。',
-'如果没有合适的建议（例如过渡场景），可以整个省略 <选项> 块。不要每回合都强行给。',
+'选项用第一人称"我"，每个不超过20字。无建议可整块省略。',
 '',
-'最后，另起一行输出状态变化。只输出与上一轮不同的字段，没变化就写 {}：',
+'最后，另起一行输出状态变化（只输出变化字段，无变化写{}）：',
 '<状态>',
-'{"ts":"2018年5月14日","hp":95,"ce":180,"location":"东京高专","inventory_add":["带血的绷带"],"flags_add":["左臂受伤"],"npc_notes":{"五条悟":"他注意到了你"},"world_notes":["虎杖悠仁入学"],"dead":false,"death_cause":""}',
+'{"ts":"2018年5月14日","hp":95,"ce":180,"location":"东京高专","money":12000,"exp":15,"inventory_add":["绷带"],"flags_add":["左臂受伤"],"faction_change":{"东京高专":2},"skill_points":1,"quest_complete":"废弃医院祓除","sukuna_finger_found":3,"npc_notes":{"五条悟":"他注意到了你"},"world_notes":["虎杖悠仁入学"],"dead":false,"death_cause":""}',
 '</状态>',
 '',
-'# 状态字段（都可省略）',
-'- ts: 时间戳（必写，和第一行一致）',
-'- hp/hpMax: 体力 0-100（受伤减，休息加，≤0 即死）',
-'- ce/ceMax: 咒力（施术消耗，休息恢复）',
-'- atk: 战斗能力',
-'- ctrl: 术式控制',
-'- money: 日元资产',
-'- reputation: 声望',
-'- location: 所在地',
-'- identity: 身份',
-'- innate: 生得术式（觉醒时更新）',
-'- technique: 掌握术式',
-'- domain: 未觉醒/开发中/已掌握',
-'- reverse: 无/治愈/输出',
-'- blackflash: 黑闪次数',
-'- vows: 束缚数组',
-'- inventory_add/remove: 获得/失去物品',
-'- flags_add/remove: 新增/失效标记',
-'- npc_notes: {NPC名: 最新认知}',
-'- world_notes: 世界层面新事件',
-'- dead: true 时游戏结束',
-'- death_cause: 死因',
+'# 状态字段说明（都可省略）',
+'- ts时间戳｜hp/hpMax｜ce/ceMax｜atk｜ctrl｜money｜reputation｜exp/expMax｜grade等级',
+'- location地点｜identity身份｜innate生得术式｜technique掌握术式｜domain领域｜reverse反转｜blackflash黑闪次数',
+'- vows束缚数组｜inventory_add/remove物品｜flags_add/remove标记',
+'- faction_change{势力:增减}｜skill_points技能点｜quest_complete完成任务名',
+'- sukuna_finger_found宿傩手指编号1-20｜npc_notes{NPC:最新认知}｜world_notes世界事件',
+'- dead死亡｜death_cause死因',
 '',
 '# 写作要求',
-'- 不要每轮都写大事件。日常生活、平淡日子是大部分内容。',
-'- 受伤就要描写疼痛。消耗就要描写疲惫。钱花了就是花了。',
-'- 原著人物出现的频率不高。玩家可能在几周里只遇见一次五条悟。',
-'- 世界有自己的节奏。玩家可以在没人理的情况下度过一个月。',
+'不要每轮写大事件。日常平淡是大部分内容。受伤写疼痛，消耗写疲惫。原著人物出现频率不高。',
 '',
 '# 玩家当前档案',
 stateToText()
   ].join('\n');
 }
 
-/* =====================================================================
-   九、API 调用
-   ===================================================================== */
-function apiUrl(){
-  if(CFG.provider === 'deepseek') return 'https://api.deepseek.com/chat/completions';
-  if(CFG.provider === 'openai')   return 'https://api.openai.com/v1/chat/completions';
-  return CFG.url;
-}
-function apiModel(){
-  if(CFG.provider === 'deepseek') return 'deepseek-chat';
-  if(CFG.provider === 'openai')   return 'gpt-4o-mini';
-  return CFG.model;
-}
-
+/* ==================== API 调用 ==================== */
+function apiUrl(){if(CFG.provider==='deepseek')return'https://api.deepseek.com/chat/completions';if(CFG.provider==='openai')return'https://api.openai.com/v1/chat/completions';return CFG.url}
+function apiModel(){if(CFG.provider==='deepseek')return'deepseek-chat';if(CFG.provider==='openai')return'gpt-4o-mini';return CFG.model}
 async function callAI(onDelta){
-  var messages = [{role:'system', content: buildSystem()}].concat(HIST);
-  if(messages.length > 26){
-    messages = [messages[0]].concat(messages.slice(-24));
-  }
-
-  var res = await fetch(apiUrl(), {
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'Authorization':'Bearer ' + CFG.key
-    },
-    body: JSON.stringify({
-      model: apiModel(),
-      messages: messages,
-      stream: true,
-      temperature: 1.0,
-      max_tokens: 2000,
-      top_p: 0.95
-    })
-  });
-
-  if(!res.ok){
-    var t = await res.text();
-    throw new Error('API ' + res.status + '：' + t.slice(0, 200));
-  }
-
-  var reader = res.body.getReader();
-  var dec = new TextDecoder();
-  var buf = '';
-  var full = '';
+  var messages=[{role:'system',content:buildSystem()}].concat(HIST);
+  if(messages.length>30)messages=[messages[0]].concat(messages.slice(-28));
+  var res=await fetch(apiUrl(),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.key},body:JSON.stringify({model:apiModel(),messages:messages,stream:true,temperature:1.0,max_tokens:2200,top_p:.95})});
+  if(!res.ok){var t=await res.text();throw new Error('API '+res.status+'：'+t.slice(0,200))}
+  var reader=res.body.getReader(),dec=new TextDecoder(),buf='',full='';
   while(true){
-    var r = await reader.read();
-    if(r.done) break;
-    buf += dec.decode(r.value, {stream: true});
-    var lines = buf.split('\n');
-    buf = lines.pop() || '';
-    for(var i = 0; i < lines.length; i++){
-      var line = lines[i];
-      if(line.indexOf('data: ') !== 0) continue;
-      var d = line.slice(6).trim();
-      if(d === '[DONE]') continue;
+    var r=await reader.read();if(r.done)break;
+    buf+=dec.decode(r.value,{stream:true});
+    var lines=buf.split('\n');buf=lines.pop()||'';
+    for(var i=0;i<lines.length;i++){
+      var line=lines[i];if(line.indexOf('data: ')!==0)continue;
+      var d=line.slice(6).trim();if(d==='[DONE]')continue;
       try{
-        var j = JSON.parse(d);
-        var delta = j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content;
-        if(delta){
-          full += delta;
-          if(onDelta) onDelta(full);
-        }
+        var j=JSON.parse(d);var delta=j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content;
+        if(delta){full+=delta;if(onDelta)onDelta(full)}
       }catch(e){}
     }
   }
   return full;
 }
 
-/* =====================================================================
-   十、解析
-   ===================================================================== */
+/* ==================== 解析 ==================== */
 function parseAI(full){
-  var tsMatch = full.match(/^\[([^\]\n]{1,40})\]\s*/);
-  var ts = tsMatch ? tsMatch[1] : null;
-  var rest = tsMatch ? full.slice(tsMatch[0].length) : full;
-
-  rest = rest.replace(/<\/?叙事>/g, '');
-
-  var optIdx = rest.search(/<选项?/);
-  var stIdx = rest.search(/<状态?/);
-  var cutIdx = [optIdx, stIdx].filter(function(i){ return i >= 0; });
-  var narrative = rest.slice(0, cutIdx.length ? Math.min.apply(null, cutIdx) : undefined).trim();
-
-  var options = [];
-  var optMatch = rest.match(/<选项>([\s\S]*?)<\/选项>/);
-  if(optMatch){
-    options = optMatch[1].split('\n')
-      .map(function(l){
-        return l.replace(/^[-·•*\d.\s、]+/, '').replace(/<\/?选项>/g, '').trim();
-      })
-      .filter(function(l){ return l.length > 0 && l.length < 80; })
-      .slice(0, 5);
+  var tsm=full.match(/^\[([^\]\n]{1,40})\]\s*/);
+  var ts=tsm?tsm[1]:null;
+  var rest=tsm?full.slice(tsm[0].length):full;
+  rest=rest.replace(/<\/?叙事>/g,'');
+  var oi=rest.search(/<选项?/),si=rest.search(/<状态?/);
+  var ci=[oi,si].filter(function(x){return x>=0});
+  var narrative=rest.slice(0,ci.length?Math.min.apply(null,ci):undefined).trim();
+  var options=[];
+  var om=rest.match(/<选项>([\s\S]*?)<\/选项>/);
+  if(om){options=om[1].split('\n').map(function(l){return l.replace(/^[-·•*\d.\s、]+/,'').replace(/<\/?选项>/g,'').trim()}).filter(function(l){return l.length>0&&l.length<80}).slice(0,5)}
+  var st=null;
+  var sm=rest.match(/<状态>([\s\S]*?)<\/状态>/);
+  if(sm){
+    var js=sm[1].trim().replace(/^```(?:json)?\s*/,'').replace(/```\s*$/,'').trim();
+    try{st=JSON.parse(js)}catch(e){try{st=JSON.parse(js.replace(/,\s*([}\]])/g,'$1'))}catch(e2){st=null}}
   }
-
-  var stateDelta = null;
-  var stMatch = rest.match(/<状态>([\s\S]*?)<\/状态>/);
-  if(stMatch){
-    var js = stMatch[1].trim().replace(/^```(?:json)?\s*/, '').replace(/```\s*$/, '').trim();
-    try { stateDelta = JSON.parse(js); }
-    catch(e){
-      try { stateDelta = JSON.parse(js.replace(/,\s*([}\]])/g, '$1')); }
-      catch(e2){ stateDelta = null; }
-    }
-  }
-
-  return {ts: ts, narrative: narrative, options: options, stateDelta: stateDelta};
+  return{ts:ts,narrative:narrative,options:options,st:st};
 }
 
-/* =====================================================================
-   十一、状态系统
-   ===================================================================== */
+/* ==================== 状态 ==================== */
 function newState(cfg){
-  var era = parseInt(cfg.era);
-  var hpMax = 100, ceMax = 150, atk = 15, ctrl = 20, money = 8000;
-  var o = cfg.origin;
-  if(o === '咒术师家庭'){ ceMax = 280; atk = 22; ctrl = 35; money = 30000; }
-  if(o === '御三家旁支'){ ceMax = 320; atk = 25; ctrl = 40; money = 150000; }
-  if(o === '天与咒缚'){ ceMax = 0; atk = 75; ctrl = 5; hpMax = 180; }
-  if(o === '受肉体 / 容器'){ ceMax = 600; hpMax = 150; }
-  if(o === '星浆体'){ ceMax = 500; hpMax = 120; }
-  if(o === '非术师（能看见）'){ ceMax = 60; hpMax = 90; atk = 10; ctrl = 15; }
-  if(o === '诅咒师家庭'){ ceMax = 250; atk = 28; ctrl = 30; money = 15000; }
-  if(o === '咒骸 / 人造生命'){ ceMax = 280; hpMax = 110; }
-
-  var tech = '无';
-  if(cfg.tech === '随机'){
-    var r = Math.random();
-    if(r < 0.3) tech = '无';
-    else if(r < 0.6) tech = '简单的强化术式';
-    else if(r < 0.85) tech = '十划咒法';
-    else tech = '十种影法术（未完全觉醒）';
-  } else if(cfg.tech === '无术式'){ tech = '无'; }
-  else if(cfg.tech === '普通生得术式'){ tech = '简单的强化术式'; }
-  else if(cfg.tech === '良好生得术式'){ tech = '十划咒法'; }
-  else if(cfg.tech === '优秀生得术式'){ tech = '十种影法术（未完全觉醒）'; }
-  else if(cfg.tech === '特殊 · 六眼/反转/领域天赋'){ tech = '六眼（未觉醒）'; }
-
-  var traits = (cfg.trait || '').split(/[,，]/).map(function(s){ return s.trim(); }).filter(Boolean).slice(0, 3);
-
-  return {
-    name: cfg.name, gender: cfg.gender, age: parseInt(cfg.age) || 15,
-    origin: o, era: era,
-    time: { y: era, m: 4, d: 1, label: cfg.era + '年4月' },
-    location: cfg.loc,
-    identity: cfg.age <= 18 ? '高专学生（预定）' : '自由术师',
-    hp: hpMax, hpMax: hpMax, ce: ceMax, ceMax: ceMax,
-    atk: atk, ctrl: ctrl, money: money, reputation: 0,
-    exp: 0, expMax: 100,
-    innate: tech, technique: tech === '无' ? '咒力操作（基础）' : tech,
-    domain: '未觉醒', reverse: '无', blackflash: 0, vows: [],
-    inventory: [], flags: [],
-    npcNotes: {}, worldEvents: [],
-    dead: false, deathCause: '',
-    gen: 1, bio: cfg.bio, traits: traits
-  };
+  var era=parseInt(cfg.era);
+  var hpMax=100,ceMax=150,atk=15,ctrl=20,money=8000;
+  var o=cfg.origin;
+  if(o==='咒术师家庭'){ceMax=280;atk=22;ctrl=35;money=30000}
+  if(o==='御三家旁支'){ceMax=320;atk=25;ctrl=40;money=150000}
+  if(o==='天与咒缚'){ceMax=0;atk=75;ctrl=5;hpMax=180}
+  if(o==='受肉体 / 容器'){ceMax=600;hpMax=150}
+  if(o==='星浆体'){ceMax=500;hpMax=120}
+  if(o==='非术师（能看见）'){ceMax=60;hpMax=90;atk=10;ctrl=15}
+  if(o==='诅咒师家庭'){ceMax=250;atk=28;ctrl=30;money=15000}
+  if(o==='咒骸 / 人造生命'){ceMax=280;hpMax=110}
+  var tech='无';
+  if(cfg.tech==='随机'){var r=Math.random();if(r<.3)tech='无';else if(r<.6)tech='简单的强化术式';else if(r<.85)tech='十划咒法';else tech='十种影法术（未完全觉醒）'}
+  else if(cfg.tech==='无术式')tech='无';
+  else if(cfg.tech==='普通生得术式')tech='简单的强化术式';
+  else if(cfg.tech==='良好生得术式')tech='十划咒法';
+  else if(cfg.tech==='优秀生得术式')tech='十种影法术（未完全觉醒）';
+  else if(cfg.tech==='特殊 · 六眼/反转/领域天赋')tech='六眼（未觉醒）';
+  var traits=(cfg.trait||'').split(/[,，]/).map(function(s){return s.trim()}).filter(Boolean).slice(0,3);
+  var inv=[];
+  if(o==='咒术师家庭'||o==='御三家旁支')inv.push('咒具·短刀');
+  if(o==='受肉体 / 容器')inv.push('封印符（一张）');
+  inv.push('绷带');
+  var fac={};for(var f in FACTIONS)fac[f]=FACTIONS[f].start;
+  return{name:cfg.name,gender:cfg.gender,age:parseInt(cfg.age)||15,origin:o,era:era,
+  time:{y:era,m:4,d:1,label:cfg.era+'年4月'},location:cfg.loc,
+  identity:cfg.age<=18?'高专学生（预定）':'自由术师',grade:'未评级',
+  hp:hpMax,hpMax:hpMax,ce:ceMax,ceMax:ceMax,atk:atk,ctrl:ctrl,money:money,reputation:0,
+  exp:0,expMax:100,sp:3,
+  innate:tech,technique:tech==='无'?'咒力操作（基础）':tech,
+  domain:'未觉醒',reverse:'无',blackflash:0,vows:[],
+  inventory:inv,flags:[],npcNotes:{},worldEvents:[],
+  dead:false,deathCause:'',bio:cfg.bio,traits:traits,
+  factions:fac,skills:[],equipment:{weapon:'wn',armor:'an',accessory:'an2'},
+  quests:[],completedQuests:[],titles:[],sukunaFingers:[],diary:[]};
 }
-
-function applyDelta(d){
-  if(!d || !S) return;
-  if(d.ts) S.time.label = d.ts;
-  if(typeof d.hp === 'number') S.hp = d.hp;
-  if(typeof d.hpMax === 'number') S.hpMax = d.hpMax;
-  if(typeof d.ce === 'number') S.ce = d.ce;
-  if(typeof d.ceMax === 'number') S.ceMax = d.ceMax;
-  if(typeof d.atk === 'number') S.atk = d.atk;
-  if(typeof d.ctrl === 'number') S.ctrl = d.ctrl;
-  if(typeof d.money === 'number') S.money = d.money;
-  if(typeof d.reputation === 'number') S.reputation = d.reputation;
-  if(d.location) S.location = d.location;
-  if(d.identity) S.identity = d.identity;
-  if(d.innate) S.innate = d.innate;
-  if(d.technique) S.technique = d.technique;
-  if(d.domain) S.domain = d.domain;
-  if(d.reverse) S.reverse = d.reverse;
-  if(typeof d.blackflash === 'number') S.blackflash = d.blackflash;
-
-  if(Array.isArray(d.vows)) S.vows = d.vows;
-  if(Array.isArray(d.inventory_add)) d.inventory_add.forEach(function(i){ S.inventory.push(i); });
-  if(Array.isArray(d.inventory_remove)){
-    S.inventory = S.inventory.filter(function(i){ return d.inventory_remove.indexOf(i) < 0; });
-  }
-  if(Array.isArray(d.flags_add)){
-    d.flags_add.forEach(function(f){ if(S.flags.indexOf(f) < 0) S.flags.push(f); });
-  }
-  if(Array.isArray(d.flags_remove)){
-    S.flags = S.flags.filter(function(f){ return d.flags_remove.indexOf(f) < 0; });
-  }
-  if(d.npc_notes && typeof d.npc_notes === 'object'){
-    for(var k in d.npc_notes) S.npcNotes[k] = d.npc_notes[k];
-  }
-  if(Array.isArray(d.world_notes)){
-    d.world_notes.forEach(function(w){ S.worldEvents.push(w); });
-    if(S.worldEvents.length > 50) S.worldEvents = S.worldEvents.slice(-50);
-  }
-  if(d.dead === true || S.hp <= 0){
-    S.dead = true;
-    S.deathCause = d.death_cause || '伤势过重';
-    showDeath();
-  }
-  renderBar();
-  if(TAB !== 'story') renderTab();
-}
-
-/* =====================================================================
-   十二、渲染
-   ===================================================================== */
-function renderBar(){
-  if(!S) return;
-  $('bname').textContent = S.name + (S.dead ? ' · 已故' : '');
-  $('btime').textContent = S.time.label;
-  var hw = S.hp < S.hpMax * 0.4 ? 'warn' : 'ok';
-  var cw = S.ceMax > 0 && S.ce < S.ceMax * 0.25 ? 'warn' : 'ok';
-  $('bstat').innerHTML =
-    '<span class="' + hw + '">体<b>' + S.hp + '/' + S.hpMax + '</b></span>' +
-    '<span class="' + cw + '">咒<b>' + S.ce + '/' + S.ceMax + '</b></span>' +
-    '<span>战<b>' + S.atk + '</b></span>' +
-    '<span>控<b>' + S.ctrl + '</b></span>' +
-    '<span class="gold">名<b>' + S.reputation + '</b></span>' +
-    '<span class="gold">¥<b>' + S.money.toLocaleString() + '</b></span>';
-}
-
-function switchTab(t){
-  TAB = t;
-  document.querySelectorAll('.tab').forEach(function(x){
-    x.classList.toggle('on', x.dataset.tab === t);
+function getEq(){
+  var b={atk:0,def:0,hp:0,ce:0,ctrl:0};
+  if(!S||!S.equipment)return b;
+  var hasW=S.skills.indexOf('bt2')>=0;
+  ['weapon','armor','accessory'].forEach(function(slot){
+    var id=S.equipment[slot];if(!id)return;
+    (EQUIPMENT[slot]||[]).forEach(function(it){
+      if(it.id===id){b.atk+=it.atk||0;b.def+=it.def||0;b.hp+=it.hp||0;b.ce+=it.ce||0;b.ctrl+=it.ctrl||0}
+    });
   });
-  if(t === 'story'){
-    $('main').innerHTML = '';
-    renderStoryFromHistory();
-    $('foot').style.display = '';
-  } else {
-    $('foot').style.display = 'none';
-    renderTab();
+  if(hasW)b.atk=Math.floor(b.atk*1.5);
+  if(S.skills.indexOf('ce1')>=0)b.atk+=2;
+  if(S.skills.indexOf('ce5')>=0)b.atk+=8;
+  if(S.skills.indexOf('bt1')>=0)b.atk+=3;
+  if(S.skills.indexOf('bt3')>=0)b.hp+=10;
+  if(S.skills.indexOf('bt5')>=0)b.hp+=20;
+  if(S.skills.indexOf('ce4')>=0)b.def+=4;
+  if(S.skills.indexOf('ts1')>=0)b.ctrl+=5;
+  return b;
+}
+function applySt(d){
+  if(!d||!S)return;
+  if(d.ts)S.time.label=d.ts;
+  ['hp','hpMax','ce','ceMax','atk','ctrl','money','reputation','exp','expMax'].forEach(function(k){if(typeof d[k]==='number')S[k]=d[k]});
+  ['grade','location','identity','innate','technique','domain','reverse'].forEach(function(k){if(d[k])S[k]=d[k]});
+  if(typeof d.blackflash==='number')S.blackflash=d.blackflash;
+  if(typeof d.skill_points==='number')S.sp=Math.max(0,(S.sp||0)+d.skill_points);
+  if(Array.isArray(d.vows))S.vows=d.vows;
+  if(Array.isArray(d.inventory_add))d.inventory_add.forEach(function(i){S.inventory.push(i)});
+  if(Array.isArray(d.inventory_remove))S.inventory=S.inventory.filter(function(i){return d.inventory_remove.indexOf(i)<0});
+  if(Array.isArray(d.flags_add))d.flags_add.forEach(function(f){if(S.flags.indexOf(f)<0)S.flags.push(f)});
+  if(Array.isArray(d.flags_remove))S.flags=S.flags.filter(function(f){return d.flags_remove.indexOf(f)<0});
+  if(d.faction_change&&typeof d.faction_change==='object'){
+    for(var f in d.faction_change){if(!S.factions[f])S.factions[f]=0;S.factions[f]=Math.max(-100,Math.min(100,S.factions[f]+d.faction_change[f]))}
   }
+  if(d.npc_notes&&typeof d.npc_notes==='object')for(var k in d.npc_notes)S.npcNotes[k]=d.npc_notes[k];
+  if(Array.isArray(d.world_notes)){d.world_notes.forEach(function(w){S.worldEvents.push(w)});if(S.worldEvents.length>60)S.worldEvents=S.worldEvents.slice(-60)}
+  if(typeof d.sukuna_finger_found==='number'){
+    var num=d.sukuna_finger_found;
+    if(num>=1&&num<=20&&S.sukunaFingers.indexOf(num)<0){S.sukunaFingers.push(num);toast('找到宿傩手指 #'+num)}
+  }
+  if(d.quest_complete){
+    for(var i=0;i<S.quests.length;i++){if(S.quests[i].n===d.quest_complete){S.completedQuests.push(S.quests[i]);S.quests.splice(i,1);break}}
+  }
+  while(S.exp>=S.expMax){S.exp-=S.expMax;S.expMax=Math.floor(S.expMax*1.5);S.hpMax+=10;S.ceMax+=20;S.atk+=2;S.ctrl+=2;S.sp=(S.sp||0)+1;S.hp=S.hpMax;S.ce=S.ceMax;toast('升级！技能点+1')}
+  checkTitles();
+  if(d.dead===true||S.hp<=0){S.dead=true;S.deathCause=d.death_cause||'伤势过重';showDeath()}
+  renderBar();if(TAB!=='story')renderTab();
+}
+function checkTitles(){
+  TITLES.forEach(function(t){if(S.titles.indexOf(t.n)<0&&t.cond(S)){S.titles.push(t.n);toast('称号：'+t.n)}});
 }
 
+/* ==================== 渲染 ==================== */
+function renderBar(){
+  if(!S)return;
+  $('bname').textContent=S.name+(S.dead?' · 已故':'');
+  $('btime').textContent=S.time.label;
+  var eq=getEq(),tHP=S.hpMax+eq.hp,tCE=S.ceMax+eq.ce;
+  var hw=S.hp<tHP*.4?'warn':'ok',cw=tCE>0&&S.ce<tCE*.25?'warn':'ok';
+  $('bstat').innerHTML=
+    '<span class="'+hw+'">体<b>'+S.hp+'/'+tHP+'</b></span>'+
+    '<span class="'+cw+'">咒<b>'+S.ce+'/'+tCE+'</b></span>'+
+    '<span>战<b>'+(S.atk+eq.atk)+'</b></span>'+
+    '<span>控<b>'+(S.ctrl+eq.ctrl)+'</b></span>'+
+    '<span class="gold">等<b>'+S.grade+'</b></span>'+
+    '<span class="gold">¥<b>'+S.money.toLocaleString()+'</b></span>'+
+    '<span class="ice">经<b>'+S.exp+'/'+S.expMax+'</b></span>'+
+    '<span class="em">技<b>'+(S.sp||0)+'</b></span>';
+}
+function switchTab(t){
+  TAB=t;
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x.dataset.tab===t)});
+  if(t==='story'){$('main').innerHTML='';renderStory();$('foot').style.display=''}
+  else{$('foot').style.display='none';renderTab()}
+}
+function line(l,v,c){return'<div class="line"><span class="l">'+l+'</span><span class="v '+(c||'')+'">'+v+'</span></div>'}
 function renderTab(){
-  var main = $('main');
-  if(TAB === 'story') return;
-  var html = '';
-
-  if(TAB === 'char'){
-    var hpPct = Math.min(100, Math.max(0, S.hp / S.hpMax * 100));
-    var cePct = Math.min(100, Math.max(0, S.ce / Math.max(1, S.ceMax) * 100));
-    var expPct = Math.min(100, Math.max(0, S.exp / S.expMax * 100));
-    html += '<div class="sec">身 份</div>' +
-      line('姓名', S.name) +
-      line('性别', S.gender) +
-      line('年龄', S.age + ' 岁') +
-      line('出身', S.origin) +
-      line('身份', S.identity) +
-      line('所在地', S.location) +
-      line('时代', S.era + '年') +
-      line('资产', '¥' + S.money.toLocaleString(), 'gold') +
-      line('声望', S.reputation, 'gold');
-    if(S.traits && S.traits.length){
-      html += '<div class="sec">性 格</div>';
-      S.traits.forEach(function(t){ html += '<span class="tg gold" style="margin-right:6px">' + t + '</span>'; });
-    }
-    html += '<div class="sec">体 力 · 咒 力</div>' +
-      line('体力', S.hp + ' / ' + S.hpMax) +
-      '<div class="pb"><div class="f hp" style="width:' + hpPct + '%"></div></div>' +
-      line('咒力', S.ce + ' / ' + S.ceMax) +
-      '<div class="pb"><div class="f ce" style="width:' + cePct + '%"></div></div>' +
-      line('经验', S.exp + ' / ' + S.expMax) +
-      '<div class="pb"><div class="f exp" style="width:' + expPct + '%"></div></div>';
-    html += '<div class="sec">能 力</div>' +
-      line('战斗', S.atk) +
-      line('术式控制', S.ctrl);
-    html += '<div class="sec">持 有 物</div>';
-    if(S.inventory.length){
-      S.inventory.forEach(function(i){ html += '<div class="card">' + i + '</div>'; });
-    } else {
-      html += '<div class="card" style="color:var(--ink3);border-left-color:transparent">空空如也。</div>';
-    }
-    if(S.flags.length){
-      html += '<div class="sec">标 记</div>';
-      S.flags.forEach(function(f){ html += '<div class="card">' + f + '</div>'; });
-    }
-    if(S.bio){
-      html += '<div class="sec">自 述</div><div class="card">' + S.bio + '</div>';
-    }
-  }
-
-  if(TAB === 'skill'){
-    html += '<div class="sec">术 式</div>' +
-      line('生得术式', S.innate || '无', 'gold') +
-      line('掌握', S.technique || '无') +
-      line('领域展开', S.domain || '未觉醒') +
-      line('反转术式', S.reverse || '无') +
-      line('黑闪', (S.blackflash || 0) + ' 次');
-    html += '<div class="sec">束 缚</div>';
-    if(S.vows && S.vows.length){
-      S.vows.forEach(function(v){ html += '<div class="card">' + v + '</div>'; });
-    } else {
-      html += '<div class="card" style="color:var(--ink3);border-left-color:transparent">尚未立下任何束缚。</div>';
-    }
-    html += '<div class="sec">开 发 方 向</div>' +
-      '<div class="opts">' +
-      '<button class="opt" id="devReverse">开发反转术式</button>' +
-      '<button class="opt" id="devDomain">开发领域展开</button>' +
-      '<button class="opt" id="devBlackflash">训练黑闪</button>' +
-      '</div>';
-  }
-
-  if(TAB === 'npc'){
-    var keys = Object.keys(S.npcNotes);
-    html += '<div class="sec">关 系 网 络 （' + keys.length + ' 人）</div>';
-    if(!keys.length){
-      html += '<div class="card" style="color:var(--ink3);border-left-color:transparent">你尚未真正认识任何人。</div>';
-    } else {
-      keys.forEach(function(k){
-        html += '<div class="card">' +
-          '<div class="t">' + k + '</div>' +
-          '<div class="s">' + (S.npcNotes[k] || '') + '</div>' +
-        '</div>';
-      });
-    }
-  }
-
-  if(TAB === 'world'){
-    html += '<div class="sec">时 间 · 地 点</div>' +
-      line('当前', S.time.label || '—') +
-      line('所在', S.location);
-    html += '<div class="sec">大 事 记</div>';
-    if(S.worldEvents.length){
-      S.worldEvents.slice().reverse().forEach(function(e){
-        html += '<div class="card">' + e + '</div>';
-      });
-    } else {
-      html += '<div class="card" style="color:var(--ink3);border-left-color:transparent">这个世界还很安静。</div>';
-    }
-  }
-
-  if(TAB === 'codex'){
-    html += '<div class="sec">◆ 出 场 人 物 图 鉴</div>';
-    var era = S.era;
-    var names = Object.keys(CAST).filter(function(k){
-      return CAST[k].era.indexOf(era) >= 0;
+  var m=$('main');if(TAB==='story')return;var h='';
+  if(TAB==='char')h=tabChar();
+  else if(TAB==='skill')h=tabSkill();
+  else if(TAB==='npc')h=tabNPC();
+  else if(TAB==='quest')h=tabQuest();
+  else if(TAB==='shop')h=tabShop();
+  else if(TAB==='world')h=tabWorld();
+  else if(TAB==='codex')h=tabCodex();
+  else if(TAB==='sys')h=tabSys();
+  m.innerHTML=h;bindTab();
+}
+function tabChar(){
+  var eq=getEq();
+  var h='<div class="sec">身 份</div>'+
+  line('姓名',S.name)+line('性别',S.gender)+line('年龄',S.age+' 岁')+
+  line('出身',S.origin)+line('身份',S.identity)+line('等级',S.grade,'gold')+
+  line('所在地',S.location)+line('时代',S.era+'年')+
+  line('资产','¥'+S.money.toLocaleString(),'gold')+line('声望',S.reputation,'gold')+
+  line('技能点',S.sp||0,'em');
+  if(S.titles.length){h+='<div class="sec">称 号</div>';S.titles.forEach(function(t){h+='<span class="tg gold" style="margin-right:5px">'+t+'</span>'})}
+  if(S.traits.length){h+='<div class="sec">性 格</div>';S.traits.forEach(function(t){h+='<span class="tg" style="margin-right:5px">'+t+'</span>'})}
+  var hpP=Math.min(100,S.hp/(S.hpMax+eq.hp)*100),ceP=Math.min(100,S.ce/Math.max(1,S.ceMax+eq.ce)*100),exP=Math.min(100,S.exp/S.expMax*100);
+  h+='<div class="sec">体 力 · 咒 力</div>'+
+  line('体力',S.hp+' / '+(S.hpMax+eq.hp))+'<div class="pb"><div class="f hp" style="width:'+hpP+'%"></div></div>'+
+  line('咒力',S.ce+' / '+(S.ceMax+eq.ce))+'<div class="pb"><div class="f ce" style="width:'+ceP+'%"></div></div>'+
+  line('经验',S.exp+' / '+S.expMax)+'<div class="pb"><div class="f exp" style="width:'+exP+'%"></div></div>';
+  h+='<div class="sec">能 力（含装备）</div>'+
+  line('基础战斗',S.atk)+line('装备加成','+'+eq.atk,'em')+line('总战斗',S.atk+eq.atk,'gold')+
+  line('总控制',S.ctrl+eq.ctrl)+line('装备防御',eq.def,'i');
+  var w=null,a=null,ac=null;
+  (EQUIPMENT.weapon||[]).forEach(function(it){if(it.id===S.equipment.weapon)w=it});
+  (EQUIPMENT.armor||[]).forEach(function(it){if(it.id===S.equipment.armor)a=it});
+  (EQUIPMENT.accessory||[]).forEach(function(it){if(it.id===S.equipment.accessory)ac=it});
+  h+='<div class="sec">装 备</div>'+
+  '<div class="card"><div class="t">武器</div><div class="s">'+(w?w.n:'无')+(w&&w.atk?' · 战斗+'+w.atk:'')+'</div></div>'+
+  '<div class="card"><div class="t">护具</div><div class="s">'+(a?a.n:'无')+(a&&a.def?' · 防御+'+a.def:'')+'</div></div>'+
+  '<div class="card"><div class="t">饰品</div><div class="s">'+(ac?ac.n:'无')+(ac&&ac.ce?' · 咒力+'+ac.ce:'')+'</div></div>'+
+  '<div class="opts">'+
+  '<button class="opt" data-eq="weapon"><span class="txt">更换武器</span></button>'+
+  '<button class="opt" data-eq="armor"><span class="txt">更换护具</span></button>'+
+  '<button class="opt" data-eq="accessory"><span class="txt">更换饰品</span></button>'+
+  '</div>';
+  h+='<div class="sec">持 有 物</div>';
+  if(S.inventory.length)S.inventory.forEach(function(i){h+='<div class="card">'+i+'</div>'});
+  else h+='<div class="card" style="color:var(--ink3);border-left-color:transparent">空空如也。</div>';
+  if(S.flags.length){h+='<div class="sec">标 记</div>';S.flags.forEach(function(f){h+='<div class="card">'+f+'</div>'})}
+  if(S.bio)h+='<div class="sec">自 述</div><div class="card">'+S.bio+'</div>';
+  h+='<div class="sec">日 记</div><div class="opts"><button class="opt" id="btnDiary"><span class="txt">写一篇日记</span></button></div>';
+  if(S.diary.length)S.diary.slice(-5).reverse().forEach(function(d){h+='<div class="card"><div class="s">'+d.t+'</div>'+d.text+'</div>'});
+  return h;
+}
+function tabSkill(){
+  var h='<div class="sec">术 式</div>'+
+  line('生得术式',S.innate||'无','gold')+line('掌握',S.technique||'无')+
+  line('领域展开',S.domain||'未觉醒')+line('反转术式',S.reverse||'无')+
+  line('黑闪',(S.blackflash||0)+' 次');
+  h+='<div class="sec">束 缚</div>';
+  if(S.vows.length)S.vows.forEach(function(v){h+='<div class="card">'+v+'</div>'});
+  else h+='<div class="card" style="color:var(--ink3);border-left-color:transparent">尚未立下束缚。</div>';
+  h+='<div class="sec">技 能 树（点数 '+S.sp+'）</div>';
+  for(var tree in SKILL_TREE){
+    h+='<div style="margin:10px 0 6px;font-size:11.5px;color:var(--gold);letter-spacing:.2em">◆ '+tree+'</div>';
+    SKILL_TREE[tree].forEach(function(sk){
+      var lr=S.skills.indexOf(sk.id)>=0,cn=!lr&&S.sp>=sk.c;
+      h+='<button class="opt" data-learn="'+sk.id+'" '+(lr||!cn?'disabled':'')+'>'+
+      '<span class="txt">'+(lr?'✓ ':'')+sk.n+'（'+sk.c+'点）<br><span style="font-size:10.5px;color:var(--ink3)">'+sk.d+'</span></span>'+
+      (lr?'':'<span style="font-size:10px;color:var(--ink3)">'+(cn?'学习':'不足')+'</span>')+'</button>';
     });
-    html += '<div class="card" style="color:var(--ink3);border-left-color:transparent">当前时代（' + era + '年）相关人物：' + names.length + ' 位。以下为全部角色的资料，供你参考。</div>';
-    Object.keys(CAST).forEach(function(k){
-      var c = CAST[k];
-      var inEra = c.era.indexOf(era) >= 0;
-      var cls = c.curse ? 'b' : c.dead ? 'i' : inEra ? 'gold' : '';
-      html += '<div class="card"' + (inEra ? '' : ' style="opacity:.45"') + '>' +
-        '<div class="t">' + k + '</div>' +
-        '<div class="s">' + c.j + ' · ' + c.aff + '</div>' +
-        '<div class="s">' + c.tech + '</div>' +
-        '<div class="tags">' +
-          '<span class="tg ' + cls + '">' + c.gr + '</span>' +
-          (c.curse ? '<span class="tg b">咒灵</span>' : '') +
-          (c.dead ? '<span class="tg i">已故</span>' : '') +
-          (inEra ? '<span class="tg gold">本时代</span>' : '') +
-        '</div>' +
-        '<div class="s" style="margin-top:6px;color:var(--ink2);font-family:var(--serif);font-size:12px">' + c.note + '</div>' +
-      '</div>';
-    });
-    html += '<div class="sec">◆ 术 式 库</div>';
-    for(var tier in TECH_LIB){
-      html += '<div class="card">' +
-        '<div class="t">' + tier + '</div>' +
-        '<div class="tags">' + TECH_LIB[tier].map(function(t){ return '<span class="tg">' + t + '</span>'; }).join('') + '</div>' +
-      '</div>';
-    }
-    html += '<div class="sec">◆ 领 域 库</div>';
-    for(var name in DOMAINS){
-      html += '<div class="card">' +
-        '<div class="t">' + name + '</div>' +
-        '<div class="s">' + DOMAINS[name] + '</div>' +
-      '</div>';
-    }
-    html += '<div class="sec">◆ 咒 灵 图 鉴</div>';
-    CURSE_LIB.forEach(function(c){
-      html += '<div class="card">' +
-        '<div class="t">' + c.n + '</div>' +
-        '<div class="s">等级 ' + c.g + ' · 体力 ' + c.hp + ' · 攻击 ' + c.atk + '</div>' +
-      '</div>';
-    });
-    html += '<div class="sec">◆ 咒 具 · 咒 物</div>';
-    for(var rk in RELICS){
-      html += '<div class="card">' +
-        '<div class="t">' + rk + '</div>' +
-        '<div class="tags">' + RELICS[rk].map(function(t){ return '<span class="tg gold">' + t + '</span>'; }).join('') + '</div>' +
-      '</div>';
-    }
-    html += '<div class="sec">◆ 地 点 库</div>';
-    for(var city in PLACES){
-      html += '<div class="card">' +
-        '<div class="t">' + city + '</div>' +
-        '<div class="tags">' + PLACES[city].map(function(p){ return '<span class="tg">' + p + '</span>'; }).join('') + '</div>' +
-      '</div>';
-    }
   }
-
-  if(TAB === 'sys'){
-    html += '<div class="sec">系 统</div>' +
-      line('API', CFG.provider) +
-      line('对话轮数', Math.floor(HIST.length / 2)) +
-      line('角色库', Object.keys(CAST).length + ' 位') +
-      line('术式库', Object.keys(TECH_LIB).reduce(function(a, k){ return a + TECH_LIB[k].length; }, 0) + ' 种') +
-      line('咒灵库', CURSE_LIB.length + ' 种');
-    html += '<div class="sec">存 档</div>' +
-      '<div class="opts">' +
-      '<button class="opt" id="btnSave">保存到本地</button>' +
-      '<button class="opt" id="btnExport">导出存档文本</button>' +
-      '<button class="opt" id="btnImport">从文本导入存档</button>' +
-      '<button class="opt" id="btnReset">重开人生</button>' +
-      '</div>';
-    html += '<div class="sec">说 明</div>' +
-      '<div class="card" style="font-size:12px;line-height:1.8">' +
-      '· 输入任意行动，AI 推演后果<br>' +
-      '· AI 会给出建议选项，你也可以自由输入<br>' +
-      '· 原著事件按时间线自动触发<br>' +
-      '· 死亡不可逆<br>' +
-      '· 存档在浏览器本地，清理数据会丢失<br>' +
-      '· 想长期保存用「导出存档文本」' +
-      '</div>';
+  h+='<div class="sec">开 发</div><div class="opts">'+
+  '<button class="opt" data-dev="reverse"><span class="txt">开发反转术式</span></button>'+
+  '<button class="opt" data-dev="domain"><span class="txt">开发领域展开</span></button>'+
+  '<button class="opt" data-dev="blackflash"><span class="txt">训练黑闪</span></button>'+
+  '</div>';
+  return h;
+}
+function tabNPC(){
+  var h='<div class="sec">关 系 网 络（'+Object.keys(S.npcNotes).length+'人）</div>';
+  var keys=Object.keys(S.npcNotes);
+  if(!keys.length)h+='<div class="card" style="color:var(--ink3);border-left-color:transparent">你尚未真正认识任何人。</div>';
+  else keys.forEach(function(k){h+='<div class="card"><div class="t">'+k+'</div><div class="s">'+(S.npcNotes[k]||'')+'</div></div>'});
+  h+='<div class="sec">势 力 关 系</div>';
+  for(var f in S.factions){
+    var v=S.factions[f],pct=Math.min(100,Math.abs(v)),side=v>=0?'pos':'neg';
+    h+='<div class="card"><div class="t">'+f+' · '+(v>0?'+':'')+v+'</div><div class="s">'+FACTIONS[f].d+'</div><div class="pb"><div class="f '+(v>=0?'rel':'hp')+'" style="width:'+pct+'%"></div></div></div>';
   }
-
-  main.innerHTML = html;
-
+  return h;
+}
+function tabQuest(){
+  var h='<div class="sec">进 行 中</div>';
+  if(S.quests.length)S.quests.forEach(function(q){h+='<div class="card"><div class="t">'+q.n+'</div><div class="s">'+q.g+' · ¥'+(q.r||0).toLocaleString()+' · '+(q.time||'?')+'</div><div class="s">'+q.d+'</div></div>'});
+  else h+='<div class="card" style="color:var(--ink3);border-left-color:transparent">没有进行中的任务。</div>';
+  h+='<div class="sec">可 接 委 托</div>';
+  QUEST_LIB.forEach(function(q){
+    var acc=S.quests.some(function(x){return x.id===q.id}),done=S.completedQuests.some(function(x){return x.id===q.id});
+    if(done)return;
+    h+='<div class="card"><div class="t">'+q.n+' <span class="tg gold">'+q.g+'</span></div>'+
+    '<div class="s">'+q.d+'</div>'+
+    '<div class="s">¥'+q.r.toLocaleString()+' · 声望+'+q.rep+' · 经验+'+q.exp+' · '+q.time+' · 风险'+Math.round(q.risk*100)+'%</div>'+
+    '<button class="opt" data-accept="'+q.id+'" '+(acc?'disabled':'')+' style="margin-top:5px"><span class="txt">'+(acc?'已接受':'接受委托')+'</span></button></div>';
+  });
+  if(S.completedQuests.length){
+    h+='<div class="sec">已 完 成</div>';
+    S.completedQuests.slice(-10).reverse().forEach(function(q){h+='<div class="card" style="opacity:.6"><div class="t">✓ '+q.n+'</div></div>'});
+  }
+  return h;
+}
+function tabShop(){
+  var h='<div class="sec">资 产：¥'+S.money.toLocaleString()+'</div>';
+  ['weapon','armor','accessory'].forEach(function(slot){
+    var lb=slot==='weapon'?'武 器':slot==='armor'?'护 具':'饰 品';
+    h+='<div class="sec">'+lb+'</div>';
+    EQUIPMENT[slot].forEach(function(it){
+      if(it.n==='（徒手）'||it.n==='（无）'||it.leg)return;
+      var ow=S.inventory.indexOf(it.n)>=0||S.equipment[slot]===it.id,cb=!ow&&S.money>=it.p;
+      h+='<div class="card"><div class="t">'+it.n+(it.c?' <span class="tg v">咒具</span>':'')+'</div>'+
+      '<div class="s">'+(it.atk?'战斗+'+it.atk+' ':'')+(it.def?'防御+'+it.def+' ':'')+(it.hp?'体力+'+it.hp+' ':'')+(it.ce?'咒力+'+it.ce:'')+'</div>'+
+      '<div class="s gold">¥'+it.p.toLocaleString()+'</div>'+
+      '<button class="opt" data-buy="'+it.id+'" '+(ow||!cb?'disabled':'')+' style="margin-top:5px"><span class="txt">'+(ow?'已拥有':cb?'购买':'钱不够')+'</span></button></div>';
+    });
+  });
+  h+='<div class="sec">消 耗 品</div>';
+  [{n:'绷带',p:500,d:'恢复10体力'},{n:'止血药',p:2000,d:'恢复25体力'},{n:'咒力回复药',p:3000,d:'恢复50咒力'},{n:'营养剂',p:5000,d:'恢复30体力+30咒力'}].forEach(function(c){
+    var cb=S.money>=c.p;
+    h+='<div class="card"><div class="t">'+c.n+'</div><div class="s">'+c.d+'</div><div class="s gold">¥'+c.p.toLocaleString()+'</div>'+
+    '<button class="opt" data-buyc="'+c.n+'" '+(cb?'':'disabled')+' style="margin-top:5px"><span class="txt">'+(cb?'购买':'钱不够')+'</span></button></div>';
+  });
+  return h;
+}
+function tabWorld(){
+  var h='<div class="sec">时 间 · 地 点</div>'+line('当前',S.time.label||'—')+line('所在',S.location);
+  if(S.sukunaFingers.length){
+    h+='<div class="sec">宿 傩 手 指（'+S.sukunaFingers.length+'/20）</div>';
+    var fs='';for(var i=1;i<=20;i++){fs+=S.sukunaFingers.indexOf(i)>=0?'<span class="tg b">#'+i+'</span> ':'<span class="tg">#'+i+'</span> '}
+    h+='<div class="card" style="line-height:2">'+fs+'</div>';
+  }
+  h+='<div class="sec">大 事 记</div>';
+  if(S.worldEvents.length)S.worldEvents.slice().reverse().forEach(function(e){h+='<div class="card">'+e+'</div>'});
+  else h+='<div class="card" style="color:var(--ink3);border-left-color:transparent">这个世界还很安静。</div>';
+  return h;
+}
+function tabCodex(){
+  var h='<div class="sec">◆ 角 色（'+Object.keys(CAST).length+'位）</div>';
+  var era=S.era;
+  Object.keys(CAST).forEach(function(k){
+    var c=CAST[k];
+    var er=c.era.split(',').map(function(x){return parseInt(x)});
+    var ie=er.indexOf(era)>=0;
+    var cls=c.curse?'b':c.dead?'i':ie?'gold':'';
+    h+='<div class="card"'+(ie?'':' style="opacity:.42"')+'>'+
+    '<div class="t">'+k+'</div><div class="s">'+c.j+' · '+c.aff+'</div><div class="s">'+c.t+'</div>'+
+    '<div class="tags"><span class="tg '+cls+'">'+c.gr+'</span>'+(c.curse?'<span class="tg b">咒灵</span>':'')+(c.dead?'<span class="tg i">已故</span>':'')+(ie?'<span class="tg gold">本时代</span>':'')+'</div>'+
+    '<div class="s" style="margin-top:5px;color:var(--ink2);font-family:var(--serif);font-size:11.5px">'+c.n+'</div></div>';
+  });
+  h+='<div class="sec">◆ 术 式 库</div>';
+  for(var t in TECH_LIB)h+='<div class="card"><div class="t">'+t+'</div><div class="tags">'+TECH_LIB[t].map(function(x){return'<span class="tg">'+x+'</span>'}).join('')+'</div></div>';
+  h+='<div class="sec">◆ 领 域 库</div>';
+  for(var k in DOMAINS)h+='<div class="card"><div class="t">'+k+'</div><div class="s">'+DOMAINS[k]+'</div></div>';
+  h+='<div class="sec">◆ 咒 灵 图 鉴</div>';
+  CURSE_LIB.forEach(function(c){h+='<div class="card"><div class="t">'+c.n+'</div><div class="s">等级'+c.g+' · 体力'+c.hp+' · 攻击'+c.atk+' · 经验'+c.xp+'</div></div>'});
+  h+='<div class="sec">◆ 咒 具 · 咒 物</div>';
+  for(var r in RELICS)h+='<div class="card"><div class="t">'+r+'</div><div class="tags">'+RELICS[r].map(function(x){return'<span class="tg gold">'+x+'</span>'}).join('')+'</div></div>';
+  h+='<div class="sec">◆ 地 点</div>';
+  for(var p in PLACES)h+='<div class="card"><div class="t">'+p+'</div><div class="tags">'+PLACES[p].map(function(x){return'<span class="tg">'+x+'</span>'}).join('')+'</div></div>';
+  return h;
+}
+function tabSys(){
+  var h='<div class="sec">系 统</div>'+
+  line('API',CFG.provider)+line('对话轮数',Math.floor(HIST.length/2))+
+  line('角色库',Object.keys(CAST).length+' 位')+
+  line('术式库',Object.keys(TECH_LIB).reduce(function(a,k){return a+TECH_LIB[k].length},0)+' 种')+
+  line('咒灵库',CURSE_LIB.length+' 种')+
+  line('装备库',(EQUIPMENT.weapon.length+EQUIPMENT.armor.length+EQUIPMENT.accessory.length)+' 件')+
+  line('技能库',Object.keys(SKILL_TREE).reduce(function(a,k){return a+SKILL_TREE[k].length},0)+' 种')+
+  line('任务库',QUEST_LIB.length+' 种')+
+  line('称号库',TITLES.length+' 种');
+  h+='<div class="sec">存 档</div><div class="opts">'+
+  '<button class="opt" id="btnSave"><span class="txt">保存到本地</span></button>'+
+  '<button class="opt" id="btnExport"><span class="txt">导出存档文本</span></button>'+
+  '<button class="opt" id="btnImport"><span class="txt">从文本导入存档</span></button>'+
+  '<button class="opt" id="btnReset"><span class="txt">重开人生</span></button>'+
+  '</div>';
+  h+='<div class="sec">说 明</div><div class="card" style="font-size:11.5px;line-height:1.8">'+
+  '· 输入任意行动，AI推演后果<br>'+
+  '· 选项点 ✎ 可改成自定义文字<br>'+
+  '· 完成委托涨高专好感<br>'+
+  '· 装备有属性加成<br>'+
+  '· 技能点学技能树<br>'+
+  '· 死亡不可逆<br>'+
+  '· 存档在浏览器本地'+
+  '</div>';
+  return h;
+}
+function bindTab(){
+  document.querySelectorAll('[data-eq]').forEach(function(b){b.onclick=function(){changeEq(b.dataset.eq)}});
+  document.querySelectorAll('[data-learn]').forEach(function(b){b.onclick=function(){learn(b.dataset.learn)}});
+  document.querySelectorAll('[data-dev]').forEach(function(b){b.onclick=function(){develop(b.dataset.dev)}});
+  document.querySelectorAll('[data-accept]').forEach(function(b){b.onclick=function(){accept(b.dataset.accept)}});
+  document.querySelectorAll('[data-buy]').forEach(function(b){b.onclick=function(){buy(b.dataset.buy)}});
+  document.querySelectorAll('[data-buyc]').forEach(function(b){b.onclick=function(){buyC(b.dataset.buyc)}});
   var b;
-  b = $('btnSave'); if(b) b.onclick = function(){ saveLocal(); toast('已保存'); };
-  b = $('btnExport'); if(b) b.onclick = exportSave;
-  b = $('btnImport'); if(b) b.onclick = importSave;
-  b = $('btnReset'); if(b) b.onclick = function(){
-    if(confirm('重开人生？当前进度会丢失。')){
-      localStorage.removeItem('jjk_complete');
-      location.reload();
-    }
-  };
-  b = $('devReverse'); if(b) b.onclick = function(){ develop('reverse'); };
-  b = $('devDomain'); if(b) b.onclick = function(){ develop('domain'); };
-  b = $('devBlackflash'); if(b) b.onclick = function(){ develop('blackflash'); };
+  b=$('btnSave');if(b)b.onclick=function(){saveLocal();toast('已保存')};
+  b=$('btnExport');if(b)b.onclick=exportSave;
+  b=$('btnImport');if(b)b.onclick=importSave;
+  b=$('btnReset');if(b)b.onclick=function(){if(confirm('重开人生？')){localStorage.removeItem('jjk_v8');location.reload()}};
+  b=$('btnDiary');if(b)b.onclick=writeDiary;
 }
 
-function line(l, v, cls){
-  return '<div class="line"><span class="l">' + l + '</span><span class="v ' + (cls || '') + '">' + v + '</span></div>';
-}
-
-/* =====================================================================
-   十三、叙事
-   ===================================================================== */
-function renderStoryFrom History(){
-  var main = $(' varmain');
-  main.innerHTML = '';
-  main var lastOptions = [];
-  for(var i = 0; i < HIST.length; i++){
-    var h = HIST[i];
-    if(h.role === 'user'){
-      if(h.content.indexOf('【开局设定】') === 0) continue;
-      addMsgEl('p', h.content);
-    } else {
-      var p = parseAI(h.content);
-      if(p.ts) S.time.label = p.ts;
-      addMsgEl('a', p.narrative);
-      if(i === HIST.length - 1) lastOptions = p.options;
-    }
+/* ==================== 叙事 ==================== */
+function renderStory(){
+  var m=$('main');m.innerHTML='';var lo=[];
+  for(var i=0;i<HIST.length;i++){
+    var h=HIST[i];
+    if(h.role==='user'){if(h.content.indexOf('【开局设定】')===0)continue;addMsg('p',h.content)}
+    else{var p=parseAI(h.content);if(p.ts)S.time.label=p.ts;addMsg('a',p.narrative);if(i===HIST.length-1)lo=p.options}
   }
-  renderBar();
-  renderOptions(lastOptions);
-  main.scrollTop = main.scrollHeight;
+  renderBar();renderOptions(lo);m.scrollTop=m.scrollHeight;
 }
-
-function addMsgEl(who, text){
- = $('main');
-  var el = document.createElement('div');
-  el.className = 'msg ' + who;
-  var w = document.createElement('div');
-  w.className = 'who';
-  w.textContent = who === 'p' ? '你' : who === 'sys' ? '系统' : who === 'err' ? '错误' : '世界';
+function addMsg(who,text){
+  var m=$('main');var el=document.createElement('div');
+  el.className='msg '+who;
+  var w=document.createElement('div');w.className='who';
+  w.textContent={p:'你',sys:'系统',err:'错误',ev:'事件',battle:'战斗',a:'世界'}[who]||'世界';
   el.appendChild(w);
-  var b = document.createElement('div');
-  b.className = 'body';
-  b.textContent = text || '';
-  el.appendChild(b);
-  main.appendChild(el);
-  main.scrollTop = main.scrollHeight;
-  return {el: el, body: b};
+  var b=document.createElement('div');b.className='body';b.textContent=text||'';
+  el.appendChild(b);m.appendChild(el);m.scrollTop=m.scrollHeight;
+  return{el:el,body:b};
 }
-
 function renderOptions(opts){
-  var el = $('options');
-  el.innerHTML = '';
-  if(!opts || !opts.length){
-    el.classList.remove('show');
-    return;
-  }
-  var lbl = document.createElement('div');
-  lbl.className = 'lbl';
-  lbl.textContent = '◇ 可以做的事';
+  var el=$('options');el.innerHTML='';
+  if(!opts||!opts.length){el.classList.remove('show');return}
+  var lbl=document.createElement('div');lbl.className='lbl';
+  lbl.innerHTML='<span>◇ 可以做的事</span><span class="hint">点✎可改成自定义</span>';
   el.appendChild(lbl);
   opts.forEach(function(text){
-    var b = document.createElement('button');
-    b.className = 'optbtn';
-    b.textContent = text;
-    b.onclick = function(){
-      renderOptions([]);
-      send(text);
+    var b=document.createElement('button');b.className='optbtn';
+    var tx=document.createElement('span');tx.className='txt';tx.textContent=text;b.appendChild(tx);
+    var pen=document.createElement('span');pen.className='pen';pen.textContent='✎';b.appendChild(pen);
+    b.onclick=function(e){
+      if(e.target===pen||e.target.parentNode===pen){
+        showPrompt('改成你想做的事：',text,function(v){if(v&&v.trim()){renderOptions([]);send(v.trim())}});
+        return;
+      }
+      renderOptions([]);send(text);
     };
     el.appendChild(b);
   });
   el.classList.add('show');
 }
 
-/* =====================================================================
-   十四、主流程
-   ===================================================================== */
+/* ==================== 主流程 ==================== */
 async function send(text){
-  if(BUSY || !text.trim() || !S || S.dead) return;
-  if(TAB !== 'story') switchTab('story');
-  BUSY = true;
-  $('send').disabled = true;
-  renderOptions([]);
-
-  addMsgEl('p', text);
-  $('inp').value = '';
-  $('inp').style.height = 'auto';
-
-  HIST.push({role:'user', content: text});
-
-  var m = addMsgEl('a', '');
-  m.body.classList.add('cur');
-
-  var finalFull = '';
+  if(BUSY||!text.trim()||!S||S.dead)return;
+  if(TAB!=='story')switchTab('story');
+  BUSY=true;$('send').disabled=true;renderOptions([]);
+  addMsg('p',text);$('inp').value='';$('inp').style.height='auto';
+  HIST.push({role:'user',content:text});
+  var m=addMsg('a','');m.body.classList.add('cur');
+  var full='';
   try{
-    finalFull = await callAI(function(full){
-      var p = parseAI(full);
-      m.body.textContent = p.narrative;
-      $('main').scrollTop = $('main').scrollHeight;
-    });
+    full=await callAI(function(f){var p=parseAI(f);m.body.textContent=p.narrative;$('main').scrollTop=$('main').scrollHeight});
   }catch(e){
-    m.body.classList.remove('cur');
-    m.el.className = 'msg err';
-    m.el.querySelector('.who').textContent = '错误';
-    m.body.textContent = e.message + '\n\n检查 API Key、余额、网络。';
-    HIST.pop();
-    BUSY = false;
-    $('send').disabled = false;
-    return;
+    m.body.classList.remove('cur');m.el.className='msg err';m.el.querySelector('.who').textContent='错误';
+    m.body.textContent=e.message+'\n\n检查API Key、余额、网络。';
+    HIST.pop();BUSY=false;$('send').disabled=false;return;
   }
-
-  var p = parseAI(finalFull);
-  m.body.classList.remove('cur');
-  m.body.textContent = p.narrative;
-
-  if(p.ts) S.time.label = p.ts;
-  HIST.push({role:'assistant', content: finalFull});
-  if(HIST.length > 26) HIST = HIST.slice(-26);
-
-  applyDelta(p.stateDelta);
-  renderBar();
-  renderOptions(p.options);
-  saveLocal();
-
-  BUSY = false;
-  $('send').disabled = false;
-  $('main').scrollTop = $('main').scrollHeight;
+  var p=parseAI(full);
+  m.body.classList.remove('cur');m.body.textContent=p.narrative;
+  if(p.ts)S.time.label=p.ts;
+  HIST.push({role:'assistant',content:full});
+  if(HIST.length>30)HIST=HIST.slice(-30);
+  applySt(p.st);
+  renderBar();renderOptions(p.options);saveLocal();
+  BUSY=false;$('send').disabled=false;$('main').scrollTop=$('main').scrollHeight;
 }
 
-/* =====================================================================
-   十五、能力开发
-   ===================================================================== */
+/* ==================== 系统操作 ==================== */
+function learn(id){
+  var sk=null;
+  for(var t in SKILL_TREE)SKILL_TREE[t].forEach(function(x){if(x.id===id)sk=x});
+  if(!sk||S.skills.indexOf(id)>=0)return;
+  if(S.sp<sk.c){toast('技能点不足');return}
+  S.sp-=sk.c;S.skills.push(id);toast('学会：'+sk.n);
+  if(id==='rv1')S.reverse='治愈（初阶）';
+  if(id==='rv3')S.reverse='输出';
+  if(id==='ts4')S.domain='开发中';
+  saveLocal();renderTab();renderBar();
+}
+function accept(id){
+  var q=null;QUEST_LIB.forEach(function(x){if(x.id===id)q=x});
+  if(!q)return;if(S.quests.some(function(x){return x.id===id}))return;
+  S.quests.push(q);toast('接受：'+q.n);
+  switchTab('story');send('我接下「'+q.n+'」这个委托。'+q.d+'。我准备出发。');
+}
+function buy(id){
+  var it=null;
+  ['weapon','armor','accessory'].forEach(function(sl){EQUIPMENT[sl].forEach(function(x){if(x.id===id)it=x})});
+  if(!it)return;if(S.money<it.p){toast('钱不够');return}
+  S.money-=it.p;S.inventory.push(it.n);toast('购买：'+it.n);
+  saveLocal();renderTab();renderBar();
+}
+function buyC(name){
+  var prices={'绷带':500,'止血药':2000,'咒力回复药':3000,'营养剂':5000};
+  var pr=prices[name];if(!pr)return;if(S.money<pr){toast('钱不够');return}
+  S.money-=pr;S.inventory.push(name);toast('购买：'+name);
+  saveLocal();renderTab();renderBar();
+}
+function changeEq(slot){
+  var list=EQUIPMENT[slot]||[];
+  var own=list.filter(function(it){return it.id===S.equipment[slot]||S.inventory.indexOf(it.n)>=0});
+  if(!own.length){toast('没有可装备的');return}
+  var msg='可选：\n'+own.map(function(x){return'· '+x.n}).join('\n')+'\n\n输入装备名字：';
+  showPrompt('更换装备',msg,function(input){
+    var p=input.trim();
+    for(var i=0;i<own.length;i++)if(own[i].n===p){S.equipment[slot]=own[i].id;toast('已装备：'+own[i].n);saveLocal();renderTab();renderBar();return}
+    toast('没找到');
+  });
+}
+function writeDiary(){
+  showTextarea('写一篇日记','',function(text){
+    if(!text.trim())return;
+    S.diary.push({t:S.time.label,text:text.trim()});toast('日记已保存');
+    saveLocal();renderTab();
+  });
+}
 function develop(type){
-  if(BUSY || S.dead) return;
-  var text = '';
-  if(type === 'reverse') text = '我花了一段时间，反复琢磨反转术式。试着把咒力在体内叠加。';
-  else if(type === 'domain') text = '我试着感受自己生得领域的轮廓。这需要极度的专注。';
-  else if(type === 'blackflash') text = '我反复挥拳，寻找黑闪的契机。集中力放到极致。';
-  switchTab('story');
-  send(text);
+  if(BUSY||S.dead)return;
+  var t='';
+  if(type==='reverse')t='我花了一段时间反复琢磨反转术式。试着把咒力在体内叠加。';
+  else if(type==='domain')t='我试着感受自己生得领域的轮廓。';
+  else if(type==='blackflash')t='我反复挥拳，寻找黑闪的契机。';
+  switchTab('story');send(t);
 }
 
-/* =====================================================================
-   十六、死亡
-   ===================================================================== */
+/* ==================== 弹窗 ==================== */
+var pmCb=null;
+function showPrompt(title,val,cb){
+  $('pmTitle').textContent=title;
+  $('pmInput').value=val||'';
+  $('pm').classList.add('on');pmCb=cb;
+  setTimeout(function(){$('pmInput').focus()},100);
+}
+function showTextarea(title,val,cb){
+  $('pmTitle').textContent=title;
+  $('pmInput').value=val||'';
+  $('pm').classList.add('on');pmCb=cb;
+  setTimeout(function(){$('pmInput').focus()},100);
+}
+function closePm(){$('pm').classList.remove('on');pmCb=null}
+
+/* ==================== 死亡 ==================== */
 function showDeath(){
-  var txt = S.name + '\n' +
-    S.age + '岁 · ' + (S.time.label || '') + '\n' +
-    (S.identity || '') + ' · ' + (S.location || '') + '\n\n' +
-    '死因：' + (S.deathCause || '不详') + '\n\n' +
-    '这个世界不会因为你的死而停下。\n明天，东京的电车照常运行。';
-  $('epi').textContent = txt;
-  $('death').classList.add('on');
+  var t=S.name+'\n'+S.age+'岁 · '+(S.time.label||'')+'\n'+(S.identity||'')+' · '+(S.location||'')+
+  '\n\n死因：'+(S.deathCause||'不详')+'\n\n这个世界不会因为你的死而停下。\n明天，东京的电车照常运行。';
+  $('epi').textContent=t;$('death').classList.add('on');
 }
 
-/* =====================================================================
-   十七、存档
-   ===================================================================== */
-function saveLocal(){
-  try{ localStorage.setItem('jjk_complete', JSON.stringify({ CFG: CFG, HIST: HIST, S: S })); }
-  catch(e){}
-}
-function loadLocal(){
-  try{
-    var raw = localStorage.getItem('jjk_complete');
-    if(!raw) return false;
-    var d = JSON.parse(raw);
-    CFG = d.CFG; HIST = d.HIST || []; S = d.S;
-    return true;
-  }catch(e){ return false; }
-}
-
+/* ==================== 存档 ==================== */
+function saveLocal(){try{localStorage.setItem('jjk_v8',JSON.stringify({CFG:CFG,HIST:HIST,S:S}))}catch(e){}}
+function loadLocal(){try{var r=localStorage.getItem('jjk_v8');if(!r)return false;var d=JSON.parse(r);CFG=d.CFG;HIST=d.HIST||[];S=d.S;return true}catch(e){return false}}
 function exportSave(){
-  var txt = JSON.stringify({ CFG: CFG, HIST: HIST, S: S });
-  $('modalTitle').textContent = '导出存档';
-  $('modalText').value = txt;
-  $('modalText').readOnly = true;
-  $('modalAction').textContent = '全选';
-  $('modalAction').onclick = function(){
-    $('modalText').select();
-    try{ document.execCommand('copy'); toast('已复制'); }
-    catch(e){ toast('请长按选择复制'); }
-  };
-  $('modalClose').onclick = function(){ $('modal').classList.remove('on'); };
+  var txt=JSON.stringify({CFG:CFG,HIST:HIST,S:S});
+  $('modalTitle').textContent='导出存档';
+  $('modalText').value=txt;$('modalText').readOnly=true;
+  $('modalAction').textContent='全选';
+  $('modalAction').onclick=function(){$('modalText').select();try{document.execCommand('copy');toast('已复制')}catch(e){toast('请长按复制')}};
+  $('modalClose').onclick=function(){$('modal').classList.remove('on')};
   $('modal').classList.add('on');
 }
-
 function importSave(){
-  $('modalTitle').textContent = '粘贴存档文本';
-  $('modalText').value = '';
-  $('modalText').readOnly = false;
-  $('modalText').placeholder = '把之前导出的存档粘贴到这里...';
-  $('modalAction').textContent = '导入';
-  $('modalAction').onclick = function(){
+  $('modalTitle').textContent='粘贴存档文本';
+  $('modalText').value='';$('modalText').readOnly=false;
+  $('modalText').placeholder='粘贴存档...';
+  $('modalAction').textContent='导入';
+  $('modalAction').onclick=function(){
     try{
-      var txt = $('modalText').value.trim();
-      var d = JSON.parse(txt);
-      if(!d.S || !d.HIST) throw new Error('格式不对');
-      CFG = d.CFG; HIST = d.HIST; S = d.S;
-      saveLocal();
-      $('modal').classList.remove('on');
-      switchTab('story');
-      renderBar();
-      toast('导入成功');
-    }catch(e){
-      alert('导入失败：' + e.message);
-    }
+      var d=JSON.parse($('modalText').value.trim());
+      if(!d.S||!d.HIST)throw new Error('格式不对');
+      CFG=d.CFG;HIST=d.HIST;S=d.S;saveLocal();
+      $('modal').classList.remove('on');switchTab('story');renderBar();toast('导入成功');
+    }catch(e){alert('导入失败：'+e.message)}
   };
-  $('modalClose').onclick = function(){ $('modal').classList.remove('on'); };
+  $('modalClose').onclick=function(){$('modal').classList.remove('on')};
   $('modal').classList.add('on');
 }
-
-function toast(text){
-  var t = document.createElement('div');
-  t.textContent = text;
-  t.style.cssText = 'position:fixed;bottom:30%;left:50%;transform:translateX(-50%);' +
-    'background:rgba(20,18,16,.95);color:#d4cdbd;padding:10px 20px;border:1px solid #2c2720;' +
-    'font-size:12px;letter-spacing:.2em;z-index:700;font-family:monospace;pointer-events:none;';
-  document.body.appendChild(t);
-  setTimeout(function(){ t.remove(); }, 1500);
+function toast(t){
+  var el=document.createElement('div');
+  el.textContent=t;
+  el.style.cssText='position:fixed;bottom:30%;left:50%;transform:translateX(-50%);background:rgba(20,18,16,.95);color:#d4cdbd;padding:9px 18px;border:1px solid #2c2720;font-size:11.5px;letter-spacing:.2em;z-index:700;font-family:monospace;pointer-events:none';
+  document.body.appendChild(el);
+  setTimeout(function(){el.remove()},1500);
 }
 
-/* =====================================================================
-   十八、开局
-   ===================================================================== */
+/* ==================== 开局 ==================== */
 async function startGame(){
-  var key = $('pKey').value.trim();
-  if(!key){ alert('请填 API Key'); return; }
-
-  CFG = {
-    provider: $('pProv').value,
-    key: key,
-    url: $('pUrl').value.trim(),
-    model: $('pModel').value.trim()
+  var key=$('pKey').value.trim();
+  if(!key){alert('请填 API Key');return}
+  CFG={provider:$('pProv').value,key:key,url:$('pUrl').value.trim(),model:$('pModel').value.trim()};
+  var cfg={
+    era:$('pEra').value,origin:$('pOrigin').value,tech:$('pTech').value,
+    name:$('pName').value.trim()||'无名',gender:$('pGender').value,
+    age:parseInt($('pAge').value)||15,loc:$('pLoc').value,
+    bio:$('pBio').value.trim(),trait:$('pTrait').value.trim()
   };
-
-  var cfg = {
-    era: $('pEra').value,
-    origin: $('pOrigin').value,
-    tech: $('pTech').value,
-    name: $('pName').value.trim() || '无名',
-    gender: $('pGender').value,
-    age: parseInt($('pAge').value) || 15,
-    loc: $('pLoc').value,
-    bio: $('pBio').value.trim(),
-    trait: $('pTrait').value.trim()
-  };
-
-  S = newState(cfg);
-  HIST = [];
-
-  $('setup').style.display = 'none';
-  $('app').style.display = 'flex';
-  switchTab('story');
-  renderBar();
-
-  var seed = '【开局设定】\n' +
-    '时代：' + cfg.era + '年，起始时间 ' + cfg.era + '年4月\n' +
-    '姓名：' + cfg.name + '｜' + cfg.age + '岁｜' + cfg.gender + '\n' +
-    '出身：' + cfg.origin + '\n' +
-    '术式资质：' + cfg.tech + '\n' +
-    '居住地：' + cfg.loc + '\n' +
-    '性格：' + (cfg.trait || '（未指定）') + '\n' +
-    '自我介绍：' + (cfg.bio || '（无）') + '\n\n' +
-    '请写开场。要求：\n' +
-    '1. 明确他/她此刻在什么具体场景（结合时代、出身、年龄）。\n' +
-    '2. 至少一个可感知的细节——声音、气味、温度、光线。\n' +
-    '3. 埋下伏笔但不要点破。\n' +
-    '4. 250-350字。\n' +
-    '5. 不要问玩家问题。\n' +
-    '6. 输出格式：时间戳行 + 叙事 + <选项> + <状态>。';
-
+  S=newState(cfg);HIST=[];
+  $('setup').style.display='none';$('app').style.display='flex';
+  switchTab('story');renderBar();
+  var seed='【开局设定】\n时代：'+cfg.era+'年，起始'+cfg.era+'年4月\n'+
+  '姓名：'+cfg.name+'｜'+cfg.age+'岁'+cfg.gender+'\n'+
+  '出身：'+cfg.origin+'\n术式资质：'+cfg.tech+'\n居住地：'+cfg.loc+'\n'+
+  '性格：'+(cfg.trait||'未指定')+'\n自我介绍：'+(cfg.bio||'无')+'\n\n'+
+  '请写开场。要求：\n1. 明确此刻在什么场景（结合时代、出身、年龄）\n'+
+  '2. 至少一个可感知的细节（声音、气味、温度、光线）\n3. 埋下伏笔但不要点破\n'+
+  '4. 250-350字\n5. 不要问玩家问题\n6. 输出：时间戳行 + 叙事 + <选项> + <状态>';
   await send(seed);
 }
 
-/* =====================================================================
-   十九、初始化
-   ===================================================================== */
-document.addEventListener('DOMContentLoaded', function(){
-
-  $('pProv').addEventListener('change', function(e){
-    var v = e.target.value;
-    $('urlF').style.display = v === 'custom' ? '' : 'none';
-    $('modF').style.display = v === 'custom' ? '' : 'none';
-    var h = {
-      deepseek: '去 <a href="https://platform.deepseek.com" target="_blank">platform.deepseek.com</a> 拿 key。10 元能玩很久。',
-      openai: 'OpenAI 官方接口。需要海外支付方式。',
-      custom: '任何 OpenAI 兼容接口：通义、Kimi、智谱、本地 Ollama。'
-    };
-    $('pHint').innerHTML = h[v];
+/* ==================== 初始化 ==================== */
+document.addEventListener('DOMContentLoaded',function(){
+  $('pProv').addEventListener('change',function(e){
+    var v=e.target.value;
+    $('urlF').style.display=v==='custom'?'':'none';
+    $('modF').style.display=v==='custom'?'':'none';
+    var h={deepseek:'去 <a href="https://platform.deepseek.com" target="_blank">platform.deepseek.com</a> 拿 key。',openai:'OpenAI 官方接口。',custom:'任何 OpenAI 兼容接口。'};
+    $('pHint').innerHTML=h[v];
   });
-
-  $('startBtn').onclick = startGame;
-
-  $('loadBtn').onclick = function(){
-    if(loadLocal()){
-      $('setup').style.display = 'none';
-      $('app').style.display = 'flex';
-      switchTab('story');
-      renderBar();
-      if(S.dead) showDeath();
-    } else {
-      alert('没有找到存档。');
-    }
+  $('startBtn').onclick=startGame;
+  $('loadBtn').onclick=function(){
+    if(loadLocal()){$('setup').style.display='none';$('app').style.display='flex';switchTab('story');renderBar();if(S.dead)showDeath()}
+    else alert('没有找到存档。');
   };
-
-  $('helpBtn').onclick = function(){
-    alert('咒术人生 · 完全形态\n\n' +
-      '【玩法】\n' +
-      '· AI 是整个世界，不是聊天机器人\n' +
-      '· 你输入任何行动，AI 推演后果\n' +
-      '· AI 会给出建议选项，你也可以自由输入\n' +
-      '· 输入框永远优先\n\n' +
-      '【示例输入】\n' +
-      '· 我去高专找五条悟\n' +
-      '· 逃课去涩谷\n' +
-      '· 我训练一个月\n' +
-      '· 我什么都不做，躺一整天\n' +
-      '· 我试着调动体内的咒力\n' +
-      '· 我打听宿傩手指的事\n\n' +
-      '【铁律】\n' +
-      '· 原著事件按时间线发生\n' +
-      '· 死亡不可逆\n' +
-      '· 世界不围绕你旋转\n\n' +
-      '【图鉴】\n' +
-      '「图鉴」标签页里有全部角色、术式、\n' +
-      '咒灵、咒具、地点资料。');
+  $('helpBtn').onclick=function(){
+    alert('咒术人生\n\n【玩法】\n· AI是整个世界\n· 输入任何行动，AI推演后果\n· 选项点 ✎ 可改成自定义\n· 底部输入框随时可用\n\n【示例】\n· 我去高专找五条悟\n· 逃课去涩谷\n· 我训练一个月\n· 我试着调动体内咒力\n\n【铁律】\n· 原著事件按时间线发生\n· 死亡不可逆\n· 世界不围绕你旋转');
   };
-
-  $('clearBtn').onclick = function(){
-    if(confirm('删除本地存档？')){
-      localStorage.removeItem('jjk_complete');
-      alert('已删除。');
-    }
-  };
-
-  $('send').onclick = function(){ send($('inp').value); };
-  $('inp').addEventListener('keydown', function(e){
-    if(e.key === 'Enter' && !e.shiftKey){
-      e.preventDefault();
-      send($('inp').value);
-    }
-  });
-  $('inp').addEventListener('input', function(e){
-    e.target.style.height = 'auto';
-    e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
-  });
-
-  document.querySelectorAll('.tab').forEach(function(t){
-    t.onclick = function(){ switchTab(t.dataset.tab); };
-  });
-
-  $('modalClose').onclick = function(){ $('modal').classList.remove('on'); };
-
-  $('restart').onclick = function(){
-    if(confirm('重开人生？当前进度会丢失。')){
-      localStorage.removeItem('jjk_complete');
-      location.reload();
-    }
-  };
-
-  window.addEventListener('beforeunload', saveLocal);
+  $('clearBtn').onclick=function(){if(confirm('删除本地存档？')){localStorage.removeItem('jjk_v8');alert('已删除')}};
+  $('send').onclick=function(){send($('inp').value)};
+  $('inp').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send($('inp').value)}});
+  $('inp').addEventListener('input',function(e){e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,110)+'px'});
+  document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){switchTab(t.dataset.tab)}});
+  $('modalClose').onclick=function(){$('modal').classList.remove('on')};
+  $('pmCancel').onclick=closePm;
+  $('pmOk').onclick=function(){if(pmCb)pmCb($('pmInput').value);closePm()};
+  $('pmInput').addEventListener('keydown',function(e){if(e.key==='Enter'){if(pmCb)pmCb($('pmInput').value);closePm()}});
+  $('restart').onclick=function(){if(confirm('重开人生？')){localStorage.removeItem('jjk_v8');location.reload()}};
+  window.addEventListener('beforeunload',saveLocal);
 });
 </script>
 </body>
