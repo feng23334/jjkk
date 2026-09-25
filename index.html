@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>咒术人生</title>
+<style>
+:root{--bg:#0c0b09;--panel:#16130f;--ink:#cfc7b8;--ink2:#8a8275;--ink3:#565047;--line:#2a251d;--gold:#9a8451;--blood:#8a3a2e;--jade:#5a6a4a;--serif:'Songti SC','Noto Serif JP',serif;--mono:Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--serif);overflow:hidden;-webkit-font-smoothing:antialiased;font-size:16px}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.25;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E")}
+#app{position:relative;z-index:5;height:100%;max-width:680px;margin:0 auto;display:flex;flex-direction:column}
+.top{padding:calc(10px + env(safe-area-inset-top)) 18px 8px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start}
+.top .n{font-size:15px;letter-spacing:.15em}
+.top .s{font-size:10px;color:var(--ink3);letter-spacing:.2em;margin-top:3px;font-family:var(--mono)}
+.top .r{text-align:right;font-size:10px;color:var(--ink3);font-family:var(--mono);line-height:1.6}
+.bar{padding:6px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--ink3);font-family:var(--mono)}
+.bar b{color:var(--ink2);font-weight:400;margin-left:2px}
+.bar .bad b{color:var(--blood)}
+.main{flex:1;overflow-y:auto;padding:18px 18px 10px;scrollbar-width:none}
+.main::-webkit-scrollbar{display:none}
+.passage{font-size:15.5px;line-height:2;white-space:pre-wrap;margin-bottom:18px;animation:fi .4s}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.passage em{color:var(--gold);font-style:normal}
+.passage .b{color:var(--blood)}
+.passage .d{color:var(--ink2)}
+.passage .g{color:var(--jade)}
+.stamp{font-size:9px;color:var(--ink3);letter-spacing:.25em;font-family:var(--mono);margin-bottom:6px}
+.choices{padding:10px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.ch{display:block;width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:12px 16px;margin-bottom:7px;text-align:left;font-family:var(--serif);font-size:14.5px;line-height:1.5;cursor:pointer;transition:all .15s;border-radius:0}
+.ch:active{border-color:var(--gold);background:#1c1813}
+.ch.risky{border-color:#4a2a2a}
+.ch.risky:active{border-color:var(--blood)}
+.ch .tag{float:right;font-size:9.5px;color:var(--ink3);font-family:var(--mono);letter-spacing:.1em;margin-left:8px}
+.ch.risky .tag{color:var(--blood)}
+.ch.good .tag{color:var(--jade)}
+.ov{position:fixed;inset:0;background:rgba(8,7,6,.97);z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center}
+.ov.on{display:flex}
+.ov .g{font-size:60px;color:var(--blood);letter-spacing:.3em;margin-bottom:28px}
+.ov .t{font-size:12px;color:var(--gold);letter-spacing:.5em;margin-bottom:16px}
+.ov .e{font-size:13.5px;color:var(--ink2);line-height:2.1;max-width:440px;margin-bottom:36px;white-space:pre-wrap}
+.ov .btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:13px 32px;font-size:12px;letter-spacing:.4em;font-family:var(--serif);cursor:pointer}
+.setup{position:fixed;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;overflow-y:auto;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom))}
+.setup::-webkit-scrollbar{display:none}
+.setup h1{font-size:24px;letter-spacing:.5em;text-align:center;font-weight:400;margin-bottom:4px}
+.setup .sb{text-align:center;font-size:9.5px;color:var(--ink3);letter-spacing:.35em;font-family:var(--mono);margin-bottom:30px}
+.setup h2{font-size:10.5px;letter-spacing:.3em;color:var(--ink3);font-family:var(--mono);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.opt{display:block;width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink2);padding:11px 14px;margin-bottom:6px;text-align:left;font-family:var(--serif);font-size:14px;cursor:pointer;border-radius:0;transition:all .15s}
+.opt:active{border-color:var(--gold)}
+.opt.on{border-color:var(--gold);color:var(--ink);background:#1c1813}
+.opt .d{display:block;font-size:10.5px;color:var(--ink3);font-family:var(--mono);margin-top:3px;letter-spacing:.05em}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:10.5px;color:var(--ink3);letter-spacing:.15em;margin-bottom:5px;font-family:var(--mono)}
+.fld input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:10px 12px;font-family:var(--serif);font-size:15px;outline:none;border-radius:0}
+.fld input:focus{border-color:var(--gold)}
+.go{width:100%;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:15px;font-size:13px;letter-spacing:.5em;font-family:var(--serif);margin-top:24px;cursor:pointer;border-radius:0}
+.go:active{background:var(--gold);color:var(--bg)}
+</style>
+</head>
+<body>
+
+<div class="setup" id="setup">
+<h1>咒术人生</h1>
+<div class="sb">JUJUTSU KAISEN · LIFE</div>
+
+<h2>◈ 出身</h2>
+<div id="orgs"></div>
+
+<h2>◈ 时代</h2>
+<div id="eras"></div>
+
+<h2>◈ 你</h2>
+<div class="fld"><label>姓名</label><input id="fName" value="虎杖悠仁" maxlength="10"></div>
+
+<button class="go" id="startBtn">开 始 人 生</button>
+</div>
+
+<div id="app" style="display:none">
+<div class="top">
+<div><div class="n" id="tName">—</div><div class="s" id="tSub">—</div></div>
+<div class="r"><div id="tDate">—</div></div>
+</div>
+<div class="bar" id="stats"></div>
+<div class="main" id="main"></div>
+<div class="choices" id="choices"></div>
+</div>
+
+<div class="ov" id="deathOv">
+<div class="t">— 终 —</div>
+<div class="g">死</div>
+<div class="e" id="epi"></div>
+<button class="btn" id="restartBtn">重 新 开 始</button>
+</div>
+
+<script>
+"use strict";
+
+// ================== 数据 ==================
+var ORIGINS = [
+  {id:'normal', n:'普通人觉醒', d:'父母非术师。某一日，你突然看见了诅咒。', hp:100, ce:180, atk:15, ctrl:20, money:8000, tech:'无', tag:'脆弱但无拘束'},
+  {id:'family', n:'咒术师家庭', d:'父母至少一方为术师。你从小知道诅咒的存在。', hp:110, ce:280, atk:22, ctrl:35, money:30000, tech:'rand:普通', tag:'有传承，有枷锁'},
+  {id:'big3', n:'御三家旁支', d:'五条、禅院或加茂的旁系。姓氏既是门第，也是监视。', hp:105, ce:320, atk:25, ctrl:40, money:180000, tech:'rand:良好', tag:'资源，与偏见'},
+  {id:'heaven', n:'天与咒缚', d:'以咒力为代价换取肉体。你生来没有咒力，也生来是怪物。', hp:180, ce:0, atk:75, ctrl:5, money:12000, tech:'天与咒缚', tag:'没有术式，只有拳头'},
+  {id:'vessel', n:'受肉体 / 容器', d:'你体内寄宿着另一个存在。它不说话，但它在。', hp:150, ce:600, atk:30, ctrl:25, money:5000, tech:'rand:优秀', tag:'危险 · 可能不再是"你"'},
+  {id:'curse', n:'诅咒师家庭', d:'你在黑市和阴影里长大。规则只有强弱。', hp:100, ce:250, atk:28, ctrl:30, money:15000, tech:'rand:普通', tag:'没有身份，没有保护'},
+  {id:'seer', n:'非术师（能看见）', d:'你看得见诅咒，但你没有术式。你只能记录、上报、逃。', hp:90, ce:60, atk:10, ctrl:15, money:10000, tech:'无', tag:'最危险也最不起眼'},
+  {id:'star', n:'星浆体', d:'天元选中了你。你的存在本身，就是一个期限。', hp:120, ce:500, atk:20, ctrl:40, money:0, tech:'rand:特殊', tag:'极高危 · 命运的囚笼'},
+];
+
+var ERAS = [
+  {id:2018, n:'2018 · 涩谷事变', d:'虎杖入学。五条被封印。东京沦陷。'},
+  {id:2017, n:'2017 · 百鬼夜行', d:'乙骨入学。夏油杰发动百鬼夜行。'},
+  {id:2006, n:'2006 · 怀玉·玉折', d:'五条与夏油还是高专学生。'},
+  {id:1980, n:'1980 · 战后', d:'旧体制重建。九十九由基的时代。'},
+  {id:1900, n:'1900 · 明治', d:'加茂宪伦。咒胎九相图。'},
+];
+
+var TECH_POOL = {
+  '普通':['简单的强化术式','感知型术式','微弱的远程术式'],
+  '良好':['十划咒法','刍灵咒法','赤血操术（稀薄）'],
+  '优秀':['十种影法术（未完全觉醒）','咒言','不义游戏'],
+  '特殊':['六眼（未觉醒）','反转术式天赋','领域天赋'],
+};
+
+var CURSES = [
+  {n:'四级·蝇头', g:4, hp:20, atk:6, xp:8},
+  {n:'四级·座敷童子', g:4, hp:30, atk:8, xp:10},
+  {n:'三级·裂口女', g:3, hp:55, atk:14, xp:22},
+  {n:'三级·人面犬', g:3, hp:65, atk:16, xp:26},
+  {n:'二级·隧道鬼', g:2, hp:110, atk:26, xp:60},
+  {n:'二级·八握剑', g:2, hp:130, atk:30, xp:70},
+  {n:'一级·枯木咒灵', g:1, hp:210, atk:45, xp:150},
+  {n:'一级·花御的残秽', g:1, hp:240, atk:50, xp:170},
+  {n:'特级·漏瑚的业火', g:0, hp:400, atk:80, xp:400},
+  {n:'特级·真人的无为转变', g:0, hp:450, atk:85, xp:450},
+];
+
+var NPC = {
+  '五条悟':{n:'五条悟',j:'特级 / 高专教师',t:'无下限 · 六眼',era:[2018,2017,2006,1980],mood:'轻浮但眼神冷'},
+  '伏黑惠':{n:'伏黑惠',j:'一级 / 高专学生',t:'十种影法术',era:[2018,2017],mood:'沉默'},
+  '钉崎野蔷薇':{n:'钉崎野蔷薇',j:'三级 / 高专学生',t:'刍灵咒法',era:[2018,2017],mood:'直率'},
+  '虎杖悠仁':{n:'虎杖悠仁',j:'宿傩容器',t:'迳庭拳',era:[2018,2017],mood:'善良'},
+  '七海建人':{n:'七海建人',j:'一级',t:'十划咒法',era:[2018,2017,2006,1980],mood:'疲惫'},
+  '家入硝子':{n:'家入硝子',j:'校医 / 反转术式',t:'反转术式',era:[2018,2017,2006,1980],mood:'冷静毒舌'},
+  '夏油杰':{n:'夏油杰',j:'诅咒师 / 特级',t:'咒灵操术',era:[2017,2006],mood:'优雅而疯狂'},
+  '乙骨忧太':{n:'乙骨忧太',j:'特级',t:'术式模仿',era:[2018,2017],mood:'温柔'},
+  '夜蛾正道':{n:'夜蛾正道',j:'校长',t:'咒骸操术',era:[2018,2017,2006,1980],mood:'严肃'},
+  '冥冥':{n:'冥冥',j:'一级',t:'黑鸟操术',era:[2018,2017,2006,1980],mood:'贪财'},
+  '宿傩':{n:'宿傩',j:'诅咒之王',t:'斩击 · 伏魔御厨子',era:[2018,2017,2006,1980,1900],mood:'纯粹的恶'},
+  '孔时雨':{n:'孔时雨',j:'情报贩子',t:'无',era:[2018,2017,2006],mood:'唯利是图'},
+};
+
+var EVENTS = [];
+function registerEvent(e){ EVENTS.push(e); }
+
+// ========== 通用事件 ==========
+registerEvent({
+  id:'daily_meet', weight:10, cond:function(s){return s.age>=10},
+  run:function(s){
+    var c = pick(CURSES.slice(0,4));
+    var place = pick(['废弃医院','深夜的电车','学校的旧楼','隧道口','便利店后面']);
+    return {
+      text:'<div class="stamp">'+dateStr(s)+'</div>你在<em>'+place+'</em>看见了它。\n\n一只<em>'+c.n+'</em>。它趴在阴影里，像一团凝固的脓。\n\n没有人注意到。你没有选择——它已经看见你了。',
+      choices:[
+        {t:'动手。祓除它。', tag:'战斗', risky:true, fn:function(){return startBattle(c)}},
+        {t:'悄悄后退，离开。', tag:'回避', fn:function(){
+          if(Math.random()<.5){ s.hp -= 15; return{text:'<div class="stamp">'+dateStr(s)+'</div>你后退了一步。\n\n它跟了上来。爪子划过你的手臂。\n\n<span class="b">你受伤了。但活下来了。</span>', choices:next}; }
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你慢慢退后。\n\n它没有追。你回到人多的地方。\n\n<span class="d">心脏在胸口撞了很久。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+registerEvent({
+  id:'daily_train', weight:8, cond:function(s){return true},
+  run:function(s){
+    return {
+      text:'<div class="stamp">'+dateStr(s)+'</div>你在高专后山练了<em>一整天</em>。\n\n拳头砸在石头上，皮破了。咒力从掌心渗出去，像水从指缝漏。\n\n天黑时你坐在台阶上喘气。',
+      choices:[
+        {t:'继续。到深夜。', tag:'成长', good:true, fn:function(){
+          s.atk += rnd(1,3); s.ctrl += rnd(2,4); s.ce = Math.min(s.maxCe, s.ce + 30);
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你又练了三个小时。\n\n<span class="g">战斗 +。控制 +。咒力恢复。</span>', choices:next};
+        }},
+        {t:'停下。休息。', fn:function(){
+          s.hp = Math.min(s.maxHp, s.hp + 15);
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你去便利店买了一罐咖啡，然后回家。\n\n<span class="d">什么都没变。但这不是失败。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+registerEvent({
+  id:'daily_npc', weight:9, cond:function(s){return Object.keys(s.npc||{}).length>0},
+  run:function(s){
+    var keys = Object.keys(s.npc);
+    var name = pick(keys);
+    var info = s.npc[name];
+    return {
+      text:'<div class="stamp">'+dateStr(s)+'</div>你遇见了<em>'+name+'</em>。\n\n'+(info.j?'（'+info.j+'）\n\n':'')+pick([
+        '对方看了你一眼。"有事？"',
+        '对方在喝咖啡。沉默了一会儿。"坐吧。"',
+        '对方正在写什么。抬头，看了你一眼，没说话。',
+        '对方问你："你为什么做这个？"',
+        '对方说了句什么，你听不清。风很大。',
+      ]),
+      choices:[
+        {t:'试着聊几句', tag:'人际', fn:function(){
+          s.npc[name].trust = (s.npc[name].trust||0) + rnd(3,8);
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你们聊了一会儿。\n\n<span class="d">'+(name)+'对你的信任上升了。</span>', choices:next};
+        }},
+        {t:'点头，然后走开', fn:function(){
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你点了点头。对方也没有挽留。\n\n<span class="d">风很大。</span>', choices:next};
+        }},
+        {t:'说"教我点什么"', tag:'请求', fn:function(){
+          if((s.npc[name].trust||0) >= 30){
+            s.ctrl += rnd(2,5); s.atk += rnd(1,3);
+            s.npc[name].trust += 5;
+            return{text:'<div class="stamp">'+dateStr(s)+'</div>'+name+'看了你一会儿，然后说："行。"\n\n<span class="g">你学到了东西。控制 +，战斗 +。</span>', choices:next};
+          }
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>'+name+'笑了一下。"你还不够。"\n\n<span class="d">你被拒绝了。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+registerEvent({
+  id:'daily_solitude', weight:7, cond:function(s){return true},
+  run:function(s){
+    s.hp = Math.min(s.maxHp, s.hp + rnd(5,15));
+    s.ce = Math.min(s.maxCe, s.ce + rnd(20,40));
+    return {
+      text:'<div class="stamp">'+dateStr(s)+'</div>'+pick([
+        '你在房间里坐了一整天。什么也没做。窗外的光从东边移到西边。',
+        '你一个人去河边。水很静。你看了很久。',
+        '你去深夜食堂点了一碗面。老板没问你任何事。',
+        '你在床上盯着天花板。外面的车流声一直响到凌晨。',
+      ]),
+      choices:[
+        {t:'就这样过完这一天', fn:function(){
+          return{text:'<div class="stamp">'+dateStr(s)+'</div><span class="d">有些日子就是这样。它们也是你人生的一部分。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+registerEvent({
+  id:'daily_job', weight:6, cond:function(s){return true},
+  run:function(s){
+    var jobs = [
+      {n:'便利店夜班', p:rnd(3000,6000), hp:-5},
+      {n:'搬运工', p:rnd(6000,10000), hp:-10},
+      {n:'家教', p:rnd(8000,14000), hp:-3},
+      {n:'发传单', p:rnd(2500,5000), hp:-4},
+    ];
+    var j = pick(jobs);
+    s.money += j.p;
+    s.hp = Math.max(0, s.hp + j.hp);
+    return {
+      text:'<div class="stamp">'+dateStr(s)+'</div>你做了一天<em>'+j.n+'</em>。\n\n赚了 ¥'+j.p+'。身体有点累。\n\n你回到住的地方，把鞋踢掉，倒在床上。',
+      choices:[
+        {t:'睡吧', fn:function(){
+          return{text:'<div class="stamp">'+dateStr(s)+'</div><span class="d">明天还得继续。这就是生活。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+// ========== 主线事件（原著锚定） ==========
+registerEvent({
+  id:'anchor_2018_10', weight:100, once:true, cond:function(s){return s.era===2018 && s.time.y===2018 && s.time.m===10 && !s.flags.shixu},
+  run:function(s){
+    s.flags.shixu = true;
+    return {
+      text:'<div class="stamp">2018年10月31日</div><em>涩谷事变。</em>\n\n你在手机上看见了新闻：涩谷站周边出现大规模异常。\n\n然后是高专的紧急传讯——"五条悟被封印。所有术师待命。"\n\n<span class="b">东京沦陷了。你听见远处有爆炸声。</span>',
+      choices:[
+        {t:'前往涩谷', tag:'极危', risky:true, fn:function(){
+          if(s.atk + s.ctrl < 80){ s.hp = Math.floor(s.hp * 0.3); return{text:'<div class="stamp">'+dateStr(s)+'</div>你去了涩谷。\n\n你看见了不该看见的东西。<em>灾厄。</em>\n\n你被余波扫到，几乎死在那里。\n\n<span class="b">你被一个不知名的术师拖着离开了。</span>\n\n回来时，你只剩半条命。', choices:next}; }
+          s.reputation += 15; s.atk += 3;
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你去了涩谷。\n\n你救了三个人。一个普通女孩，一个老人，一个小孩。\n\n<span class="g">你活了下来。声望 +。</span>', choices:next};
+        }},
+        {t:'留在原地，保护身边的人', fn:function(){
+          s.reputation += 5;
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你没有去涩谷。\n\n你留在高专，帮助疏散学生。\n\n<span class="d">有些人去了涩谷，没回来。你也不知道自己是幸运还是懦弱。</span>', choices:next};
+        }},
+        {t:'躲起来', fn:function(){
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你关了手机，躲进公寓。\n\n外面一直响到凌晨。\n\n<span class="d">你什么都没做。你活着。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+registerEvent({
+  id:'anchor_2018_12', weight:100, once:true, cond:function(s){return s.era===2018 && s.time.y===2018 && s.time.m===12 && !s.flags.moryu},
+  run:function(s){
+    s.flags.moryu = true;
+    return {
+      text:'<div class="stamp">2018年12月</div><em>死灭洄游。</em>\n\n羂索发动了。全国结界展开。\n\n你的手机收到一条陌生短信。上面只有一行坐标。\n\n<span class="b">你被卷进去了。</span>',
+      choices:[
+        {t:'进入结界', tag:'极危', risky:true, fn:function(){
+          var c = pick(CURSES.slice(6));
+          return startBattle(c);
+        }},
+        {t:'无视短信，离开城市', fn:function(){
+          s.money -= 50000;
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你收拾了几件衣服，买了新干线的票。\n\n你离开了东京。\n\n<span class="d">你在大阪的一间小公寓里，看着新闻里东京的画面。结界还在。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+// ========== 支线：认识五条 ==========
+registerEvent({
+  id:'meet_gojo', weight:6, cond:function(s){return s.era<=2018 && s.era>=2006 && !s.flags.metGojo && s.age>=14},
+  run:function(s){
+    s.flags.metGojo = true;
+    if(!s.npc['五条悟']) s.npc['五条悟'] = {trust:0, j:'特级 / 高专教师'};
+    return {
+      text:'<div class="stamp">'+dateStr(s)+'</div>你在高专的走廊上撞见一个<em>极高的人</em>。\n\n白头发。蒙着眼。他低头看你，笑了一下。\n\n"哟。新来的？"\n\n<span class="d">是五条悟。</span>',
+      choices:[
+        {t:'"是。"', fn:function(){
+          s.npc['五条悟'].trust = (s.npc['五条悟'].trust||0) + 5;
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>"嗯。"他点点头，走了。\n\n<span class="d">他没有多看你一眼。你在想，他看人到底是什么样的。</span>', choices:next};
+        }},
+        {t:'"我想变强。"', tag:'直白', fn:function(){
+          s.npc['五条悟'].trust = (s.npc['五条悟'].trust||0) + 10;
+          s.ctrl += 3;
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>他停了一下。\n\n"哦？"\n\n他低下头，隔着绷带看了你一眼。\n\n<span class="d">"那就练。"</span>\n\n<span class="g">控制 +。</span>', choices:next};
+        }},
+        {t:'低头，快速走过', fn:function(){
+          return{text:'<div class="stamp">'+dateStr(s)+'</div>你低着头从他身边走过。\n\n他没有回头。\n\n<span class="d">你也不知道自己为什么怕他。</span>', choices:next};
+        }},
+      ],
+    };
+  },
+});
+
+// ========== 系统辅助 ==========
+function dateStr(s){ return s.time.y+'年'+s.time.m+'月'; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+function rnd(n,m){ return Math.floor(Math.random()*(m-n+1))+n; }
+
+// 战斗
+function startBattle(c){
+  S.battle = {c:c, chp:c.hp, cphase:0};
+  return battlePrompt();
+}
+function battlePrompt(){
+  var b = S.battle;
+  if(!b) return {text:'', choices:next};
+  return {
+    text:'<div class="stamp">'+dateStr(S)+'</div><em>'+b.c.n+'</em>\n\n它向你扑来。\n\n<span class="d">你剩下 '+S.hp+' 点体力，'+S.ce+' 点咒力。</span>',
+    choices:[
+      {t:'攻击（用拳/武器）', tag:'战斗', fn:function(){
+        var dmg = S.atk + rnd(0,5);
+        b.chp -= dmg;
+        return afterPlayerAttack('你打了它一下。造成 '+dmg+' 伤害。');
+      }},
+      {t:'使用咒力攻击', tag:'消耗30咒力', risky:true, fn:function(){
+        if(S.ce < 30) return {text:'<div class="stamp">'+dateStr(S)+'</div><span class="b">咒力不足。</span>', choices:battlePrompt().choices};
+        S.ce -= 30;
+        var dmg = Math.floor(S.ctrl * 0.8) + rnd(5,15);
+        b.chp -= dmg;
+        return afterPlayerAttack('咒力从掌心涌出去。造成 '+dmg+' 伤害。');
+      }},
+      {t:'防御 / 观察', tag:'保守', fn:function(){
+        var dmg = Math.max(1, Math.floor(b.c.atk*0.5));
+        S.hp -= dmg;
+        if(S.hp<=0) return doDeath('被'+b.c.n+'杀死');
+        return {text:'<div class="stamp">'+dateStr(S)+'</div>你侧身闪过一半。它还是擦到了你。\n\n<span class="b">你受伤了（'+dmg+'）。</span>', choices:battlePrompt().choices};
+      }},
+      {t:'逃跑', tag:'危险', fn:function(){
+        if(Math.random() < 0.5 - b.c.g*0.1){
+          S.battle = null;
+          return {text:'<div class="stamp">'+dateStr(S)+'</div>你跑了。\n\n<span class="d">它没有追。你逃掉了。</span>', choices:next};
+        }
+        var dmg = b.c.atk;
+        S.hp -= dmg;
+        if(S.hp<=0) return doDeath('逃跑失败，被'+b.c.n+'杀死');
+        return {text:'<div class="stamp">'+dateStr(S)+'</div>你转身就跑，但它更快。\n\n<span class="b">它从背后击中你（'+dmg+'）。</span>', choices:battlePrompt().choices};
+      }},
+    ],
+  };
+}
+function afterPlayerAttack(msg){
+  var b = S.battle;
+  if(b.chp <= 0){
+    S.battle = null;
+    var xp = b.c.xp;
+    S.exp = (S.exp||0) + xp;
+    S.atk += rnd(0,2); S.ctrl += rnd(0,2);
+    var reward = xp * 300 + rnd(0, 1000);
+    S.money += reward;
+    checkLevelUp();
+    return {
+      text:'<div class="stamp">'+dateStr(S)+'</div>'+msg+'\n\n它倒了。化成灰。\n\n<span class="g">经验 +'+xp+'。报酬 ¥'+reward+'。</span>',
+      choices:next,
+    };
+  }
+  var dmg = b.c.atk + rnd(0,8);
+  S.hp -= dmg;
+  if(S.hp<=0) return doDeath('被'+b.c.n+'杀死');
+  return {
+    text:'<div class="stamp">'+dateStr(S)+'</div>'+msg+'\n\n它反击了。\n\n<span class="b">你受到 '+dmg+' 伤害。剩下 '+S.hp+'。</span>',
+    choices:battlePrompt().choices,
+  };
+}
+function checkLevelUp(){
+  if(S.exp >= 100){
+    S.exp -= 100;
+    S.maxHp += 10; S.hp = S.maxHp;
+    S.maxCe += 15; S.ce = S.maxCe;
+    S.atk += 2; S.ctrl += 2;
+  }
+}
+
+function doDeath(cause){
+  S.dead = true;
+  S.deathCause = cause;
+  document.getElementById('epi').textContent =
+    S.name+'\n'+S.age+'岁 · '+dateStr(S)+'\n\n死因：'+cause+'\n\n这个世界不会因为你的死而停下。\n明天，东京的电车照常运行。';
+  document.getElementById('deathOv').classList.add('on');
+  return {text:'', choices:[]};
+}
+
+// ========== 状态 ==========
+var S = null;
+
+function newState(cfg){
+  var o = ORIGINS.find(function(x){return x.id===cfg.origin});
+  var tech = '无';
+  if(o.tech.indexOf('rand:')===0){
+    var tier = o.tech.slice(5);
+    tech = pick(TECH_POOL[tier] || ['简单的强化术式']);
+  } else if(o.tech === '天与咒缚'){
+    tech = '天与咒缚';
+  }
+
+  var npc = {};
+  for(var k in NPC){
+    if(NPC[k].era.indexOf(cfg.era)>=0){
+      npc[k] = {trust:0, j:NPC[k].j, mood:NPC[k].mood};
+    }
+  }
+
+  return {
+    name: cfg.name,
+    age: cfg.age || 15,
+    gender: '男',
+    origin: o.n,
+    originId: o.id,
+    era: cfg.era,
+    time: {y:cfg.era, m:4},
+    location: pick(['东京','东京','京都','仙台']),
+    identity: cfg.age<=18 ? '高专学生（预定）' : '自由术师',
+    hp: o.hp, maxHp: o.hp,
+    ce: o.ce, maxCe: o.ce,
+    atk: o.atk, ctrl: o.ctrl,
+    money: o.money, reputation: 0,
+    tech: tech, innate: tech,
+    domain: '未觉醒', reverse: '无',
+    exp: 0,
+    inventory: [],
+    flags: {},
+    npc: npc,
+    battle: null,
+    dead: false,
+    deathCause: '',
+  };
+}
+
+function next(){
+  return pickEvent();
+}
+
+function pickEvent(){
+  // 优先锚定事件
+  var candidates = EVENTS.filter(function(e){
+    return e.cond(S) && (!e.once || !S.flags['_ev_'+e.id]);
+  });
+  if(candidates.length === 0){
+    // 兜底
+    return {
+      text:'<div class="stamp">'+dateStr(S)+'</div>日子一天天过去。\n\n<span class="d">你还活着。</span>',
+      choices:[{t:'继续', fn:function(){ advanceMonth(); return pickEvent(); }}],
+    };
+  }
+  var e = weightedPick(candidates);
+  if(e.once) S.flags['_ev_'+e.id] = true;
+  return e.run(S);
+}
+
+function weightedPick(arr){
+  var total = arr.reduce(function(a,b){return a + (b.weight||1)}, 0);
+  var r = Math.random() * total;
+  for(var i=0;i<arr.length;i++){
+    r -= (arr[i].weight||1);
+    if(r <= 0) return arr[i];
+  }
+  return arr[arr.length-1];
+}
+
+function advanceMonth(){
+  S.time.m++;
+  if(S.time.m>12){S.time.m=1;S.time.y++;S.age++;}
+  S.ce = Math.min(S.maxCe, S.ce + rnd(20,50));
+  S.hp = Math.min(S.maxHp, S.hp + rnd(5,15));
+  if(S.age > 80) S.atk = Math.max(10, S.atk - 2);
+  if(S.age > 90 && Math.random() < 0.3) doDeath('年迈');
+}
+
+// ========== 渲染 ==========
+function render(){
+  if(!S) return;
+  document.getElementById('tName').textContent = S.name;
+  document.getElementById('tSub').textContent = S.age+'岁 · '+S.identity+' · '+S.location;
+  document.getElementById('tDate').textContent = dateStr(S);
+  var hb = S.hp<40 ? 'bad' : '';
+  var cb = (S.maxCe>0 && S.ce<S.maxCe*0.25) ? 'bad' : '';
+  document.getElementById('stats').innerHTML =
+    '<span class="'+hb+'">体力<b>'+S.hp+'/'+S.maxHp+'</b></span>'+
+    '<span class="'+cb+'">咒力<b>'+S.ce+'/'+S.maxCe+'</b></span>'+
+    '<span>战斗<b>'+S.atk+'</b></span>'+
+    '<span>控制<b>'+S.ctrl+'</b></span>'+
+    '<span>声望<b>'+S.reputation+'</b></span>'+
+    '<span>¥<b>'+S.money+'</b></span>';
+}
+
+function showPassage(p){
+  var main = document.getElementById('main');
+  var div = document.createElement('div');
+  div.className = 'passage';
+  div.innerHTML = p.text;
+  main.appendChild(div);
+  main.scrollTop = main.scrollHeight;
+
+  var ch = document.getElementById('choices');
+  ch.innerHTML = '';
+  p.choices.forEach(function(c){
+    var btn = document.createElement('button');
+    btn.className = 'ch' + (c.risky ? ' risky' : '') + (c.good ? ' good' : '');
+    btn.innerHTML = c.t + (c.tag ? '<span class="tag">'+c.tag+'</span>' : '');
+    btn.onclick = function(){
+      var result = c.fn();
+      if(!result) return;
+      if(S.dead) return;
+      if(c.tag !== '战斗' && c.tag !== '消耗30咒力' && c.tag !== '保守' && c.tag !== '危险'){
+        // 推进时间（非战斗选项）
+        if(Math.random() < 0.5) advanceMonth();
+      }
+      render();
+      showPassage(result);
+    };
+    ch.appendChild(btn);
+  });
+}
+
+// ========== 开局 ==========
+var selectedOrigin = 'normal';
+var selectedEra = 2018;
+
+function buildSetup(){
+  var orgs = document.getElementById('orgs');
+  ORIGINS.forEach(function(o){
+    var b = document.createElement('button');
+    b.className = 'opt' + (o.id===selectedOrigin ? ' on' : '');
+    b.innerHTML = o.n + '<span class="d">'+o.d+' · '+o.tag+'</span>';
+    b.onclick = function(){
+      selectedOrigin = o.id;
+      document.querySelectorAll('#orgs .opt').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');
+    };
+    orgs.appendChild(b);
+  });
+  var eras = document.getElementById('eras');
+  ERAS.forEach(function(e){
+    var b = document.createElement('button');
+    b.className = 'opt' + (e.id===selectedEra ? ' on' : '');
+    b.innerHTML = e.n + '<span class="d">'+e.d+'</span>';
+    b.onclick = function(){
+      selectedEra = e.id;
+      document.querySelectorAll('#eras .opt').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');
+    };
+    eras.appendChild(b);
+  });
+}
+
+function startGame(){
+  var name = document.getElementById('fName').value.trim() || '无名';
+  S = newState({origin:selectedOrigin, era:selectedEra, name:name, age:15});
+  render();
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+
+  // 开场
+  var intro = {
+    text:'<div class="stamp">'+dateStr(S)+'</div>你是<em>'+S.name+'</em>。\n\n'+S.origin+'。\n\n你生活在'+S.location+'。\n\n'+pick([
+      '你还不确定自己为什么能看见那些东西。',
+      '你从小就知道世界比看起来更脏。',
+      '有人告诉过你，咒力来自人的负面情绪。你信了。',
+      '你不知道自己会走到哪一步。',
+    ])+'\n\n<span class="d">你不是被选中的人。你只是这个世界里出生的一个人。</span>',
+    choices:[
+      {t:'开始', fn:function(){ return pickEvent(); }},
+    ],
+  };
+  showPassage(intro);
+}
+
+// ========== 绑定 ==========
+document.addEventListener('DOMContentLoaded', function(){
+  buildSetup();
+  document.getElementById('startBtn').onclick = startGame;
+  document.getElementById('restartBtn').onclick = function(){
+    document.getElementById('deathOv').classList.remove('on');
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('setup').style.display = 'flex';
+    S = null;
+  };
+});
+</script>
+</body>
+</html>
