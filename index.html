@@ -12,7 +12,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--serif);overflow:hidden;-webkit-font-smoothing:antialiased;font-size:16px;letter-spacing:.02em}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E")}
-#app{position:relative;z-index:5;height:100%;max-width:800px;margin:0 auto;display:flex;flex-direction:column}
+#app{position:relative;z-index:5;height:100%;max-width:820px;margin:0 auto;display:flex;flex-direction:column}
 #bar{padding:calc(9px + env(safe-area-inset-top)) 16px 6px;border-bottom:1px solid var(--line);flex-shrink:0}
 .bar1{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;gap:10px}
 #bname{font-size:14px;letter-spacing:.2em;color:var(--ink)}
@@ -26,7 +26,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 .tab.on{color:var(--ink);border-bottom-color:var(--gold)}
 #main{flex:1;overflow-y:auto;padding:18px 16px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 #main::-webkit-scrollbar{display:none}
-.msg{margin-bottom:24px;animation:in .5s ease}
+.msg{margin-bottom:22px;animation:in .5s ease}
 @keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .msg .who{font-size:8.5px;color:var(--ink3);font-family:var(--mono);letter-spacing:.3em;margin-bottom:7px}
 .msg .body{font-size:15.5px;line-height:2.05;white-space:pre-wrap;color:var(--ink);letter-spacing:.03em}
@@ -35,6 +35,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 .msg.err .body{color:var(--blood)}
 .msg.sys .who{color:var(--jade)}.msg.sys .body{color:var(--ink2);font-size:13px}
 .msg.ev .who{color:var(--violet)}.msg.ev .body{border-left:2px solid var(--violet);padding-left:12px;font-style:italic}
+.msg.ai .who{color:var(--gold)}.msg.ai .body{border-left:2px solid var(--gold);padding-left:12px;color:#e8dfc8}
 .cur::after{content:'▌';color:var(--gold);animation:bk 1.1s steps(1) infinite;font-size:.85em;margin-left:1px}
 @keyframes bk{50%{opacity:0}}
 .sec{font-size:10px;letter-spacing:.3em;color:var(--ink3);font-family:var(--mono);margin:18px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--line)}
@@ -76,13 +77,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 #send{width:38px;height:38px;border-radius:50%;background:none;border:1px solid var(--line2);color:var(--ink2);font-size:14px;cursor:pointer;flex-shrink:0;font-family:var(--mono)}
 #send:active{border-color:var(--gold);color:var(--gold)}
 #send:disabled{opacity:.25}
-#setup{position:fixed;inset:0;background:var(--bg);z-index:400;display:flex;flex-direction:column;overflow-y:auto;padding:calc(30px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));scrollbar-width:none}
+/* ==== 设置界面 ==== */
+#setup{position:fixed;inset:0;background:var(--bg);z-index:400;display:flex;flex-direction:column;overflow-y:auto;padding:calc(28px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));scrollbar-width:none}
 #setup::-webkit-scrollbar{display:none}
-.logo{text-align:center;margin-bottom:26px}
+.logo{text-align:center;margin-bottom:22px}
 .logo h1{font-size:24px;letter-spacing:.6em;font-weight:400;color:var(--ink);margin-bottom:5px;padding-left:.6em}
 .logo .sub{font-size:9px;color:var(--ink3);letter-spacing:.5em;font-family:var(--mono);padding-left:.5em}
-.logo .ln{width:36px;height:1px;background:var(--gold);margin:16px auto 0;opacity:.55}
-.sec-t{font-size:9.5px;letter-spacing:.35em;color:var(--ink3);font-family:var(--mono);margin:17px 0 9px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.logo .ln{width:36px;height:1px;background:var(--gold);margin:14px auto 0;opacity:.55}
+.sec-t{font-size:9.5px;letter-spacing:.35em;color:var(--ink3);font-family:var(--mono);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
 .fld{margin-bottom:9px}
 .fld label{display:block;font-size:9.5px;color:var(--ink3);letter-spacing:.2em;margin-bottom:5px;font-family:var(--mono)}
 .fld input,.fld select,.fld textarea{width:100%;background:none;border:none;border-bottom:1px solid var(--line2);color:var(--ink);padding:6px 0;font-family:var(--serif);font-size:14px;outline:none;border-radius:0;transition:border-color .3s}
@@ -96,6 +98,30 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 .go:active{background:var(--gold);color:var(--bg)}
 .bar3{display:flex;gap:18px;margin-top:14px;justify-content:center;flex-wrap:wrap}
 .bar3 button{background:none;border:none;color:var(--ink3);padding:6px 0;font-size:9.5px;font-family:var(--mono);letter-spacing:.3em;cursor:pointer}
+/* ==== 建角界面 ==== */
+#create{position:fixed;inset:0;background:var(--bg);z-index:450;display:none;flex-direction:column;padding:calc(12px + env(safe-area-inset-top)) 16px calc(12px + env(safe-area-inset-bottom))}
+#create.on{display:flex}
+#cTop{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-shrink:0}
+#cTop .title{font-size:13px;letter-spacing:.3em;color:var(--gold);margin-bottom:6px}
+#cTop .progress{font-size:9px;color:var(--ink3);font-family:var(--mono);letter-spacing:.15em}
+#cArchive{background:var(--paper);border:1px solid var(--line2);padding:8px 10px;margin-bottom:10px;font-size:11px;line-height:1.7;max-height:130px;overflow-y:auto;flex-shrink:0;scrollbar-width:none}
+#cArchive::-webkit-scrollbar{display:none}
+#cArchive .k{color:var(--ink3);font-family:var(--mono);font-size:9.5px;letter-spacing:.15em}
+#cArchive .v{color:var(--ink)}
+#cChat{flex:1;overflow-y:auto;padding:4px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#cChat::-webkit-scrollbar{display:none}
+#cFoot{flex-shrink:0;padding-top:10px;border-top:1px solid var(--line)}
+.cmsg{margin-bottom:16px;animation:in .4s ease}
+.cmsg .who{font-size:8.5px;color:var(--ink3);font-family:var(--mono);letter-spacing:.3em;margin-bottom:5px}
+.cmsg .body{font-size:14.5px;line-height:1.95;white-space:pre-wrap;color:var(--ink)}
+.cmsg.q .body{color:var(--gold);font-size:14px}
+.cmsg.p .body{color:var(--ink2);font-style:italic;padding-left:10px;border-left:1px solid var(--line2)}
+.cmsg.s .body{color:var(--ink2);font-size:12.5px;font-family:var(--mono);line-height:1.7}
+.btn-group{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.bg{background:var(--paper);border:1px solid var(--line2);color:var(--ink);padding:7px 11px;font-size:12px;cursor:pointer;font-family:var(--serif);flex:1 0 auto;text-align:left;border-radius:0;line-height:1.5}
+.bg:active{border-color:var(--gold);background:var(--panel)}
+.bg.gold{border-color:#3a3020;color:var(--gold)}
+.bg.done{opacity:.5}
 #death{position:fixed;inset:0;background:#050505;z-index:500;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 26px;text-align:center;animation:in 1.2s}
 #death.on{display:flex}
 #death .m{font-size:10.5px;color:var(--gold);letter-spacing:.7em;font-family:var(--mono);margin-bottom:26px;padding-left:.7em}
@@ -116,6 +142,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 </head>
 <body>
 
+<!-- 设置 -->
 <div id="setup">
 <div class="logo"><h1>咒术人生</h1><div class="sub">JUJUTSU KAISEN</div><div class="ln"></div></div>
 <div class="sec-t">◈ 接 入 A I</div>
@@ -127,23 +154,31 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 <div class="fld"><select id="pEra">
 <option value="2018">2018 · 涩谷事变前后</option><option value="2017">2017 · 百鬼夜行前后</option><option value="2006">2006 · 怀玉·玉折</option><option value="1980">1980 · 战后咒术界</option><option value="1900">1900 · 明治</option><option value="1600">1600 · 战国～江户</option><option value="900">900 · 平安</option>
 </select></div>
-<div class="sec-t">◈ 出 身</div>
-<div class="fld"><select id="pOrigin">
-<option>普通人觉醒</option><option>咒术师家庭</option><option>御三家旁支</option><option>天与咒缚</option><option>受肉体 / 容器</option><option>咒骸 / 人造生命</option><option>诅咒师家庭</option><option>非术师（能看见）</option><option>星浆体</option>
-</select></div>
-<div class="sec-t">◈ 你 是 谁</div>
-<div class="two"><div class="fld"><label>姓名</label><input type="text" id="pName" value="虎杖悠仁" maxlength="10"></div><div class="fld"><label>年龄</label><input type="number" id="pAge" value="15" min="6" max="60"></div></div>
-<div class="fld"><label>性别</label><select id="pGender"><option>男</option><option>女</option><option>其他</option></select></div>
-<div class="fld"><label>术式资质</label><select id="pTech">
-<option>随机</option><option>无术式</option><option>普通生得术式</option><option>良好生得术式</option><option>优秀生得术式</option><option>特殊 · 六眼/反转/领域天赋</option>
-</select></div>
-<div class="fld"><label>居住地</label><select id="pLoc"><option>东京</option><option>京都</option><option>仙台</option><option>大阪</option><option>北海道</option><option>国外</option></select></div>
-<div class="fld"><label>性格关键词（逗号分隔）</label><input type="text" id="pTrait" placeholder="例：坚韧,好奇,重情" maxlength="40"></div>
-<div class="fld"><label>一句话介绍自己（可选）</label><textarea id="pBio" placeholder="例：我从小能看见别人看不见的东西。"></textarea></div>
-<button class="go" id="startBtn">开 始 人 生</button>
+<button class="go" id="startBtn">开 始 创 建 角 色</button>
 <div class="bar3"><button id="loadBtn">读 取 存 档</button><button id="helpBtn">说 明</button><button id="clearBtn">删 除 存 档</button></div>
 </div>
 
+<!-- 建角 -->
+<div id="create">
+<div id="cTop">
+<div class="title">创 建 角 色</div>
+<div class="progress" id="cProgress">—</div>
+</div>
+<div id="cArchive"></div>
+<div id="cChat"></div>
+<div id="cFoot">
+<div id="cButtons" class="btn-group"></div>
+<div id="cInputRow" style="display:none;margin-top:8px">
+<textarea id="cInput" rows="1" placeholder="说出你的想法……" style="flex:1;background:none;border:none;border-bottom:1px solid var(--line2);color:var(--ink);font-family:var(--serif);font-size:14px;padding:6px 0;resize:none;outline:none;width:100%;max-height:80px"></textarea>
+<div style="display:flex;gap:6px;margin-top:6px">
+<button class="bg" id="cSend" style="flex:1">发送</button>
+<button class="bg" id="cCancel" style="flex:1">取消</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 游戏 -->
 <div id="app" style="display:none">
 <div id="bar"><div class="bar1"><div id="bname" class="dim">—</div><div id="btime">—</div></div><div class="bar2" id="bstat"></div></div>
 <div id="tabs">
@@ -160,22 +195,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
 <div id="main"></div>
 <div id="foot">
 <div id="options"></div>
-<div id="row"><textarea id="inp" rows="1" placeholder="你要做什么……（也可以自己输入）"></textarea><button id="send">→</button></div>
+<div id="row"><textarea id="inp" rows="1" placeholder="你要做什么……"></textarea><button id="send">→</button></div>
 </div>
 </div>
 
 <div id="death"><div class="m">终</div><div class="g">死</div><div class="e" id="epi"></div><button class="btn primary" id="restart">重 新 开 始</button></div>
 <div id="modal"><div class="inner"><h3 id="modalTitle">存档</h3><textarea id="modalText"></textarea><div class="btns"><button id="modalClose">关闭</button><button id="modalAction" class="primary">确定</button></div></div></div>
-<div id="pm"><div class="inner"><h3 id="pmTitle">输入</h3><input id="pmInput" type="text"><div class="btns"><button id="pmCancel">取消</button><button id="pmOk" class="primary">确定</button></div></div></div>
+<div id="pm"><div class="inner"><h3 id="pmTitle">输入</h3><textarea id="pmInput"></textarea><div class="btns"><button id="pmCancel">取消</button><button id="pmOk" class="primary">确定</button></div></div></div>
 
 <script>
 "use strict";
 
-/* ==================== 数据：全角色库 ==================== */
-var CAST = {
+/* ==================== 数据 ==================== */
+var CAST={
 '五条悟':{j:'特级/高专教师',aff:'东京高专/五条家',t:'无下限·六眼·无量空处',gr:'特级',era:'1980,2006,2017,2018',n:'轻浮但眼神冷，最强也最孤独'},
 '夜蛾正道':{j:'高专校长',aff:'东京高专',t:'咒骸操术',gr:'一级',era:'1980,2006,2017,2018',n:'严肃，关心学生'},
-'家入硝子':{j:'高专校医',aff:'东京高专',t:'反转术式',gr:'无评级',era:'1980,2006,2017,2018',n:'冷静毒舌，抽烟'},
+'家入硝子':{j:'高专校医',aff:'东京高专',t:'反转术式',gr:'无评级',era:'1980,2006,2017,2018',n:'冷静毒舌抽烟'},
 '七海建人':{j:'一级咒术师',aff:'东京高专',t:'十划咒法·黑闪',gr:'一级',era:'1980,2006,2017,2018',n:'疲惫社畜。"咒术师是狗屎。"'},
 '伊地知洁高':{j:'辅助监督',aff:'东京高专',t:'无',gr:'非术师',era:'2006,2017,2018',n:'胆小但尽责'},
 '灰原雄':{j:'已故术师',aff:'东京高专',t:'未知',gr:'三级',era:'1980,2006',n:'开朗热心',dead:1},
@@ -234,16 +269,15 @@ var CAST = {
 '新田新':{j:'辅助监督',aff:'东京高专',t:'无',gr:'非术师',era:'2017,2018',n:'新田明的弟弟'}
 };
 
-/* ==================== 数据：术式/领域/咒灵/咒具/地点 ==================== */
-var TECH_LIB = {
+var TECH_LIB={
 '无':['咒力操作（基础）','咒力强化','咒力遮蔽'],
 '普通':['简单的强化术式','感知型术式','微弱的远程术式','咒力拳','刃击术式','风刃术式'],
 '良好':['十划咒法','刍灵咒法','赤血操术（稀薄）','黑鸟操术（简化）','投影咒法','构筑术式（简化）','扫帚飞行'],
 '优秀':['十种影法术','咒言','不义游戏','构筑术式','投射咒法','天空术式','模仿术式（劣化）'],
 '特殊':['无下限（未觉醒）','六眼（未觉醒）','反转术式天赋','领域天赋','星之怒（未觉醒）','术式模仿（未觉醒）','无为转变（禁忌）']
 };
-var DOMAINS = {'五条悟':'无量空处','宿傩':'伏魔御厨子','伏黑惠':'嵌合暗翳庭','日车宽见':'诛伏赐死','秤金次':'坐杀博徒','漏瑚':'盖棺铁围山','真人':'自闭圆顿裹','陀艮':'荡蕴平线','花御':'朵颐光海'};
-var CURSE_LIB = [
+var DOMAINS={'五条悟':'无量空处','宿傩':'伏魔御厨子','伏黑惠':'嵌合暗翳庭','日车宽见':'诛伏赐死','秤金次':'坐杀博徒','漏瑚':'盖棺铁围山','真人':'自闭圆顿裹','陀艮':'荡蕴平线','花御':'朵颐光海'};
+var CURSE_LIB=[
 {n:'四级·蝇头',g:4,hp:18,atk:5,xp:8},{n:'四级·座敷童子',g:4,hp:28,atk:7,xp:10},
 {n:'四级·无脸男',g:4,hp:22,atk:6,xp:9},{n:'三级·裂口女',g:3,hp:50,atk:13,xp:22},
 {n:'三级·人面犬',g:3,hp:60,atk:15,xp:26},{n:'三级·花子小姐',g:3,hp:55,atk:14,xp:24},
@@ -254,18 +288,16 @@ var CURSE_LIB = [
 {n:'特级·真人的无为转变',g:0,hp:420,atk:82,xp:420},{n:'特级·花御的森罗',g:0,hp:400,atk:78,xp:400},
 {n:'特级·陀艮的深渊',g:0,hp:450,atk:85,xp:450}
 ];
-var RELICS = {'特级咒物':['宿傩手指','狱门疆','天逆鉾','咒胎九相图','五条家折扇'],'特级咒具':['游云','释魂刀','黑绳','万里之锁'],'名刀级':['数珠丸','童子切','三日月宗近','大包平','骚速剑'],'良品':['咒具·三节棍','咒具·短刀','护符·辟邪','简易领域符','镇痛符'],'消耗品':['绷带','止血药','止痛剂','营养剂','咒力回复药','手电筒']};
-var PLACES = {'东京':['涩谷站地下','新宿歌舞伎町','东京高专','荒川废弃医院','池袋西口','高尾山','多摩川河滩','上野公园','丰洲市场','秋叶原','浅草寺','东京塔'],'京都':['京都高专','伏见稻荷','岚山竹林','先斗町','京都站地下','鸭川河滩','金阁寺','祇园'],'仙台':['仙台站前','青叶城迹','荒滨','一番町','仙台高专旧址','松岛'],'大阪':['道顿堀','新世界','天王寺','梅田地下','大阪城公园'],'北海道':['札幌雪原','函馆仓库街','知床','大通公园','小樽运河'],'国外':['香港九龙','首尔江南','纽约地下','马尼拉旧城','台北西门町']};
-
-/* ==================== 数据：势力/技能/任务/装备/称号 ==================== */
-var FACTIONS = {'东京高专':{start:10,d:'培养实战术师'},'京都高专':{start:0,d:'姐妹校'},'咒术总监部':{start:0,d:'官僚机构'},'御三家':{start:0,d:'五条/禅院/加茂'},'盘星教':{start:-20,d:'夏油杰的宗教组织'},'黑市':{start:0,d:'地下中介'}};
-var SKILL_TREE = {
+var RELICS={'特级咒物':['宿傩手指','狱门疆','天逆鉾','咒胎九相图','五条家折扇'],'特级咒具':['游云','释魂刀','黑绳','万里之锁'],'名刀级':['数珠丸','童子切','三日月宗近','大包平','骚速剑'],'良品':['咒具·三节棍','咒具·短刀','护符·辟邪','简易领域符','镇痛符'],'消耗品':['绷带','止血药','止痛剂','营养剂','咒力回复药','手电筒']};
+var PLACES={'东京':['涩谷站地下','新宿歌舞伎町','东京高专','荒川废弃医院','池袋西口','高尾山','多摩川河滩','上野公园','丰洲市场','秋叶原','浅草寺','东京塔'],'京都':['京都高专','伏见稻荷','岚山竹林','先斗町','京都站地下','鸭川河滩','金阁寺','祇园'],'仙台':['仙台站前','青叶城迹','荒滨','一番町','仙台高专旧址','松岛'],'大阪':['道顿堀','新世界','天王寺','梅田地下','大阪城公园'],'北海道':['札幌雪原','函馆仓库街','知床','大通公园','小樽运河'],'国外':['香港九龙','首尔江南','纽约地下','马尼拉旧城','台北西门町']};
+var FACTIONS={'东京高专':{start:10,d:'培养实战术师'},'京都高专':{start:0,d:'姐妹校'},'咒术总监部':{start:0,d:'官僚机构'},'御三家':{start:0,d:'五条/禅院/加茂'},'盘星教':{start:-20,d:'夏油杰的宗教组织'},'黑市':{start:0,d:'地下中介'}};
+var SKILL_TREE={
 '咒力操作':[{id:'ce1',n:'咒力强化',c:1,d:'战斗+2'},{id:'ce2',n:'咒力遮蔽',c:1,d:'隐匿+2'},{id:'ce3',n:'咒力探测',c:2,d:'感知+3'},{id:'ce4',n:'简易领域',c:3,d:'防御+4'},{id:'ce5',n:'咒力爆发',c:4,d:'战斗+8'}],
 '体术':[{id:'bt1',n:'基础格斗',c:1,d:'战斗+3'},{id:'bt2',n:'武器精通',c:2,d:'武器加成+50%'},{id:'bt3',n:'受身',c:2,d:'体力上限+10'},{id:'bt4',n:'身法',c:3,d:'闪避提升'},{id:'bt5',n:'铁块',c:4,d:'体力上限+20'}],
 '术式开发':[{id:'ts1',n:'术式熟练',c:2,d:'控制+5'},{id:'ts2',n:'术式延伸',c:3,d:'术式威力提升'},{id:'ts3',n:'术式反转',c:5,d:'附加反转效果'},{id:'ts4',n:'领域雏形',c:8,d:'领域展开概率提升'}],
 '反转术式':[{id:'rv1',n:'反转基础',c:4,d:'解锁反转术式'},{id:'rv2',n:'治愈精通',c:5,d:'治疗量翻倍'},{id:'rv3',n:'反转输出',c:6,d:'对咒灵致命'}]
 };
-var QUEST_LIB = [
+var QUEST_LIB=[
 {id:'q1',n:'废弃医院祓除',g:'三级',r:8000,rep:2,exp:15,time:'3天',risk:.15,d:'东京西部废弃医院出现三级咒灵'},
 {id:'q2',n:'学校结界维护',g:'四级',r:3000,rep:1,exp:5,time:'1天',risk:.05,d:'某高中结界出现裂缝'},
 {id:'q3',n:'咒物回收',g:'二级',r:30000,rep:5,exp:40,time:'5天',risk:.3,d:'回收黑市的二级咒物'},
@@ -275,12 +307,12 @@ var QUEST_LIB = [
 {id:'q7',n:'盘星教据点侦察',g:'二级',r:40000,rep:8,exp:50,time:'7天',risk:.35,d:'侦察盘星教地下据点'},
 {id:'q8',n:'民间除灵',g:'四级',r:2000,rep:1,exp:3,time:'1天',risk:.08,d:'帮普通家庭处理低阶咒灵'}
 ];
-var EQUIPMENT = {
+var EQUIPMENT={
 weapon:[{id:'wn',n:'（徒手）',atk:0,p:0},{id:'ww',n:'木刀',atk:2,p:1000},{id:'wk',n:'普通短刀',atk:4,p:8000},{id:'w3',n:'咒具·三节棍',atk:8,p:25000,c:1},{id:'wk2',n:'咒具·短刀',atk:10,p:40000,c:1},{id:'wka',n:'名刀·数珠丸',atk:18,p:200000,c:1},{id:'wy',n:'游云',atk:35,p:0,c:1,leg:1},{id:'ws',n:'释魂刀',atk:30,p:0,c:1,leg:1}],
 armor:[{id:'an',n:'（无）',def:0,p:0},{id:'au',n:'高专制服',def:3,p:5000},{id:'ac',n:'锁子甲',def:6,p:30000},{id:'acu',n:'咒装·护心',def:10,p:80000,c:1},{id:'as',n:'特制护符',def:15,p:150000,c:1}],
 accessory:[{id:'an2',n:'（无）',hp:0,ce:0,p:0},{id:'ar',n:'咒力戒指',hp:0,ce:20,p:20000},{id:'am',n:'护身符',hp:10,ce:0,p:15000},{id:'ane',n:'咒力项链',hp:15,ce:30,p:60000,c:1},{id:'ae',n:'六眼仿品',hp:0,ce:80,ctrl:5,p:300000,c:1}]
 };
-var TITLES = [
+var TITLES=[
 {id:'t1',n:'新晋术师',cond:function(s){return s.grade!=='未评级'}},
 {id:'t2',n:'高专学生',cond:function(s){return s.identity.indexOf('学生')>=0}},
 {id:'t3',n:'生还者',cond:function(s){return s.completedQuests.length>=3}},
@@ -292,58 +324,347 @@ var TITLES = [
 {id:'t9',n:'富豪',cond:function(s){return s.money>=1000000}},
 {id:'t10',n:'传说',cond:function(s){return s.reputation>=100}}
 ];
-var TIMELINE = [
-{y:2018,m:5,t:'虎杖悠仁吞下宿傩手指，入学高专',k:'a1'},
-{y:2018,m:6,t:'姐妹校交流会',k:'a2'},
-{y:2018,m:10,t:'涩谷事变，五条悟被狱门疆封印',k:'a3',major:1},
-{y:2018,m:12,t:'死灭洄游发动',k:'a4',major:1},
-{y:2017,m:12,t:'百鬼夜行，夏油杰死',k:'a5',major:1},
-{y:2006,m:8,t:'怀玉·玉折，天内理子死',k:'a6',major:1},
-{y:2007,m:9,t:'夏油杰叛逃',k:'a7',major:1}
-];
 
 /* ==================== 全局 ==================== */
 var CFG=null,HIST=[],S=null,BUSY=false,TAB='story';
+var CREATE=null;
 var $=function(id){return document.getElementById(id)};
 
-/* ==================== System Prompt ==================== */
-function castList(){
-  var s='';
-  for(var k in CAST){
-    var c=CAST[k];
-    s+='- '+k+'（'+c.j+'｜'+c.aff+'｜'+c.t+'｜'+c.gr+'）：'+c.n+(c.dead?'（已故）':'')+(c.curse?'（咒灵）':'')+'\n';
+/* ==================== 建角：选项定义 ==================== */
+var CREATE_STEPS=[
+{key:'name',q:'你叫什么名字？',suggest:function(g){return ['虎杖悠仁','伏黑惠','钉崎野蔷薇','乙骨忧太','狗卷棘','五条悟','禅院真希','熊猫','秤金次','高羽史彦'].slice(0,6)},type:'input'},
+{key:'gender',q:'你是男是女？',suggest:function(){return['男','女','其他（性别模糊/咒骸/不明）']},type:'choice'},
+{key:'age',q:'你多大了？',suggest:function(){return['15岁（高专新生）','16岁（在读）','18岁（成年）','25岁（社会人）','35岁（老手）']},type:'input'},
+{key:'origin',q:'你的出身是什么？这决定你在咒术界的位置。',suggest:function(){return[
+'普通人觉醒 — 父母非术师，某天突然看见诅咒',
+'咒术师家庭 — 父母至少一方是术师，从小知道诅咒',
+'御三家旁支 — 五条/禅院/加茂的旁系，姓氏既是门第也是监视',
+'天与咒缚 — 以咒力或肉体为代价，生来就是怪物',
+'受肉体/容器 — 体内寄宿另一个存在，可能是咒灵或宿傩',
+'咒骸/人造生命 — 由咒力核心驱动，面对"是否算人"的偏见',
+'诅咒师家庭 — 在黑市和阴影中长大，没有官方身份',
+'非术师（能看见）— 看得见诅咒，但没有术式',
+'星浆体 — 被天元选中的同化对象，存在本身就是期限']},type:'choice'},
+{key:'appearance',q:'你的外貌是什么样？高矮胖瘦、发色、眼睛、有无疤痕、穿衣风格……写细一点，这会出现在剧情里。',suggest:function(){return[
+'黑发，瘦高，沉默寡言，总穿黑色卫衣',
+'短发，皮肤白，眼神凶，看着像不良少年',
+'长发扎马尾，五官清秀，但身上有常年战斗的旧疤',
+'体格壮硕，脸上有横疤，看起来很凶但其实很温和',
+'纤瘦，戴眼镜，气质像文学部学生，实际战斗力很强']},type:'input'},
+{key:'body',q:'你的体术风格偏向哪一种？（会影响战斗描写）',suggest:function(){return[
+'空手格斗 — 拳头、肘膝、摔投',
+'武器专精 — 刀、棍、枪、咒具',
+'轻身术 — 速度快，闪避高，靠位移打',
+'重击型 — 一拳打穿，硬吃伤害',
+'技巧型 — 反击、借力、锁技']},type:'choice'},
+{key:'talent',q:'你最突出的天赋是什么？（只能选一个作为核心）',suggest:function(){return[
+'咒力总量异常高 — 持久战强',
+'术式控制精细 — 能玩出花活',
+'反応速度极快 — 靠预判战斗',
+'肉体强度怪物 — 近身战无敌',
+'直觉/洞察 — 能看穿对手意图',
+'反转术式天赋 — 天生的治愈/输出潜力',
+'领域天赋 — 未来可能觉醒领域']},type:'choice'},
+{key:'tech',q:'你的术式是什么？生得术式与生俱来，无法后天改变。',suggest:function(){return[
+'无术式 — 只能靠咒力操作和体术',
+'简单的强化术式 — 平平无奇但实用',
+'十划咒法 — 七海建人的术式',
+'刍灵咒法 — 钉崎野蔷薇的术式',
+'赤血操术 — 加茂家的家传术式',
+'十种影法术 — 禅院家的家传术式',
+'咒言 — 狗卷棘的术式，说话即攻击',
+'不义游戏 — 东堂葵的术式，交换位置',
+'六眼（未觉醒）— 五条家的血脉',
+'星之怒（未觉醒）— 九十九由基的术式']},type:'choice'},
+{key:'personality',q:'你的性格是怎样的？用三个词形容自己，或者写一段话。',suggest:function(){return[
+'坚韧、好奇、重情',
+'冷静、寡言、观察者',
+'热血、直率、藏不住话',
+'谨慎、理性、想太多',
+'温柔、隐忍、把痛苦藏起来']},type:'input'},
+{key:'goal',q:'你的人生目标是什么？一句话。',suggest:function(){return[
+'活下去，不拖累任何人',
+'变强，强到没人能保护我',
+'找出"咒力"到底从哪来',
+'让咒术界变得没那么烂',
+'找一个已经死了的人',
+'赚够钱，然后退休']},type:'input'},
+{key:'location',q:'你现在住在哪里？',suggest:function(){return['东京','京都','仙台','大阪','北海道','国外']},type:'choice'},
+{key:'bio',q:'最后，写一段自我介绍吧。任何你想说的。',suggest:function(){return[
+'我从小能看见别人看不见的东西。母亲说我疯了。',
+'我没什么特别的。直到有一天，我看见了不该看的东西。',
+'我从不主动提起过去。但我知道，有些东西迟早会来找我。']},type:'input'}
+];
+
+/* ==================== 初始化 ==================== */
+function apiUrl(){if(CFG.provider==='deepseek')return'https://api.deepseek.com/chat/completions';if(CFG.provider==='openai')return'https://api.openai.com/v1/chat/completions';return CFG.url}
+function apiModel(){if(CFG.provider==='deepseek')return'deepseek-chat';if(CFG.provider==='openai')return'gpt-4o-mini';return CFG.model}
+
+async function callAI(sysPrompt,messages,onDelta,maxTokens){
+  var msgs=[{role:'system',content:sysPrompt}].concat(messages);
+  var res=await fetch(apiUrl(),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.key},body:JSON.stringify({model:apiModel(),messages:msgs,stream:true,temperature:1.0,max_tokens:maxTokens||1000,top_p:.95})});
+  if(!res.ok){var t=await res.text();throw new Error('API '+res.status+'：'+t.slice(0,200))}
+  var reader=res.body.getReader(),dec=new TextDecoder(),buf='',full='';
+  while(true){
+    var r=await reader.read();if(r.done)break;
+    buf+=dec.decode(r.value,{stream:true});
+    var lines=buf.split('\n');buf=lines.pop()||'';
+    for(var i=0;i<lines.length;i++){
+      var line=lines[i];if(line.indexOf('data: ')!==0)continue;
+      var d=line.slice(6).trim();if(d==='[DONE]')continue;
+      try{var j=JSON.parse(d);var delta=j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content;if(delta){full+=delta;if(onDelta)onDelta(full)}}catch(e){}
+    }
   }
-  return s;
+  return full;
 }
-function techList(){
-  var s='';
-  for(var tier in TECH_LIB) s+=tier+'：'+TECH_LIB[tier].join('、')+'\n';
-  return s;
+
+/* ==================== 建角流程 ==================== */
+function initCreate(){
+  CREATE={step:0,data:{},chat:[],era:$('pEra').value};
+  $('setup').style.display='none';
+  $('create').classList.add('on');
+  renderCreate();
+  askStep();
 }
-function domainList(){
-  var s='';
-  for(var k in DOMAINS) s+='- '+k+'：'+DOMAINS[k]+'\n';
-  return s;
+function askStep(){
+  var step=CREATE_STEPS[CREATE.step];
+  if(!step){finishCreate();return}
+  var sug=step.suggest(CREATE.data);
+  renderCreateQuestion(step.q,sug);
 }
-function curseList(){
-  return CURSE_LIB.map(function(c){return c.n+'（等级'+c.g+'）'}).join('、');
+function renderCreateQuestion(q,suggestions){
+  var el=$('cChat');
+  var d=document.createElement('div');d.className='cmsg q';
+  d.innerHTML='<div class="who">问</div><div class="body">'+q+'</div>';
+  el.appendChild(d);
+  el.scrollTop=el.scrollHeight;
+  // 按钮
+  var btn=$('cButtons');btn.innerHTML='';
+  suggestions.forEach(function(s){
+    var b=document.createElement('button');b.className='bg';
+    b.textContent=s;
+    b.onclick=function(){pickAnswer(s)};
+    btn.appendChild(b);
+  });
+  var bCustom=document.createElement('button');bCustom.className='bg';
+  bCustom.textContent='✎ 我自己写';
+  bCustom.onclick=function(){showCustomInput()};
+  btn.appendChild(bCustom);
+  var bTalk=document.createElement('button');bTalk.className='bg';
+  bTalk.textContent='🤖 和 AI 商量';
+  bTalk.onclick=function(){showAiTalk()};
+  btn.appendChild(bTalk);
+  $('cInputRow').style.display='none';
 }
-function relicList(){
-  var s='';
-  for(var k in RELICS) s+=k+'：'+RELICS[k].join('、')+'\n';
-  return s;
+function pickAnswer(text){
+  var step=CREATE_STEPS[CREATE.step];
+  var key=step.key;
+  // 若文本含 " — " 取前半
+  var val=text.indexOf(' — ')>0?text.split(' — ')[0]:text;
+  CREATE.data[key]=val;
+  appendCreateMsg('p','选择：'+text);
+  updateArchive();
+  CREATE.step++;
+  setTimeout(askStep,300);
 }
-function placeList(){
-  var s='';
-  for(var k in PLACES) s+=k+'：'+PLACES[k].join('、')+'\n';
-  return s;
+function showCustomInput(){
+  $('cInputRow').style.display='';
+  $('cInput').value='';
+  $('cInput').placeholder='输入你的答案……';
+  $('cInput').focus();
 }
+function showAiTalk(){
+  $('cInputRow').style.display='';
+  $('cInput').value='';
+  $('cInput').placeholder='说出你的想法，比如"我想要一个被家族抛弃的禅院家旁支"……';
+  $('cInput').focus();
+}
+function appendCreateMsg(who,text){
+  var el=$('cChat');
+  var d=document.createElement('div');d.className='cmsg '+who;
+  d.innerHTML='<div class="who">'+(who==='p'?'你':who==='s'?'系统':'AI')+'</div><div class="body">'+text+'</div>';
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
+}
+async function handleCreateInput(){
+  var val=$('cInput').value.trim();
+  if(!val)return;
+  var step=CREATE_STEPS[CREATE.step];
+  appendCreateMsg('p',val);
+  $('cInputRow').style.display='none';
+  // 判断是自定义还是和 AI 商量
+  // 如果输入较短（<25字）且不像描述 → 直接当答案
+  // 否则让 AI 帮忙落地
+  if(val.length<25){
+    pickAnswer(val);
+    return;
+  }
+  // AI 商量
+  var btn=$('cButtons');btn.innerHTML='';
+  appendCreateMsg('s','AI 正在根据咒术回战世界观帮你落地……');
+  var sys='你是《咒术回战》世界的角色创建助手。玩家正在创建角色，需要你根据原著世界观，把玩家模糊的想法落地成具体的设定。\n\n当前项目：'+step.q+'\n玩家已确认的档案：'+JSON.stringify(CREATE.data,null,2)+'\n\n玩家说了：'+val+'\n\n请给出 1-3 个具体落地方案，每个方案一句话，用数字或短横线分隔。每个方案必须是咒术回战世界观里合理存在的。直接输出方案，不要客套。';
+  try{
+    var reply=await callAI(sys,[{role:'user',content:'帮我落地'}],null,500);
+    appendCreateMsg('ai',reply);
+    // 把 AI 的回复拆成方案按钮
+    var lines=reply.split('\n').filter(function(l){return l.trim().length>0});
+    lines.forEach(function(l){
+      var clean=l.replace(/^[0-9]+[.、)\-]\s*/,'').replace(/^[-·•]\s*/,'').trim();
+      if(clean.length<5||clean.length>80)return;
+      var b=document.createElement('button');b.className='bg gold';
+      b.textContent=clean;
+      b.onclick=function(){pickAnswer(clean)};
+      btn.appendChild(b);
+    });
+    // 保留自定义和商量
+    var b1=document.createElement('button');b1.className='bg';b1.textContent='✎ 我自己写';b1.onclick=showCustomInput;btn.appendChild(b1);
+    var b2=document.createElement('button');b2.className='bg';b2.textContent='🤖 继续商量';b2.onclick=showAiTalk;btn.appendChild(b2);
+  }catch(e){
+    appendCreateMsg('s','AI 出错：'+e.message+'。可以直接输入你的答案。');
+    showCustomInput();
+  }
+}
+function updateArchive(){
+  var el=$('cArchive');
+  var keys=CREATE_STEPS.filter(function(s){return CREATE.data[s.key]!==undefined}).map(function(s){
+    return '<div><span class="k">'+s.key+'：</span><span class="v">'+CREATE.data[s.key]+'</span></div>';
+  });
+  el.innerHTML=keys.length?keys.join(''):'<span style="color:var(--ink3)">尚未确认任何项目……</span>';
+  var total=CREATE_STEPS.length,cur=CREATE.step;
+  $('cProgress').textContent='进度 '+cur+' / '+total;
+}
+function renderCreate(){
+  updateArchive();
+}
+function finishCreate(){
+  appendCreateMsg('s','所有项目已确认。');
+  var d=CREATE.data;
+  // 展示汇总
+  appendCreateMsg('ai','档案确认：\n\n姓名：'+d.name+'\n性别：'+d.gender+'\n年龄：'+d.age+'\n出身：'+d.origin+'\n外貌：'+d.appearance+'\n体术：'+d.body+'\n天赋：'+d.talent+'\n术式：'+d.tech+'\n性格：'+d.personality+'\n目标：'+d.goal+'\n居住：'+d.location+'\n自述：'+(d.bio||'无'));
+  var btn=$('cButtons');btn.innerHTML='';
+  var b1=document.createElement('button');b1.className='bg gold';b1.textContent='▶ 就这样，开始人生';
+  b1.onclick=launchGame;btn.appendChild(b1);
+  var b2=document.createElement('button');b2.className='bg';b2.textContent='✎ 修改某一项';
+  b2.onclick=function(){
+    var keys=CREATE_STEPS.map(function(s,i){return(i+1)+'. '+s.key});
+    showPrompt('修改哪一项？（输入名字）',keys.join('\n'),function(input){
+      var k=input.trim();
+      var idx=-1;
+      CREATE_STEPS.forEach(function(s,i){if(s.key===k)idx=i});
+      if(idx>=0){CREATE.step=idx;askStep()}
+      else toast('没找到这一项');
+    });
+  };
+  btn.appendChild(b2);
+}
+
+/* ==================== 开始游戏 ==================== */
+function launchGame(){
+  var d=CREATE.data;
+  S=newState(d);
+  HIST=[];
+  $('create').classList.remove('on');
+  $('app').style.display='flex';
+  switchTab('story');renderBar();
+  var seed='【开局设定】\n'+
+  '时代：'+CREATE.era+'年，起始'+CREATE.era+'年4月\n'+
+  '姓名：'+d.name+'｜'+d.age+'｜'+d.gender+'\n'+
+  '出身：'+d.origin+'\n'+
+  '外貌：'+d.appearance+'\n'+
+  '体术：'+d.body+'\n'+
+  '天赋：'+d.talent+'\n'+
+  '术式：'+d.tech+'\n'+
+  '性格：'+d.personality+'\n'+
+  '目标：'+d.goal+'\n'+
+  '居住地：'+d.location+'\n'+
+  '自述：'+(d.bio||'无')+'\n\n'+
+  '请写开场。要求：\n1. 明确此刻在什么场景（结合时代、出身、外貌）\n'+
+  '2. 至少一个可感知的细节（声音、气味、温度、光线）\n'+
+  '3. 把外貌、性格、目标自然地融进场景\n'+
+  '4. 埋下伏笔但不要点破\n'+
+  '5. 250-350字\n6. 输出：时间戳行 + 叙事 + <选项> + <状态>';
+  send(seed);
+}
+
+function newState(d){
+  var era=parseInt(CREATE.era);
+  var hpMax=100,ceMax=150,atk=15,ctrl=20,money=8000;
+  var o=d.origin;
+  if(o.indexOf('咒术师家庭')>=0){ceMax=280;atk=22;ctrl=35;money=30000}
+  if(o.indexOf('御三家旁支')>=0){ceMax=320;atk=25;ctrl=40;money=150000}
+  if(o.indexOf('天与咒缚')>=0){ceMax=0;atk=75;ctrl=5;hpMax=180}
+  if(o.indexOf('受肉体')>=0||o.indexOf('容器')>=0){ceMax=600;hpMax=150}
+  if(o.indexOf('星浆体')>=0){ceMax=500;hpMax=120}
+  if(o.indexOf('非术师')>=0){ceMax=60;hpMax=90;atk=10;ctrl=15}
+  if(o.indexOf('诅咒师家庭')>=0){ceMax=250;atk=28;ctrl=30;money=15000}
+  if(o.indexOf('咒骸')>=0){ceMax=280;hpMax=110}
+  if(o.indexOf('普通人觉醒')>=0){ceMax=180;atk=15;ctrl=20}
+  // 天赋加成
+  var tal=d.talent||'';
+  if(tal.indexOf('咒力总量')>=0){ceMax+=150}
+  if(tal.indexOf('控制')>=0){ctrl+=15}
+  if(tal.indexOf('反応')>=0){atk+=5}
+  if(tal.indexOf('肉体')>=0){hpMax+=30;atk+=8}
+  if(tal.indexOf('直觉')>=0){ctrl+=10;atk+=3}
+  if(tal.indexOf('反转')>=0){ctrl+=8}
+  if(tal.indexOf('领域')>=0){ctrl+=5;ceMax+=50}
+  // 体术加成
+  var bd=d.body||'';
+  if(bd.indexOf('空手')>=0){atk+=5}
+  if(bd.indexOf('武器')>=0){atk+=3;ctrl+=2}
+  if(bd.indexOf('轻身')>=0){atk+=3}
+  if(bd.indexOf('重击')>=0){atk+=7;hpMax+=15}
+  if(bd.indexOf('技巧')>=0){atk+=4;ctrl+=4}
+  // 术式
+  var tech=d.tech||'无';
+  var innate=tech;
+  if(tech.indexOf('无术式')>=0)innate='无';
+  else if(tech.indexOf('简单的强化')>=0)innate='简单的强化术式';
+  else if(tech.indexOf('十划咒法')>=0)innate='十划咒法';
+  else if(tech.indexOf('刍灵咒法')>=0)innate='刍灵咒法';
+  else if(tech.indexOf('赤血操术')>=0)innate='赤血操术';
+  else if(tech.indexOf('十种影法术')>=0)innate='十种影法术（未完全觉醒）';
+  else if(tech.indexOf('咒言')>=0)innate='咒言';
+  else if(tech.indexOf('不义游戏')>=0)innate='不义游戏';
+  else if(tech.indexOf('六眼')>=0)innate='六眼（未觉醒）';
+  else if(tech.indexOf('星之怒')>=0)innate='星之怒（未觉醒）';
+  else innate=tech;
+  var inv=[];
+  inv.push('绷带');
+  if(o.indexOf('咒术师')>=0||o.indexOf('御三家')>=0)inv.push('咒具·短刀');
+  if(o.indexOf('受肉体')>=0)inv.push('封印符（一张）');
+  var fac={};for(var f in FACTIONS)fac[f]=FACTIONS[f].start;
+  var traits=(d.personality||'').split(/[,，、]/).map(function(s){return s.trim()}).filter(Boolean).slice(0,3);
+  return{name:d.name,gender:d.gender,age:parseInt(d.age)||15,origin:d.origin,era:era,
+  appearance:d.appearance||'',body:d.body||'',talent:d.talent||'',
+  time:{y:era,m:4,d:1,label:CREATE.era+'年4月'},location:d.location||'东京',
+  identity:(parseInt(d.age)||15)<=18?'高专学生（预定）':'自由术师',grade:'未评级',
+  hp:hpMax,hpMax:hpMax,ce:ceMax,ceMax:ceMax,atk:atk,ctrl:ctrl,money:money,reputation:0,
+  exp:0,expMax:100,sp:3,
+  innate:innate,technique:innate==='无'?'咒力操作（基础）':innate,
+  domain:'未觉醒',reverse:'无',blackflash:0,vows:[],
+  inventory:inv,flags:[],npcNotes:{},worldEvents:[],
+  dead:false,deathCause:'',bio:d.bio||'',traits:traits,
+  factions:fac,skills:[],equipment:{weapon:'wn',armor:'an',accessory:'an2'},
+  quests:[],completedQuests:[],titles:[],sukunaFingers:[],diary:[]};
+}
+
+/* ==================== 游戏：状态文本 ==================== */
+function castList(){var s='';for(var k in CAST){var c=CAST[k];s+='- '+k+'（'+c.j+'｜'+c.aff+'｜'+c.t+'｜'+c.gr+'）：'+c.n+(c.dead?'（已故）':'')+(c.curse?'（咒灵）':'')+'\n'}return s}
+function techList(){var s='';for(var t in TECH_LIB)s+=t+'：'+TECH_LIB[t].join('、')+'\n';return s}
+function domainList(){var s='';for(var k in DOMAINS)s+='- '+k+'：'+DOMAINS[k]+'\n';return s}
+function curseList(){return CURSE_LIB.map(function(c){return c.n+'（等级'+c.g+'）'}).join('、')}
+function relicList(){var s='';for(var k in RELICS)s+=k+'：'+RELICS[k].join('、')+'\n';return s}
+function placeList(){var s='';for(var k in PLACES)s+=k+'：'+PLACES[k].join('、')+'\n';return s}
+
 function stateToText(){
   if(!S)return'';
   var l=[];
-  l.push('姓名：'+S.name+'｜性别：'+S.gender+'｜年龄：'+S.age+'岁');
+  l.push('姓名：'+S.name+'｜'+S.gender+'｜'+S.age+'岁');
   l.push('出身：'+S.origin+'｜身份：'+S.identity+'｜等级：'+S.grade);
   l.push('所在地：'+S.location+'｜时间：'+S.time.label);
+  if(S.appearance)l.push('外貌：'+S.appearance);
+  if(S.body)l.push('体术风格：'+S.body);
+  if(S.talent)l.push('核心天赋：'+S.talent);
   var eq=getEq();
   l.push('体力 '+S.hp+'/'+(S.hpMax+eq.hp)+'｜咒力 '+S.ce+'/'+(S.ceMax+eq.ce));
   l.push('战斗 '+S.atk+'+'+eq.atk+'='+(S.atk+eq.atk)+'｜控制 '+(S.ctrl+eq.ctrl));
@@ -352,8 +673,7 @@ function stateToText(){
   l.push('领域：'+S.domain+'｜反转：'+S.reverse+'｜黑闪：'+S.blackflash+'次');
   if(S.vows.length)l.push('束缚：'+S.vows.join('、'));
   l.push('持有物：'+(S.inventory.length?S.inventory.join('、'):'无'));
-  var fac=[];
-  for(var f in S.factions){if(S.factions[f]!==0)fac.push(f+(S.factions[f]>0?'+':'')+S.factions[f]);}
+  var fac=[];for(var f in S.factions){if(S.factions[f]!==0)fac.push(f+(S.factions[f]>0?'+':'')+S.factions[f])}
   if(fac.length)l.push('势力好感：'+fac.join('，'));
   if(S.quests.length)l.push('进行中任务：'+S.quests.map(function(q){return q.n}).join('、'));
   if(S.titles.length)l.push('称号：'+S.titles.join('、'));
@@ -369,6 +689,7 @@ function stateToText(){
   }
   return l.join('\n');
 }
+
 function buildSystem(){
   return [
 '你是《咒术回战》世界模拟引擎。你不是小说作者，你是世界本身。',
@@ -394,15 +715,11 @@ relicList(),
 '# 地点',
 placeList(),
 '# 时间锚定',
-'- 900年：宿傩活跃，被古代术师击败，二十根手指散落',
-'- 1900年：加茂宪伦禁忌实验，诞下咒胎九相图',
-'- 2006年8月：怀玉·玉折，天内理子死',
-'- 2007年9月：夏油杰叛逃',
-'- 2017年12月：百鬼夜行，夏油杰死',
-'- 2018年5月：虎杖吞宿傩手指，入学高专',
-'- 2018年6月：姐妹校交流会',
-'- 2018年10月31日：涩谷事变，五条悟被狱门疆封印',
-'- 2018年12月：死灭洄游发动',
+'900年：宿傩活跃。1900年：加茂宪伦咒胎九相图。',
+'2006年8月：怀玉·玉折，天内理子死。2007年9月：夏油杰叛逃。',
+'2017年12月：百鬼夜行，夏油杰死。',
+'2018年5月：虎杖吞宿傩手指。2018年6月：姐妹校交流会。',
+'2018年10月31日：涩谷事变。2018年12月：死灭洄游。',
 '到达这些节点时事件必发生。',
 '',
 '# 世界观',
@@ -431,8 +748,9 @@ placeList(),
 '# 输出格式（严格）',
 '第一行：时间戳 [YYYY年MM月某日]。',
 '然后叙事正文 200-400字，第二人称"你"。冷、准、克制。',
+'必须把玩家的外貌、性格、体术风格自然融进描写里。',
 '',
-'叙事之后，若场景有可做的建议，另起一行：',
+'叙事之后，若场景有建议，另起一行：',
 '<选项>',
 '- 我去看看谁在叫我',
 '- 我继续练拳',
@@ -445,10 +763,10 @@ placeList(),
 '{"ts":"2018年5月14日","hp":95,"ce":180,"location":"东京高专","money":12000,"exp":15,"inventory_add":["绷带"],"flags_add":["左臂受伤"],"faction_change":{"东京高专":2},"skill_points":1,"quest_complete":"废弃医院祓除","sukuna_finger_found":3,"npc_notes":{"五条悟":"他注意到了你"},"world_notes":["虎杖悠仁入学"],"dead":false,"death_cause":""}',
 '</状态>',
 '',
-'# 状态字段说明（都可省略）',
+'# 状态字段（都可省略）',
 '- ts时间戳｜hp/hpMax｜ce/ceMax｜atk｜ctrl｜money｜reputation｜exp/expMax｜grade等级',
-'- location地点｜identity身份｜innate生得术式｜technique掌握术式｜domain领域｜reverse反转｜blackflash黑闪次数',
-'- vows束缚数组｜inventory_add/remove物品｜flags_add/remove标记',
+'- location｜identity｜innate｜technique｜domain｜reverse｜blackflash',
+'- vows束缚｜inventory_add/remove｜flags_add/remove',
 '- faction_change{势力:增减}｜skill_points技能点｜quest_complete完成任务名',
 '- sukuna_finger_found宿傩手指编号1-20｜npc_notes{NPC:最新认知}｜world_notes世界事件',
 '- dead死亡｜death_cause死因',
@@ -461,32 +779,7 @@ stateToText()
   ].join('\n');
 }
 
-/* ==================== API 调用 ==================== */
-function apiUrl(){if(CFG.provider==='deepseek')return'https://api.deepseek.com/chat/completions';if(CFG.provider==='openai')return'https://api.openai.com/v1/chat/completions';return CFG.url}
-function apiModel(){if(CFG.provider==='deepseek')return'deepseek-chat';if(CFG.provider==='openai')return'gpt-4o-mini';return CFG.model}
-async function callAI(onDelta){
-  var messages=[{role:'system',content:buildSystem()}].concat(HIST);
-  if(messages.length>30)messages=[messages[0]].concat(messages.slice(-28));
-  var res=await fetch(apiUrl(),{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+CFG.key},body:JSON.stringify({model:apiModel(),messages:messages,stream:true,temperature:1.0,max_tokens:2200,top_p:.95})});
-  if(!res.ok){var t=await res.text();throw new Error('API '+res.status+'：'+t.slice(0,200))}
-  var reader=res.body.getReader(),dec=new TextDecoder(),buf='',full='';
-  while(true){
-    var r=await reader.read();if(r.done)break;
-    buf+=dec.decode(r.value,{stream:true});
-    var lines=buf.split('\n');buf=lines.pop()||'';
-    for(var i=0;i<lines.length;i++){
-      var line=lines[i];if(line.indexOf('data: ')!==0)continue;
-      var d=line.slice(6).trim();if(d==='[DONE]')continue;
-      try{
-        var j=JSON.parse(d);var delta=j.choices&&j.choices[0]&&j.choices[0].delta&&j.choices[0].delta.content;
-        if(delta){full+=delta;if(onDelta)onDelta(full)}
-      }catch(e){}
-    }
-  }
-  return full;
-}
-
-/* ==================== 解析 ==================== */
+/* ==================== 游戏：解析/渲染 ==================== */
 function parseAI(full){
   var tsm=full.match(/^\[([^\]\n]{1,40})\]\s*/);
   var ts=tsm?tsm[1]:null;
@@ -507,53 +800,13 @@ function parseAI(full){
   return{ts:ts,narrative:narrative,options:options,st:st};
 }
 
-/* ==================== 状态 ==================== */
-function newState(cfg){
-  var era=parseInt(cfg.era);
-  var hpMax=100,ceMax=150,atk=15,ctrl=20,money=8000;
-  var o=cfg.origin;
-  if(o==='咒术师家庭'){ceMax=280;atk=22;ctrl=35;money=30000}
-  if(o==='御三家旁支'){ceMax=320;atk=25;ctrl=40;money=150000}
-  if(o==='天与咒缚'){ceMax=0;atk=75;ctrl=5;hpMax=180}
-  if(o==='受肉体 / 容器'){ceMax=600;hpMax=150}
-  if(o==='星浆体'){ceMax=500;hpMax=120}
-  if(o==='非术师（能看见）'){ceMax=60;hpMax=90;atk=10;ctrl=15}
-  if(o==='诅咒师家庭'){ceMax=250;atk=28;ctrl=30;money=15000}
-  if(o==='咒骸 / 人造生命'){ceMax=280;hpMax=110}
-  var tech='无';
-  if(cfg.tech==='随机'){var r=Math.random();if(r<.3)tech='无';else if(r<.6)tech='简单的强化术式';else if(r<.85)tech='十划咒法';else tech='十种影法术（未完全觉醒）'}
-  else if(cfg.tech==='无术式')tech='无';
-  else if(cfg.tech==='普通生得术式')tech='简单的强化术式';
-  else if(cfg.tech==='良好生得术式')tech='十划咒法';
-  else if(cfg.tech==='优秀生得术式')tech='十种影法术（未完全觉醒）';
-  else if(cfg.tech==='特殊 · 六眼/反转/领域天赋')tech='六眼（未觉醒）';
-  var traits=(cfg.trait||'').split(/[,，]/).map(function(s){return s.trim()}).filter(Boolean).slice(0,3);
-  var inv=[];
-  if(o==='咒术师家庭'||o==='御三家旁支')inv.push('咒具·短刀');
-  if(o==='受肉体 / 容器')inv.push('封印符（一张）');
-  inv.push('绷带');
-  var fac={};for(var f in FACTIONS)fac[f]=FACTIONS[f].start;
-  return{name:cfg.name,gender:cfg.gender,age:parseInt(cfg.age)||15,origin:o,era:era,
-  time:{y:era,m:4,d:1,label:cfg.era+'年4月'},location:cfg.loc,
-  identity:cfg.age<=18?'高专学生（预定）':'自由术师',grade:'未评级',
-  hp:hpMax,hpMax:hpMax,ce:ceMax,ceMax:ceMax,atk:atk,ctrl:ctrl,money:money,reputation:0,
-  exp:0,expMax:100,sp:3,
-  innate:tech,technique:tech==='无'?'咒力操作（基础）':tech,
-  domain:'未觉醒',reverse:'无',blackflash:0,vows:[],
-  inventory:inv,flags:[],npcNotes:{},worldEvents:[],
-  dead:false,deathCause:'',bio:cfg.bio,traits:traits,
-  factions:fac,skills:[],equipment:{weapon:'wn',armor:'an',accessory:'an2'},
-  quests:[],completedQuests:[],titles:[],sukunaFingers:[],diary:[]};
-}
 function getEq(){
   var b={atk:0,def:0,hp:0,ce:0,ctrl:0};
   if(!S||!S.equipment)return b;
   var hasW=S.skills.indexOf('bt2')>=0;
   ['weapon','armor','accessory'].forEach(function(slot){
     var id=S.equipment[slot];if(!id)return;
-    (EQUIPMENT[slot]||[]).forEach(function(it){
-      if(it.id===id){b.atk+=it.atk||0;b.def+=it.def||0;b.hp+=it.hp||0;b.ce+=it.ce||0;b.ctrl+=it.ctrl||0}
-    });
+    (EQUIPMENT[slot]||[]).forEach(function(it){if(it.id===id){b.atk+=it.atk||0;b.def+=it.def||0;b.hp+=it.hp||0;b.ce+=it.ce||0;b.ctrl+=it.ctrl||0}});
   });
   if(hasW)b.atk=Math.floor(b.atk*1.5);
   if(S.skills.indexOf('ce1')>=0)b.atk+=2;
@@ -577,28 +830,19 @@ function applySt(d){
   if(Array.isArray(d.inventory_remove))S.inventory=S.inventory.filter(function(i){return d.inventory_remove.indexOf(i)<0});
   if(Array.isArray(d.flags_add))d.flags_add.forEach(function(f){if(S.flags.indexOf(f)<0)S.flags.push(f)});
   if(Array.isArray(d.flags_remove))S.flags=S.flags.filter(function(f){return d.flags_remove.indexOf(f)<0});
-  if(d.faction_change&&typeof d.faction_change==='object'){
-    for(var f in d.faction_change){if(!S.factions[f])S.factions[f]=0;S.factions[f]=Math.max(-100,Math.min(100,S.factions[f]+d.faction_change[f]))}
-  }
+  if(d.faction_change&&typeof d.faction_change==='object'){for(var f in d.faction_change){if(!S.factions[f])S.factions[f]=0;S.factions[f]=Math.max(-100,Math.min(100,S.factions[f]+d.faction_change[f]))}}
   if(d.npc_notes&&typeof d.npc_notes==='object')for(var k in d.npc_notes)S.npcNotes[k]=d.npc_notes[k];
   if(Array.isArray(d.world_notes)){d.world_notes.forEach(function(w){S.worldEvents.push(w)});if(S.worldEvents.length>60)S.worldEvents=S.worldEvents.slice(-60)}
-  if(typeof d.sukuna_finger_found==='number'){
-    var num=d.sukuna_finger_found;
-    if(num>=1&&num<=20&&S.sukunaFingers.indexOf(num)<0){S.sukunaFingers.push(num);toast('找到宿傩手指 #'+num)}
-  }
-  if(d.quest_complete){
-    for(var i=0;i<S.quests.length;i++){if(S.quests[i].n===d.quest_complete){S.completedQuests.push(S.quests[i]);S.quests.splice(i,1);break}}
-  }
+  if(typeof d.sukuna_finger_found==='number'){var num=d.sukuna_finger_found;if(num>=1&&num<=20&&S.sukunaFingers.indexOf(num)<0){S.sukunaFingers.push(num);toast('找到宿傩手指 #'+num)}}
+  if(d.quest_complete){for(var i=0;i<S.quests.length;i++){if(S.quests[i].n===d.quest_complete){S.completedQuests.push(S.quests[i]);S.quests.splice(i,1);break}}}
   while(S.exp>=S.expMax){S.exp-=S.expMax;S.expMax=Math.floor(S.expMax*1.5);S.hpMax+=10;S.ceMax+=20;S.atk+=2;S.ctrl+=2;S.sp=(S.sp||0)+1;S.hp=S.hpMax;S.ce=S.ceMax;toast('升级！技能点+1')}
   checkTitles();
   if(d.dead===true||S.hp<=0){S.dead=true;S.deathCause=d.death_cause||'伤势过重';showDeath()}
   renderBar();if(TAB!=='story')renderTab();
 }
-function checkTitles(){
-  TITLES.forEach(function(t){if(S.titles.indexOf(t.n)<0&&t.cond(S)){S.titles.push(t.n);toast('称号：'+t.n)}});
-}
+function checkTitles(){TITLES.forEach(function(t){if(S.titles.indexOf(t.n)<0&&t.cond(S)){S.titles.push(t.n);toast('称号：'+t.n)}})}
 
-/* ==================== 渲染 ==================== */
+/* ==================== 游戏：渲染 ==================== */
 function renderBar(){
   if(!S)return;
   $('bname').textContent=S.name+(S.dead?' · 已故':'');
@@ -606,14 +850,14 @@ function renderBar(){
   var eq=getEq(),tHP=S.hpMax+eq.hp,tCE=S.ceMax+eq.ce;
   var hw=S.hp<tHP*.4?'warn':'ok',cw=tCE>0&&S.ce<tCE*.25?'warn':'ok';
   $('bstat').innerHTML=
-    '<span class="'+hw+'">体<b>'+S.hp+'/'+tHP+'</b></span>'+
-    '<span class="'+cw+'">咒<b>'+S.ce+'/'+tCE+'</b></span>'+
-    '<span>战<b>'+(S.atk+eq.atk)+'</b></span>'+
-    '<span>控<b>'+(S.ctrl+eq.ctrl)+'</b></span>'+
-    '<span class="gold">等<b>'+S.grade+'</b></span>'+
-    '<span class="gold">¥<b>'+S.money.toLocaleString()+'</b></span>'+
-    '<span class="ice">经<b>'+S.exp+'/'+S.expMax+'</b></span>'+
-    '<span class="em">技<b>'+(S.sp||0)+'</b></span>';
+  '<span class="'+hw+'">体<b>'+S.hp+'/'+tHP+'</b></span>'+
+  '<span class="'+cw+'">咒<b>'+S.ce+'/'+tCE+'</b></span>'+
+  '<span>战<b>'+(S.atk+eq.atk)+'</b></span>'+
+  '<span>控<b>'+(S.ctrl+eq.ctrl)+'</b></span>'+
+  '<span class="gold">等<b>'+S.grade+'</b></span>'+
+  '<span class="gold">¥<b>'+S.money.toLocaleString()+'</b></span>'+
+  '<span class="ice">经<b>'+S.exp+'/'+S.expMax+'</b></span>'+
+  '<span class="em">技<b>'+(S.sp||0)+'</b></span>';
 }
 function switchTab(t){
   TAB=t;
@@ -642,6 +886,9 @@ function tabChar(){
   line('所在地',S.location)+line('时代',S.era+'年')+
   line('资产','¥'+S.money.toLocaleString(),'gold')+line('声望',S.reputation,'gold')+
   line('技能点',S.sp||0,'em');
+  if(S.appearance)h+='<div class="sec">外 貌</div><div class="card">'+S.appearance+'</div>';
+  if(S.body)h+='<div class="sec">体 术</div><div class="card">'+S.body+'</div>';
+  if(S.talent)h+='<div class="sec">天 赋</div><div class="card">'+S.talent+'</div>';
   if(S.titles.length){h+='<div class="sec">称 号</div>';S.titles.forEach(function(t){h+='<span class="tg gold" style="margin-right:5px">'+t+'</span>'})}
   if(S.traits.length){h+='<div class="sec">性 格</div>';S.traits.forEach(function(t){h+='<span class="tg" style="margin-right:5px">'+t+'</span>'})}
   var hpP=Math.min(100,S.hp/(S.hpMax+eq.hp)*100),ceP=Math.min(100,S.ce/Math.max(1,S.ceMax+eq.ce)*100),exP=Math.min(100,S.exp/S.expMax*100);
@@ -705,8 +952,7 @@ function tabNPC(){
   if(!keys.length)h+='<div class="card" style="color:var(--ink3);border-left-color:transparent">你尚未真正认识任何人。</div>';
   else keys.forEach(function(k){h+='<div class="card"><div class="t">'+k+'</div><div class="s">'+(S.npcNotes[k]||'')+'</div></div>'});
   h+='<div class="sec">势 力 关 系</div>';
-  for(var f in S.factions){
-    var v=S.factions[f],pct=Math.min(100,Math.abs(v)),side=v>=0?'pos':'neg';
+  for(var f in S.factions){var v=S.factions[f],pct=Math.min(100,Math.abs(v));
     h+='<div class="card"><div class="t">'+f+' · '+(v>0?'+':'')+v+'</div><div class="s">'+FACTIONS[f].d+'</div><div class="pb"><div class="f '+(v>=0?'rel':'hp')+'" style="width:'+pct+'%"></div></div></div>';
   }
   return h;
@@ -724,10 +970,7 @@ function tabQuest(){
     '<div class="s">¥'+q.r.toLocaleString()+' · 声望+'+q.rep+' · 经验+'+q.exp+' · '+q.time+' · 风险'+Math.round(q.risk*100)+'%</div>'+
     '<button class="opt" data-accept="'+q.id+'" '+(acc?'disabled':'')+' style="margin-top:5px"><span class="txt">'+(acc?'已接受':'接受委托')+'</span></button></div>';
   });
-  if(S.completedQuests.length){
-    h+='<div class="sec">已 完 成</div>';
-    S.completedQuests.slice(-10).reverse().forEach(function(q){h+='<div class="card" style="opacity:.6"><div class="t">✓ '+q.n+'</div></div>'});
-  }
+  if(S.completedQuests.length){h+='<div class="sec">已 完 成</div>';S.completedQuests.slice(-10).reverse().forEach(function(q){h+='<div class="card" style="opacity:.6"><div class="t">✓ '+q.n+'</div></div>'})}
   return h;
 }
 function tabShop(){
@@ -797,8 +1040,7 @@ function tabSys(){
   line('咒灵库',CURSE_LIB.length+' 种')+
   line('装备库',(EQUIPMENT.weapon.length+EQUIPMENT.armor.length+EQUIPMENT.accessory.length)+' 件')+
   line('技能库',Object.keys(SKILL_TREE).reduce(function(a,k){return a+SKILL_TREE[k].length},0)+' 种')+
-  line('任务库',QUEST_LIB.length+' 种')+
-  line('称号库',TITLES.length+' 种');
+  line('任务库',QUEST_LIB.length+' 种');
   h+='<div class="sec">存 档</div><div class="opts">'+
   '<button class="opt" id="btnSave"><span class="txt">保存到本地</span></button>'+
   '<button class="opt" id="btnExport"><span class="txt">导出存档文本</span></button>'+
@@ -827,11 +1069,11 @@ function bindTab(){
   b=$('btnSave');if(b)b.onclick=function(){saveLocal();toast('已保存')};
   b=$('btnExport');if(b)b.onclick=exportSave;
   b=$('btnImport');if(b)b.onclick=importSave;
-  b=$('btnReset');if(b)b.onclick=function(){if(confirm('重开人生？')){localStorage.removeItem('jjk_v8');location.reload()}};
+  b=$('btnReset');if(b)b.onclick=function(){if(confirm('重开人生？')){localStorage.removeItem('jjk_v9');location.reload()}};
   b=$('btnDiary');if(b)b.onclick=writeDiary;
 }
 
-/* ==================== 叙事 ==================== */
+/* ==================== 游戏：叙事 ==================== */
 function renderStory(){
   var m=$('main');m.innerHTML='';var lo=[];
   for(var i=0;i<HIST.length;i++){
@@ -842,10 +1084,9 @@ function renderStory(){
   renderBar();renderOptions(lo);m.scrollTop=m.scrollHeight;
 }
 function addMsg(who,text){
-  var m=$('main');var el=document.createElement('div');
-  el.className='msg '+who;
+  var m=$('main');var el=document.createElement('div');el.className='msg '+who;
   var w=document.createElement('div');w.className='who';
-  w.textContent={p:'你',sys:'系统',err:'错误',ev:'事件',battle:'战斗',a:'世界'}[who]||'世界';
+  w.textContent={p:'你',sys:'系统',err:'错误',ev:'事件',battle:'战斗',ai:'AI',a:'世界'}[who]||'世界';
   el.appendChild(w);
   var b=document.createElement('div');b.className='body';b.textContent=text||'';
   el.appendChild(b);m.appendChild(el);m.scrollTop=m.scrollHeight;
@@ -883,7 +1124,7 @@ async function send(text){
   var m=addMsg('a','');m.body.classList.add('cur');
   var full='';
   try{
-    full=await callAI(function(f){var p=parseAI(f);m.body.textContent=p.narrative;$('main').scrollTop=$('main').scrollHeight});
+    full=await callAI(buildSystem(),HIST,function(f){var p=parseAI(f);m.body.textContent=p.narrative;$('main').scrollTop=$('main').scrollHeight},2200);
   }catch(e){
     m.body.classList.remove('cur');m.el.className='msg err';m.el.querySelector('.who').textContent='错误';
     m.body.textContent=e.message+'\n\n检查API Key、余额、网络。';
@@ -901,8 +1142,7 @@ async function send(text){
 
 /* ==================== 系统操作 ==================== */
 function learn(id){
-  var sk=null;
-  for(var t in SKILL_TREE)SKILL_TREE[t].forEach(function(x){if(x.id===id)sk=x});
+  var sk=null;for(var t in SKILL_TREE)SKILL_TREE[t].forEach(function(x){if(x.id===id)sk=x});
   if(!sk||S.skills.indexOf(id)>=0)return;
   if(S.sp<sk.c){toast('技能点不足');return}
   S.sp-=sk.c;S.skills.push(id);toast('学会：'+sk.n);
@@ -918,8 +1158,7 @@ function accept(id){
   switchTab('story');send('我接下「'+q.n+'」这个委托。'+q.d+'。我准备出发。');
 }
 function buy(id){
-  var it=null;
-  ['weapon','armor','accessory'].forEach(function(sl){EQUIPMENT[sl].forEach(function(x){if(x.id===id)it=x})});
+  var it=null;['weapon','armor','accessory'].forEach(function(sl){EQUIPMENT[sl].forEach(function(x){if(x.id===id)it=x})});
   if(!it)return;if(S.money<it.p){toast('钱不够');return}
   S.money-=it.p;S.inventory.push(it.n);toast('购买：'+it.n);
   saveLocal();renderTab();renderBar();
@@ -934,15 +1173,14 @@ function changeEq(slot){
   var list=EQUIPMENT[slot]||[];
   var own=list.filter(function(it){return it.id===S.equipment[slot]||S.inventory.indexOf(it.n)>=0});
   if(!own.length){toast('没有可装备的');return}
-  var msg='可选：\n'+own.map(function(x){return'· '+x.n}).join('\n')+'\n\n输入装备名字：';
-  showPrompt('更换装备',msg,function(input){
+  showPrompt('更换装备（输入名字）',own.map(function(x){return x.n}).join(' / '),function(input){
     var p=input.trim();
     for(var i=0;i<own.length;i++)if(own[i].n===p){S.equipment[slot]=own[i].id;toast('已装备：'+own[i].n);saveLocal();renderTab();renderBar();return}
     toast('没找到');
   });
 }
 function writeDiary(){
-  showTextarea('写一篇日记','',function(text){
+  showPrompt('写一篇日记','',function(text){
     if(!text.trim())return;
     S.diary.push({t:S.time.label,text:text.trim()});toast('日记已保存');
     saveLocal();renderTab();
@@ -965,12 +1203,6 @@ function showPrompt(title,val,cb){
   $('pm').classList.add('on');pmCb=cb;
   setTimeout(function(){$('pmInput').focus()},100);
 }
-function showTextarea(title,val,cb){
-  $('pmTitle').textContent=title;
-  $('pmInput').value=val||'';
-  $('pm').classList.add('on');pmCb=cb;
-  setTimeout(function(){$('pmInput').focus()},100);
-}
 function closePm(){$('pm').classList.remove('on');pmCb=null}
 
 /* ==================== 死亡 ==================== */
@@ -981,8 +1213,8 @@ function showDeath(){
 }
 
 /* ==================== 存档 ==================== */
-function saveLocal(){try{localStorage.setItem('jjk_v8',JSON.stringify({CFG:CFG,HIST:HIST,S:S}))}catch(e){}}
-function loadLocal(){try{var r=localStorage.getItem('jjk_v8');if(!r)return false;var d=JSON.parse(r);CFG=d.CFG;HIST=d.HIST||[];S=d.S;return true}catch(e){return false}}
+function saveLocal(){try{localStorage.setItem('jjk_v9',JSON.stringify({CFG:CFG,HIST:HIST,S:S}))}catch(e){}}
+function loadLocal(){try{var r=localStorage.getItem('jjk_v9');if(!r)return false;var d=JSON.parse(r);CFG=d.CFG;HIST=d.HIST||[];S=d.S;return true}catch(e){return false}}
 function exportSave(){
   var txt=JSON.stringify({CFG:CFG,HIST:HIST,S:S});
   $('modalTitle').textContent='导出存档';
@@ -1012,32 +1244,7 @@ function toast(t){
   var el=document.createElement('div');
   el.textContent=t;
   el.style.cssText='position:fixed;bottom:30%;left:50%;transform:translateX(-50%);background:rgba(20,18,16,.95);color:#d4cdbd;padding:9px 18px;border:1px solid #2c2720;font-size:11.5px;letter-spacing:.2em;z-index:700;font-family:monospace;pointer-events:none';
-  document.body.appendChild(el);
-  setTimeout(function(){el.remove()},1500);
-}
-
-/* ==================== 开局 ==================== */
-async function startGame(){
-  var key=$('pKey').value.trim();
-  if(!key){alert('请填 API Key');return}
-  CFG={provider:$('pProv').value,key:key,url:$('pUrl').value.trim(),model:$('pModel').value.trim()};
-  var cfg={
-    era:$('pEra').value,origin:$('pOrigin').value,tech:$('pTech').value,
-    name:$('pName').value.trim()||'无名',gender:$('pGender').value,
-    age:parseInt($('pAge').value)||15,loc:$('pLoc').value,
-    bio:$('pBio').value.trim(),trait:$('pTrait').value.trim()
-  };
-  S=newState(cfg);HIST=[];
-  $('setup').style.display='none';$('app').style.display='flex';
-  switchTab('story');renderBar();
-  var seed='【开局设定】\n时代：'+cfg.era+'年，起始'+cfg.era+'年4月\n'+
-  '姓名：'+cfg.name+'｜'+cfg.age+'岁'+cfg.gender+'\n'+
-  '出身：'+cfg.origin+'\n术式资质：'+cfg.tech+'\n居住地：'+cfg.loc+'\n'+
-  '性格：'+(cfg.trait||'未指定')+'\n自我介绍：'+(cfg.bio||'无')+'\n\n'+
-  '请写开场。要求：\n1. 明确此刻在什么场景（结合时代、出身、年龄）\n'+
-  '2. 至少一个可感知的细节（声音、气味、温度、光线）\n3. 埋下伏笔但不要点破\n'+
-  '4. 250-350字\n5. 不要问玩家问题\n6. 输出：时间戳行 + 叙事 + <选项> + <状态>';
-  await send(seed);
+  document.body.appendChild(el);setTimeout(function(){el.remove()},1500);
 }
 
 /* ==================== 初始化 ==================== */
@@ -1049,15 +1256,25 @@ document.addEventListener('DOMContentLoaded',function(){
     var h={deepseek:'去 <a href="https://platform.deepseek.com" target="_blank">platform.deepseek.com</a> 拿 key。',openai:'OpenAI 官方接口。',custom:'任何 OpenAI 兼容接口。'};
     $('pHint').innerHTML=h[v];
   });
-  $('startBtn').onclick=startGame;
+  $('startBtn').onclick=function(){
+    var key=$('pKey').value.trim();
+    if(!key){alert('请填 API Key');return}
+    CFG={provider:$('pProv').value,key:key,url:$('pUrl').value.trim(),model:$('pModel').value.trim()};
+    initCreate();
+  };
   $('loadBtn').onclick=function(){
     if(loadLocal()){$('setup').style.display='none';$('app').style.display='flex';switchTab('story');renderBar();if(S.dead)showDeath()}
     else alert('没有找到存档。');
   };
   $('helpBtn').onclick=function(){
-    alert('咒术人生\n\n【玩法】\n· AI是整个世界\n· 输入任何行动，AI推演后果\n· 选项点 ✎ 可改成自定义\n· 底部输入框随时可用\n\n【示例】\n· 我去高专找五条悟\n· 逃课去涩谷\n· 我训练一个月\n· 我试着调动体内咒力\n\n【铁律】\n· 原著事件按时间线发生\n· 死亡不可逆\n· 世界不围绕你旋转');
+    alert('咒术人生\n\n【流程】\n1. 填 API Key\n2. 选时代\n3. 和 AI 一起创建角色（每项都可以用建议/自己写/和 AI 商量）\n4. 开始游戏\n\n【玩法】\n· 输入任意行动，AI推演后果\n· 选项点 ✎ 可改成自定义文字\n· 完成委托涨高专好感\n· 装备、技能树、称号\n\n【铁律】\n· 原著事件按时间线发生\n· 死亡不可逆\n· 世界不围绕你旋转');
   };
-  $('clearBtn').onclick=function(){if(confirm('删除本地存档？')){localStorage.removeItem('jjk_v8');alert('已删除')}};
+  $('clearBtn').onclick=function(){if(confirm('删除本地存档？')){localStorage.removeItem('jjk_v9');alert('已删除')}};
+  // 建角
+  $('cSend').onclick=function(){handleCreateInput()};
+  $('cCancel').onclick=function(){$('cInputRow').style.display='none';$('cInput').value=''};
+  $('cInput').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleCreateInput()}});
+  // 游戏
   $('send').onclick=function(){send($('inp').value)};
   $('inp').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send($('inp').value)}});
   $('inp').addEventListener('input',function(e){e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,110)+'px'});
@@ -1065,8 +1282,7 @@ document.addEventListener('DOMContentLoaded',function(){
   $('modalClose').onclick=function(){$('modal').classList.remove('on')};
   $('pmCancel').onclick=closePm;
   $('pmOk').onclick=function(){if(pmCb)pmCb($('pmInput').value);closePm()};
-  $('pmInput').addEventListener('keydown',function(e){if(e.key==='Enter'){if(pmCb)pmCb($('pmInput').value);closePm()}});
-  $('restart').onclick=function(){if(confirm('重开人生？')){localStorage.removeItem('jjk_v8');location.reload()}};
+  $('restart').onclick=function(){if(confirm('重开人生？')){localStorage.removeItem('jjk_v9');location.reload()}};
   window.addEventListener('beforeunload',saveLocal);
 });
 </script>
